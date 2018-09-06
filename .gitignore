@@ -30,3 +30,8 @@
 *.exe
 *.out
 *.app
+
+*.sdf
+*.opensdf
+.vs/*
+ipch/*
