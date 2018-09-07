@@ -17,7 +17,7 @@ struct FTDCharType
 
 	void loadData(const char* buffer)
 	{
-		memcpy(&value, buffer, sizeof(value));
+		readBuffer(buffer, &value);
 	}
 	char value;
 
@@ -26,7 +26,12 @@ struct FTDCharType
 		memcpy(buffer, &value, sizeof(value));
 	}
 
-	int getMsgLength() const
+	static void readBuffer(const char* buffer, char* value)
+	{
+		memcpy(value, buffer, sizeof(*value));
+	}
+
+	static int getMsgLength()
 	{
 		return  1;
 	}
@@ -42,10 +47,7 @@ struct FTDFloatType
 
 	void loadData(const char* buffer)
 	{
-		char local_buffer[len + 1];
-		memcpy(&local_buffer, buffer, len);
-		local_buffer[len] = 0;
-		value = atof(local_buffer);
+		readBuffer(buffer, &value);
 	}
 
 	static void writeBuffer(double value, char* buffer)
@@ -58,7 +60,15 @@ struct FTDFloatType
 		memcpy(buffer, &local_buffer, len);
 	}
 
-	int getMsgLength() const
+	static void readBuffer(const char* buffer, double* value)
+	{
+		char local_buffer[len + 1];
+		memcpy(&local_buffer, buffer, len);
+		local_buffer[len] = 0;
+		*value = atof(local_buffer);
+	}
+
+	static int getMsgLength()
 	{
 		return len;
 	}
@@ -74,8 +84,7 @@ struct FTDIntType
 
 	void loadData(const char* buffer)
 	{
-		memcpy(&value, buffer, sizeof(value));
-		value = ntohl(value);
+		readBuffer(buffer, &value);
 	}
 	int value;
 
@@ -85,7 +94,13 @@ struct FTDIntType
 		memcpy(buffer, &value, sizeof(value));
 	}
 
-	int getMsgLength() const
+	static void readBuffer(const char* buffer, int* value)
+	{
+		memcpy(value, buffer, 4);
+		*value = ntohl(*value);
+	}
+
+	static int getMsgLength()
 	{
 		return  4;
 	}
@@ -101,10 +116,7 @@ struct FTDNumberType
 
 	void loadData(const char* buffer)
 	{
-		char local_buffer[len + 1];
-		memcpy(local_buffer, buffer, len);
-		local_buffer[len] = 0;
-		value = atoi(local_buffer);
+		readBuffer(buffer, &value);
 	}
 	int value;
 
@@ -116,9 +128,17 @@ struct FTDNumberType
 		sprintf(buffer, format, value);
 	}
 
-	int getMsgLength() const
+	static void readBuffer(const char* buffer, int* value)
 	{
-		return  4;
+		char local_buffer[len + 1];
+		memcpy(local_buffer, buffer, len);
+		local_buffer[len] = 0;
+		*value = atoi(local_buffer);
+	}
+
+	static int getMsgLength()
+	{
+		return  len;
 	}
 };
 
@@ -132,23 +152,24 @@ struct FTDStringType
 
 	void loadData(const char* buffer)
 	{
-		value.clear();
-		value.append(buffer, len);
+		readBuffer(buffer, &value);
 	}
-	std::string value;
+	char value[len];
 
-	static void writeBuffer(int value, char* buffer)
+	static void writeBuffer(const char* value, char* buffer)
 	{
-		int value_size = value.size();
-		int write_len = len > value_size ? value_size : len;
-		memcpy(buffer, value.c_str(), write_len);
-		if (write_len < len)
-		{
-			memset(buffer + write_len, ' ', len - write_len);
-		}
+		memset(buffer, ' ', len);
+		strcpy(buffer, value);
 	}
 
-	int getMsgLength() const
+	static void readBuffer(const char* buffer, char* value)
+	{
+		memset(value, ' ', len);
+		strcpy(value, buffer);
+	}
+
+
+	static int getMsgLength()
 	{
 		return len;
 	}
@@ -163,10 +184,8 @@ struct FTDWordType
 
 	void loadData(const char* buffer)
 	{
-		memcpy(&value, buffer, sizeof(value));
-		value = ntohs(value);
+		readBuffer(buffer, &value);
 	}
-	int16_t value;
 
 	static void writeBuffer(int16_t value, char* buffer)
 	{
@@ -174,10 +193,18 @@ struct FTDWordType
 		memcpy(buffer, &value, sizeof(value));
 	}
 
-	int getMsgLength() const
+	static void readBuffer(const char* buffer, int16_t* value)
+	{
+		memcpy(value, buffer, 2);
+		*value = ntohs(*value);
+	}
+
+	static int getMsgLength()
 	{
 		return  2;
 	}
+
+	int16_t value;
 };
 
 

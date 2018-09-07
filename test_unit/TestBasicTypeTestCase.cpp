@@ -74,4 +74,14 @@ SUITE(BasicTypeTests)
 		st.loadData(buffer);
 		CHECK_EQUAL(23452, st.getValue());
 	}
+
+	TEST(StringTypeWriteAndRead)
+	{
+		char s[10];
+		FTDStringType<10>::readBuffer("123", s);
+		CHECK_EQUAL("123", s);
+		char buffer[10];
+		FTDStringType<10>::writeBuffer(s, buffer);
+		CHECK_EQUAL("123", buffer);
+	}
 }
