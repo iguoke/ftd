@@ -110,12 +110,10 @@ struct FTDNumberType
 
 	static void writeBuffer(int value, char* buffer)
 	{
-		char local_buffer[len + 1];
 		char format_template[] = "%%0%dd";
 		char format[20];
-		sprintf(format, format_template, len, precise);
-		sprintf(local_buffer, format, value);
-		memcpy(buffer, &local_buffer, len);
+		sprintf(format, format_template, len);
+		sprintf(buffer, format, value);
 	}
 
 	int getMsgLength() const
@@ -170,7 +168,7 @@ struct FTDWordType
 	}
 	int16_t value;
 
-	static void writeBuffer(int value, char* buffer)
+	static void writeBuffer(int16_t value, char* buffer)
 	{
 		value = htons(value);
 		memcpy(buffer, &value, sizeof(value));

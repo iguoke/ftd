@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "ftd/FTDDataTypes.h"
+#include "FTDDataTypes.h"
 using namespace std;
 using namespace FTD;
 
@@ -9,6 +9,11 @@ using namespace FTD;
 #ifdef _MSC_VER
 #pragma warning( disable : 4503 4355 4786 4290 )
 #endif
+
+#include <UnitTest++.h>
+#include <TestReporterStdout.h>
+//#include "getopt-repl.h"
+//#include "TestHelper.h"
 bool test_float_read()
 {
 	FTDFloatType<10, 2> st;
@@ -47,19 +52,6 @@ bool test_number_write()
 
 int main()
 {
-	bool test_result = false;
-	/*
-	test_result = test_float_read();
-	if (test_result)
-	std::cout << "test_float_read pass\n";
-	else
-	std::cout << "test_float_read fail\n";
-
-	test_result = test_float_write();
-	if (test_result)
-	std::cout << "test_float_write pass\n";
-	else
-	std::cout << "test_float_write fail\n";
-	*/
+	int result = UnitTest::RunAllTests();
 	
 }
