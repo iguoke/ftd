@@ -21,5 +21,37 @@
     <ClInclude Include="session.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Acceptor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exceptions.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FTDDataTypes.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Parser.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FTDProperty.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FTD20\FTDProperty.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Parser.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
