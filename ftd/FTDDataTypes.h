@@ -324,7 +324,10 @@ enum FTD_TYPE
 	TYPE_ID_StringType500,
 	TYPE_ID_StringType3,
 	TYPE_ID_StringType100,
-	TYPE_ID_StringType6
+	TYPE_ID_StringType6,
+	TYPE_ID_StringType200,
+	TYPE_ID_StringType30,
+	TYPE_ID_NumberType3
 };
 
 
