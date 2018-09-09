@@ -36,10 +36,19 @@
     <ClInclude Include="Utility.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="FTDProperty.h">
+    <ClInclude Include="FTDProperties.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="FTD20\FTDProperty.h">
+    <ClInclude Include="FTD20\FTDProperties.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FTDFields.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FTD20\FTDFields.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FTD20\BulletinField.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

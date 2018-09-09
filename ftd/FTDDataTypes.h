@@ -145,27 +145,30 @@ struct FTDNumberType
 template<int len>
 struct FTDStringType
 {
-	int getValue() const
+	char* getValue() const
 	{
 		return value;
 	}
 
 	void loadData(const char* buffer)
 	{
-		readBuffer(buffer, &value);
+		readBuffer(buffer, value);
 	}
-	char value[len];
+	char value[len + 1];
 
 	static void writeBuffer(const char* value, char* buffer)
 	{
-		memset(buffer, ' ', len);
-		strcpy(buffer, value);
+		memset(buffer , ' ', len);
+		int string_len = strlen(value);
+		if (string_len > len)
+			string_len = len;
+		memcpy(buffer, value, string_len);
 	}
 
 	static void readBuffer(const char* buffer, char* value)
 	{
-		memset(value, ' ', len);
-		strcpy(value, buffer);
+		memcpy(value, buffer, len);
+		value[len] = '\0';
 	}
 
 
@@ -239,6 +242,7 @@ typedef FTDCharType        TFTDNewsUrgency;
 typedef FTDCharType        TFTDOffsetFlag;
 typedef FTDCharType        TFTDOrderStatus;
 typedef FTDCharType        TFTDOrderType;
+typedef FTDCharType        TTFTDOptionType;
 typedef FTDStringType<8>   TFTDParticipantId;
 typedef FTDCharType        TFTDParticipantType;
 typedef FTDStringType<40>   TFTDPassword;
@@ -246,6 +250,8 @@ typedef FTDFloatType<4, 2>   TFTDPercent;
 typedef FTDFloatType<12,4>  TFTDPrice;
 typedef FTDStringType<8>    TFTDProtocolVersion;
 typedef FTDCharType        TFTDPubStyle;
+typedef FTDCharType        FTDRequestByType;
+typedef FTDFloatType<12,4> FTDRateUnit;
 typedef FTDIntType         TFTDSequenceNo;
 typedef FTDWordType        TFTDSequenceSeries;
 typedef FTDStringType<20>   TFTDServerAppName;
@@ -263,6 +269,64 @@ typedef FTDCharType        TFTDUserType;
 typedef FTDFloatType<14,2>  TFTDValue;
 typedef FTDIntType         TFTDVolume;
 typedef FTDCharType        TFTDVolumeType;
+
+//field storage true type
+typedef char        TTFTDActionFlag;
+typedef char        TTFTDBoolFlag;
+typedef char        TTFTDClientId[8 + 1];
+typedef char        TTFTDClientType;
+typedef char        TTFTDConnectionReference[5 + 1];
+typedef char        TTFTDDataFlowFlag;
+typedef char        TTFTDDate[8 + 1];
+typedef char        TTFTDDateTime[20 + 1];
+typedef char        TTFTDDirection;
+typedef char        TTFTDErrorCode[10 + 1];
+typedef char        TTFTDForceExitCode;
+typedef char        TTFTDHedgeFlag;
+typedef char        TTFTDInstrumentId[10 + 1];
+typedef char        TTFTDInstrumentStatus;
+typedef char        TTFTDInstrumentType;
+typedef char        TTFTDInstrumentVersion;
+typedef char        TTFTDLocalId[24 + 1];
+typedef char        TTFTDRequestByType;
+typedef double      TTFTDRateUnit;
+typedef char        TTFTDMarketId[10 + 1];
+typedef char        TTFTDMarketStatus;
+typedef char        TTFTDMatchCondition;
+typedef char        TTFTDMatchFlag;
+typedef char        TTFTDMatchSession;
+typedef char        TTFTDMsgRef[6 + 1];
+typedef char        TTFTDName[80 + 1];
+typedef char        TTFTDNewsType[3 + 1];
+typedef char        TTFTDNewsUrgency;
+typedef char        TTFTDOffsetFlag;
+typedef char        TTFTDOrderStatus;
+typedef char        TTFTDOrderType;
+typedef char        TTFTDParticipantId[8 + 1];
+typedef char        TTFTDParticipantType;
+typedef char        TTFTDPassword[40 + 1];
+typedef double      TTFTDPercent;
+typedef double      TTFTDPrice;
+typedef char        TTFTDProtocolVersion[8 + 1];
+typedef char        TTFTDPubStyle;
+typedef int         TTFTDSequenceNo;
+typedef int16_t     TTFTDSequenceSeries;
+typedef char        TTFTDServerAppName[20 + 1];
+typedef char        TTFTDStopCode;
+typedef char        TTFTDSysOrderId[20 + 1];
+typedef char        TTFTDTime[8 + 1];
+typedef int         TTFTDTimeOut;
+typedef char        TTFTDTimeStamp[20 + 1];
+typedef char        TTFTDTradeId[20 + 1];
+typedef char        TTFTDTradeRight;
+typedef char        TTFTDTradeType;
+typedef char        TTFTDUserId[15 + 1];
+typedef char        TTFTDUserStatus;
+typedef char        TTFTDUserType;
+typedef double      TTFTDValue;
+typedef int         TTFTDVolume;
+typedef char        TTFTDVolumeType;        
+
 
 enum FTD_TYPE
 {
@@ -327,7 +391,12 @@ enum FTD_TYPE
 	TYPE_ID_StringType6,
 	TYPE_ID_StringType200,
 	TYPE_ID_StringType30,
-	TYPE_ID_NumberType3
+	TYPE_ID_NumberType3,
+	TYPE_ID_IntType,
+	TYPE_ID_OptionType,
+	TYPE_ID_RequestByType,
+	TYPE_ID_RateUnit,
+
 };
 
 
