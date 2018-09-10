@@ -149,6 +149,7 @@ del /F EXCLUDE
     <ClInclude Include="Exceptions.h" />
     <ClInclude Include="ftd.h" />
     <ClInclude Include="FTD20\BulletinField.h" />
+    <ClInclude Include="FTD20\ClientField.h" />
     <ClInclude Include="FTD20\FTDFields.h" />
     <ClInclude Include="FTD20\FTDProperties.h" />
     <ClInclude Include="FTDDataTypes.h" />

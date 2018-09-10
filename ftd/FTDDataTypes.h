@@ -163,6 +163,8 @@ struct FTDStringType
 		if (string_len > len)
 			string_len = len;
 		memcpy(buffer, value, string_len);
+		if (string_len < len)
+			buffer[string_len] = '\0';
 	}
 
 	static void readBuffer(const char* buffer, char* value)

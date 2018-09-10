@@ -7,17 +7,20 @@
 using namespace FTD;
 
 namespace FTD20 {
+	/*
 	static const int BulletinFieldProperties[] =
-	{ 
-		PROPERTY_ID_NewsType, //消息类型
-		PROPERTY_ID_NewsUrgency, // 紧急程度
-		PROPERTY_ID_SendTime, // 发送时间
-		PROPERTY_ID_Abstract, // 摘要 / 说明
-		PROPERTY_ID_ComeFrom, // 消息来源
-		PROPERTY_ID_MarketId, // 市场编码
-		PROPERTY_ID_Content, // 消息正文
-		PROPERTY_ID_URLLink // 此消息的WEB 联结
+	{
+	PROPERTY_ID_NewsType, //消息类型
+	PROPERTY_ID_NewsUrgency, // 紧急程度
+	PROPERTY_ID_SendTime, // 发送时间
+	PROPERTY_ID_Abstract, // 摘要 / 说明
+	PROPERTY_ID_ComeFrom, // 消息来源
+	PROPERTY_ID_MarketId, // 市场编码
+	PROPERTY_ID_Content, // 消息正文
+	PROPERTY_ID_URLLink // 此消息的WEB 联结
 	};
+	*/
+	
 
 
 	struct BulletinField

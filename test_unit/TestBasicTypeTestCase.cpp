@@ -90,6 +90,6 @@ SUITE(BasicTypeTests)
 		char s[] = "123";
 		FTDStringType<10>::writeBuffer(s, buffer);
 		buffer[10] = 0;
-		CHECK_EQUAL("123       ", buffer);
+		CHECK_EQUAL("123", buffer);
 	}
 }

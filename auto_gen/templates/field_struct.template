@@ -1,0 +1,34 @@
+#ifndef {version}_{field_name_upper}_H
+#define {version}_{field_name_upper}_H
+
+#include "FTDProperties.h"
+#include "FTDFields.h"
+
+using namespace FTD;
+
+namespace {version} {{
+
+	struct {field_name}
+	{{
+{property_type_var_pair_list_string}
+	}};
+
+	class BulletinFieldHelper
+	{{
+	public:
+		static void writeBuffer(const {field_name}& field, char* buffer, int& writenLen)
+		{{
+			int data_length = 0;
+{write_properties_string}
+			writenLen = data_length;
+		}}
+
+		static void readBuffer(const char* buffer, {field_name}& field, int& readLen)
+		{{
+			int data_length = 0;
+{read_properties_string}
+			readLen = data_length;
+		}}
+	}};
+}}
+#endif
