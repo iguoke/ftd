@@ -79,7 +79,7 @@ SUITE(BasicTypeTests)
 	{
 		char s[11];
 		memset(s, 0, 11);
-		FTDStringType<10>::readBuffer("123", s);
+		FTDStringType<10>::readBuffer("123       ", s);
 		s[10] = 0;
 		CHECK_EQUAL("123       ", s);
 	}

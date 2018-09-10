@@ -17,7 +17,7 @@ struct FTDCharType
 
 	void loadData(const char* buffer)
 	{
-		readBuffer(buffer, &value);
+		readBuffer(buffer, value);
 	}
 	char value;
 
@@ -26,9 +26,9 @@ struct FTDCharType
 		memcpy(buffer, &value, sizeof(value));
 	}
 
-	static void readBuffer(const char* buffer, char* value)
+	static void readBuffer(const char* buffer, char& value)
 	{
-		memcpy(value, buffer, sizeof(*value));
+		memcpy(&value, buffer, 1);
 	}
 
 	static int getMsgLength()
@@ -47,7 +47,7 @@ struct FTDFloatType
 
 	void loadData(const char* buffer)
 	{
-		readBuffer(buffer, &value);
+		readBuffer(buffer, value);
 	}
 
 	static void writeBuffer(double value, char* buffer)
@@ -60,12 +60,12 @@ struct FTDFloatType
 		memcpy(buffer, &local_buffer, len);
 	}
 
-	static void readBuffer(const char* buffer, double* value)
+	static void readBuffer(const char* buffer, double& value)
 	{
 		char local_buffer[len + 1];
 		memcpy(&local_buffer, buffer, len);
 		local_buffer[len] = 0;
-		*value = atof(local_buffer);
+		value = atof(local_buffer);
 	}
 
 	static int getMsgLength()
@@ -84,7 +84,7 @@ struct FTDIntType
 
 	void loadData(const char* buffer)
 	{
-		readBuffer(buffer, &value);
+		readBuffer(buffer, value);
 	}
 	int value;
 
@@ -94,10 +94,10 @@ struct FTDIntType
 		memcpy(buffer, &value, sizeof(value));
 	}
 
-	static void readBuffer(const char* buffer, int* value)
+	static void readBuffer(const char* buffer, int& value)
 	{
-		memcpy(value, buffer, 4);
-		*value = ntohl(*value);
+		memcpy(&value, buffer, 4);
+		value = ntohl(value);
 	}
 
 	static int getMsgLength()
@@ -116,7 +116,7 @@ struct FTDNumberType
 
 	void loadData(const char* buffer)
 	{
-		readBuffer(buffer, &value);
+		readBuffer(buffer, value);
 	}
 	int value;
 
@@ -128,12 +128,12 @@ struct FTDNumberType
 		sprintf(buffer, format, value);
 	}
 
-	static void readBuffer(const char* buffer, int* value)
+	static void readBuffer(const char* buffer, int& value)
 	{
 		char local_buffer[len + 1];
 		memcpy(local_buffer, buffer, len);
 		local_buffer[len] = 0;
-		*value = atoi(local_buffer);
+		value = atoi(local_buffer);
 	}
 
 	static int getMsgLength()
@@ -187,7 +187,7 @@ struct FTDWordType
 
 	void loadData(const char* buffer)
 	{
-		readBuffer(buffer, &value);
+		readBuffer(buffer, value);
 	}
 
 	static void writeBuffer(int16_t value, char* buffer)
@@ -196,10 +196,10 @@ struct FTDWordType
 		memcpy(buffer, &value, sizeof(value));
 	}
 
-	static void readBuffer(const char* buffer, int16_t* value)
+	static void readBuffer(const char* buffer, int16_t& value)
 	{
-		memcpy(value, buffer, 2);
-		*value = ntohs(*value);
+		memcpy(&value, buffer, 2);
+		value = ntohs(value);
 	}
 
 	static int getMsgLength()
@@ -230,6 +230,8 @@ typedef FTDCharType        TFTDInstrumentStatus;
 typedef FTDCharType        TFTDInstrumentType;
 typedef FTDCharType        TFTDInstrumentVersion;
 typedef FTDStringType<24>   TFTDLocalId;
+typedef FTDCharType         TFTDRequestByType;
+typedef FTDFloatType<12, 4> TFTDRateUnit;
 typedef FTDStringType<10>   TFTDMarketId;
 typedef FTDCharType        TFTDMarketStatus;
 typedef FTDCharType        TFTDMatchCondition;
@@ -248,6 +250,7 @@ typedef FTDCharType        TFTDParticipantType;
 typedef FTDStringType<40>   TFTDPassword;
 typedef FTDFloatType<4, 2>   TFTDPercent;
 typedef FTDFloatType<12,4>  TFTDPrice;
+typedef FTDCharType         TFTDOptionType;
 typedef FTDStringType<8>    TFTDProtocolVersion;
 typedef FTDCharType        TFTDPubStyle;
 typedef FTDCharType        FTDRequestByType;
@@ -396,6 +399,8 @@ enum FTD_TYPE
 	TYPE_ID_OptionType,
 	TYPE_ID_RequestByType,
 	TYPE_ID_RateUnit,
+	TYPE_ID_CharType,
+	TYPE_ID_WordType
 
 };
 

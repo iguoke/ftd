@@ -7,19 +7,22 @@
 
 #include <FTDDataTypes.h>
 #include <UnitTest++.h>
-
+#include <FTD20/BulletinField.h>
 
 using namespace FTD;
 
 SUITE(FTD20Test)
 {
 
-	TEST(floatTypeRead)
+	TEST(BulltinField)
 	{
-		FTDFloatType<10, 2> st;
-		std::string buffer = "-034567.23";
-		st.loadData(buffer.c_str());
-		CHECK_CLOSE(st.getValue(), -34567.23, 0.001);
+		FTD20::BulletinField field = { 0 };
+		char* buffer = new char[4096];
+		int writeLen = 20;
+		int readLen = 10;
+		FTD20::BulletinFieldHelper::writeBuffer(field, buffer, writeLen);
+		FTD20::BulletinFieldHelper::readBuffer(buffer, field, readLen);
+		CHECK_EQUAL(writeLen, readLen);
 	}
 
 }
