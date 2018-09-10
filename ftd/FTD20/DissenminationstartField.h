@@ -1,5 +1,5 @@
-#ifndef FTD20_ERRORTARGETSEQUENCEFIELD_H
-#define FTD20_ERRORTARGETSEQUENCEFIELD_H
+#ifndef FTD20_DISSENMINATIONSTARTFIELD_H
+#define FTD20_DISSENMINATIONSTARTFIELD_H
 
 #include "FTDProperties.h"
 #include "FTDFields.h"
@@ -8,16 +8,16 @@ using namespace FTD;
 
 namespace FTD20 {
 
-	struct ErrorTargetSequenceField
+	struct DissenminationstartField
 	{
             TTPropertySequenceSeries sequenceSeries;
             TTPropertySequenceNo sequenceNo;
 	};
 
-	class ErrorTargetSequenceFieldHelper
+	class DissenminationstartFieldHelper
 	{
 	public:
-		static void writeBuffer(const ErrorTargetSequenceField& field, char* buffer, int& writenLen)
+		static void writeBuffer(const DissenminationstartField& field, char* buffer, int& writenLen)
 		{
 			int data_length = 0;
             TPropertySequenceSeries::writeBuffer(field.sequenceSeries, buffer);
@@ -29,7 +29,7 @@ namespace FTD20 {
 			writenLen = data_length;
 		}
 
-		static void readBuffer(const char* buffer, ErrorTargetSequenceField& field, int& readLen)
+		static void readBuffer(const char* buffer, DissenminationstartField& field, int& readLen)
 		{
 			int data_length = 0;
             TPropertySequenceSeries::readBuffer(buffer, field.sequenceSeries);

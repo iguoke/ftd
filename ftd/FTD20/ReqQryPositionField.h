@@ -1,5 +1,5 @@
-#ifndef FTD20_REQQRYCLIENTFIELD_H
-#define FTD20_REQQRYCLIENTFIELD_H
+#ifndef FTD20_REQQRYPOSITIONFIELD_H
+#define FTD20_REQQRYPOSITIONFIELD_H
 
 #include "FTDProperties.h"
 #include "FTDFields.h"
@@ -8,16 +8,17 @@ using namespace FTD;
 
 namespace FTD20 {
 
-	struct ReqQryClientField
+	struct ReqQryPositionField
 	{
             TTPropertyParticipantId participantId;
             TTPropertyClientId clientId;
+            TTPropertyInstrumentId instrumentId;
 	};
 
-	class ReqQryClientFieldHelper
+	class ReqQryPositionFieldHelper
 	{
 	public:
-		static void writeBuffer(const ReqQryClientField& field, char* buffer, int& writenLen)
+		static void writeBuffer(const ReqQryPositionField& field, char* buffer, int& writenLen)
 		{
 			int data_length = 0;
             TPropertyParticipantId::writeBuffer(field.participantId, buffer);
@@ -26,10 +27,13 @@ namespace FTD20 {
             TPropertyClientId::writeBuffer(field.clientId, buffer);
             buffer += TPropertyClientId::getMsgLength();
             data_length += TPropertyClientId::getMsgLength();
+            TPropertyInstrumentId::writeBuffer(field.instrumentId, buffer);
+            buffer += TPropertyInstrumentId::getMsgLength();
+            data_length += TPropertyInstrumentId::getMsgLength();
 			writenLen = data_length;
 		}
 
-		static void readBuffer(const char* buffer, ReqQryClientField& field, int& readLen)
+		static void readBuffer(const char* buffer, ReqQryPositionField& field, int& readLen)
 		{
 			int data_length = 0;
             TPropertyParticipantId::readBuffer(buffer, field.participantId);
@@ -38,6 +42,9 @@ namespace FTD20 {
             TPropertyClientId::readBuffer(buffer, field.clientId);
             buffer += TPropertyClientId::getMsgLength();
             data_length += TPropertyClientId::getMsgLength();
+            TPropertyInstrumentId::readBuffer(buffer, field.instrumentId);
+            buffer += TPropertyInstrumentId::getMsgLength();
+            data_length += TPropertyInstrumentId::getMsgLength();
 			readLen = data_length;
 		}
 	};

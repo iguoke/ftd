@@ -1,5 +1,5 @@
-#ifndef FTD20_CLIENT_FIELD_H
-#define FTD20_CLIENT_FIELD_H
+#ifndef FTD20_ORDERACTIONFIELD_H
+#define FTD20_ORDERACTIONFIELD_H
 
 #include "FTDProperties.h"
 #include "FTDFields.h"
@@ -8,61 +8,66 @@ using namespace FTD;
 
 namespace FTD20 {
 
-struct ClientField
-{
-	TTPropertyClientId  clientId;// 客户编码
-	TTPropertyParticipantId  participantId;// 交易会员编码
-	TTPropertyClientName  clientName; // 客户名称
-	TTPropertyClientType	clientType; // 客户类别
-	TTPropertyTradeRights tradeRights; //交易权限
-};
-
-class ClientFieldHelper
-{
-public:
-	static void writeBuffer(const ClientField& field, char* buffer, int& readLen)
+	struct OrderActionField
 	{
-		int data_length = 0;
-		TPropertyClientId::writeBuffer(field.clientId, buffer);
-		buffer += TPropertyClientId::getMsgLength();
-		data_length += TPropertyClientId::getMsgLength();
-		TPropertyParticipantId::writeBuffer(field.participantId, buffer);
-		buffer += TPropertyParticipantId::getMsgLength();
-		data_length += TPropertyParticipantId::getMsgLength();
-		TPropertyClientName::writeBuffer(field.clientName, buffer);
-		buffer += TPropertyClientName::getMsgLength();
-		data_length += TPropertyClientName::getMsgLength();
-		TPropertyClientType::writeBuffer(field.clientType, buffer);
-		buffer += TPropertyClientType::getMsgLength();
-		data_length += TPropertyClientType::getMsgLength();
-		TPropertyTradeRights::writeBuffer(field.tradeRights, buffer);
-		buffer += TPropertyTradeRights::getMsgLength();
-		data_length += TPropertyTradeRights::getMsgLength();
-		readLen = data_length;
-	}
+            TTPropertyOrderActionCode orderActionCode;
+            TTPropertyOrderSysId orderSysId;
+            TTPropertyActionLocalId actionLocalId;
+            TTPropertyInstrumentId instrumentId;
+            TTPropertyInstrumentVersion instrumentVersion;
+            TTPropertyUserId userId;
+	};
 
-	static void readBuffer(const char* buffer, ClientField& field, int& readLen)
+	class OrderActionFieldHelper
 	{
-		int data_length = 0;
-		TPropertyClientId::readBuffer(buffer, field.clientId);
-		buffer += TPropertyClientId::getMsgLength();
-		data_length += TPropertyClientId::getMsgLength();
-		TPropertyParticipantId::readBuffer(buffer, field.participantId);
-		buffer += TPropertyParticipantId::getMsgLength();
-		data_length += TPropertyParticipantId::getMsgLength();
-		TPropertyClientName::readBuffer(buffer, field.clientName);
-		buffer += TPropertyClientName::getMsgLength();
-		data_length += TPropertyClientName::getMsgLength();
-		TPropertyClientType::readBuffer(buffer, field.clientType);
-		buffer += TPropertyClientType::getMsgLength();
-		data_length += TPropertyClientType::getMsgLength();
-		TPropertyTradeRights::readBuffer(buffer, field.tradeRights);
-		buffer += TPropertyTradeRights::getMsgLength();
-		data_length += TPropertyTradeRights::getMsgLength();
-		readLen = data_length;
-	}
+	public:
+		static void writeBuffer(const OrderActionField& field, char* buffer, int& writenLen)
+		{
+			int data_length = 0;
+            TPropertyOrderActionCode::writeBuffer(field.orderActionCode, buffer);
+            buffer += TPropertyOrderActionCode::getMsgLength();
+            data_length += TPropertyOrderActionCode::getMsgLength();
+            TPropertyOrderSysId::writeBuffer(field.orderSysId, buffer);
+            buffer += TPropertyOrderSysId::getMsgLength();
+            data_length += TPropertyOrderSysId::getMsgLength();
+            TPropertyActionLocalId::writeBuffer(field.actionLocalId, buffer);
+            buffer += TPropertyActionLocalId::getMsgLength();
+            data_length += TPropertyActionLocalId::getMsgLength();
+            TPropertyInstrumentId::writeBuffer(field.instrumentId, buffer);
+            buffer += TPropertyInstrumentId::getMsgLength();
+            data_length += TPropertyInstrumentId::getMsgLength();
+            TPropertyInstrumentVersion::writeBuffer(field.instrumentVersion, buffer);
+            buffer += TPropertyInstrumentVersion::getMsgLength();
+            data_length += TPropertyInstrumentVersion::getMsgLength();
+            TPropertyUserId::writeBuffer(field.userId, buffer);
+            buffer += TPropertyUserId::getMsgLength();
+            data_length += TPropertyUserId::getMsgLength();
+			writenLen = data_length;
+		}
 
-	
-};
+		static void readBuffer(const char* buffer, OrderActionField& field, int& readLen)
+		{
+			int data_length = 0;
+            TPropertyOrderActionCode::readBuffer(buffer, field.orderActionCode);
+            buffer += TPropertyOrderActionCode::getMsgLength();
+            data_length += TPropertyOrderActionCode::getMsgLength();
+            TPropertyOrderSysId::readBuffer(buffer, field.orderSysId);
+            buffer += TPropertyOrderSysId::getMsgLength();
+            data_length += TPropertyOrderSysId::getMsgLength();
+            TPropertyActionLocalId::readBuffer(buffer, field.actionLocalId);
+            buffer += TPropertyActionLocalId::getMsgLength();
+            data_length += TPropertyActionLocalId::getMsgLength();
+            TPropertyInstrumentId::readBuffer(buffer, field.instrumentId);
+            buffer += TPropertyInstrumentId::getMsgLength();
+            data_length += TPropertyInstrumentId::getMsgLength();
+            TPropertyInstrumentVersion::readBuffer(buffer, field.instrumentVersion);
+            buffer += TPropertyInstrumentVersion::getMsgLength();
+            data_length += TPropertyInstrumentVersion::getMsgLength();
+            TPropertyUserId::readBuffer(buffer, field.userId);
+            buffer += TPropertyUserId::getMsgLength();
+            data_length += TPropertyUserId::getMsgLength();
+			readLen = data_length;
+		}
+	};
 }
 #endif

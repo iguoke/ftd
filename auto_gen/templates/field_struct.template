@@ -13,7 +13,7 @@ namespace {version} {{
 {property_type_var_pair_list_string}
 	}};
 
-	class BulletinFieldHelper
+	class {field_name}Helper
 	{{
 	public:
 		static void writeBuffer(const {field_name}& field, char* buffer, int& writenLen)

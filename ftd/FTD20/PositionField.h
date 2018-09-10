@@ -1,5 +1,5 @@
-#ifndef FTD20_CLIENT_FIELD_H
-#define FTD20_CLIENT_FIELD_H
+#ifndef FTD20_POSITIONFIELD_H
+#define FTD20_POSITIONFIELD_H
 
 #include "FTDProperties.h"
 #include "FTDFields.h"
@@ -8,61 +8,283 @@ using namespace FTD;
 
 namespace FTD20 {
 
-struct ClientField
-{
-	TTPropertyClientId  clientId;// 客户编码
-	TTPropertyParticipantId  participantId;// 交易会员编码
-	TTPropertyClientName  clientName; // 客户名称
-	TTPropertyClientType	clientType; // 客户类别
-	TTPropertyTradeRights tradeRights; //交易权限
-};
-
-class ClientFieldHelper
-{
-public:
-	static void writeBuffer(const ClientField& field, char* buffer, int& readLen)
+	struct PositionField
 	{
-		int data_length = 0;
-		TPropertyClientId::writeBuffer(field.clientId, buffer);
-		buffer += TPropertyClientId::getMsgLength();
-		data_length += TPropertyClientId::getMsgLength();
-		TPropertyParticipantId::writeBuffer(field.participantId, buffer);
-		buffer += TPropertyParticipantId::getMsgLength();
-		data_length += TPropertyParticipantId::getMsgLength();
-		TPropertyClientName::writeBuffer(field.clientName, buffer);
-		buffer += TPropertyClientName::getMsgLength();
-		data_length += TPropertyClientName::getMsgLength();
-		TPropertyClientType::writeBuffer(field.clientType, buffer);
-		buffer += TPropertyClientType::getMsgLength();
-		data_length += TPropertyClientType::getMsgLength();
-		TPropertyTradeRights::writeBuffer(field.tradeRights, buffer);
-		buffer += TPropertyTradeRights::getMsgLength();
-		data_length += TPropertyTradeRights::getMsgLength();
-		readLen = data_length;
-	}
+            TTPropertyParticipantId participantId;
+            TTPropertyClientId clientId;
+            TTPropertyInstrumentId instrumentId;
+            TTPropertyInstrumentVersion instrumentVersion;
+            TTPropertyTradeDate tradeDate;
+            TTPropertyYdBuyHedgePosition ydBuyHedgePosition;
+            TTPropertyYdBuySpecPosition ydBuySpecPosition;
+            TTPropertyYdSellHedgePosition ydSellHedgePosition;
+            TTPropertyYdSellSpecPosition ydSellSpecPosition;
+            TTPropertyBuyHedgeVolume buyHedgeVolume;
+            TTPropertyBuySpecVolume buySpecVolume;
+            TTPropertySellHedgeVolume sellHedgeVolume;
+            TTPropertySellSpecVolume sellSpecVolume;
+            TTPropertyBuyHedgePosition buyHedgePosition;
+            TTPropertyBuySpecPosition buySpecPosition;
+            TTPropertySellHedgePosition sellHedgePosition;
+            TTPropertySellSpecPosition sellSpecPosition;
+            TTPropertyBuyOffsHPosition buyOffsHPosition;
+            TTPropertyBuyOffsSPosition buyOffsSPosition;
+            TTPropertySellOffsHPosition sellOffsHPosition;
+            TTPropertySellOffsSPosition sellOffsSPosition;
+            TTPropertyYdBuyOffsHPosition ydBuyOffsHPosition;
+            TTPropertyYdBuyOffsSPosition ydBuyOffsSPosition;
+            TTPropertyYdSellOffsHPosition ydSellOffsHPosition;
+            TTPropertyYdSellOffsSPosition ydSellOffsSPosition;
+            TTPropertyLongOpenFrozHPosition longOpenFrozHPosition;
+            TTPropertyLongOpenFrozSPosition longOpenFrozSPosition;
+            TTPropertyShortOpenFrozHPosition shortOpenFrozHPosition;
+            TTPropertyShortOpenFrozSPosition shortOpenFrozSPosition;
+            TTPropertyLongOffsFrozHPosition longOffsFrozHPosition;
+            TTPropertyLongOffsFrozSPosition longOffsFrozSPosition;
+            TTPropertyShortOffsFrozHPosition shortOffsFrozHPosition;
+            TTPropertyShortOffsFrozSPosition shortOffsFrozSPosition;
+            TTPropertyYdLongOffsFrozHPosition ydLongOffsFrozHPosition;
+            TTPropertyYdLongOffsFrozSPosition ydLongOffsFrozSPosition;
+            TTPropertyYdShortOffsFrozHPosition ydShortOffsFrozHPosition;
+            TTPropertyYdShortOffsFrozSPosition ydShortOffsFrozSPosition;
+	};
 
-	static void readBuffer(const char* buffer, ClientField& field, int& readLen)
+	class PositionFieldHelper
 	{
-		int data_length = 0;
-		TPropertyClientId::readBuffer(buffer, field.clientId);
-		buffer += TPropertyClientId::getMsgLength();
-		data_length += TPropertyClientId::getMsgLength();
-		TPropertyParticipantId::readBuffer(buffer, field.participantId);
-		buffer += TPropertyParticipantId::getMsgLength();
-		data_length += TPropertyParticipantId::getMsgLength();
-		TPropertyClientName::readBuffer(buffer, field.clientName);
-		buffer += TPropertyClientName::getMsgLength();
-		data_length += TPropertyClientName::getMsgLength();
-		TPropertyClientType::readBuffer(buffer, field.clientType);
-		buffer += TPropertyClientType::getMsgLength();
-		data_length += TPropertyClientType::getMsgLength();
-		TPropertyTradeRights::readBuffer(buffer, field.tradeRights);
-		buffer += TPropertyTradeRights::getMsgLength();
-		data_length += TPropertyTradeRights::getMsgLength();
-		readLen = data_length;
-	}
+	public:
+		static void writeBuffer(const PositionField& field, char* buffer, int& writenLen)
+		{
+			int data_length = 0;
+            TPropertyParticipantId::writeBuffer(field.participantId, buffer);
+            buffer += TPropertyParticipantId::getMsgLength();
+            data_length += TPropertyParticipantId::getMsgLength();
+            TPropertyClientId::writeBuffer(field.clientId, buffer);
+            buffer += TPropertyClientId::getMsgLength();
+            data_length += TPropertyClientId::getMsgLength();
+            TPropertyInstrumentId::writeBuffer(field.instrumentId, buffer);
+            buffer += TPropertyInstrumentId::getMsgLength();
+            data_length += TPropertyInstrumentId::getMsgLength();
+            TPropertyInstrumentVersion::writeBuffer(field.instrumentVersion, buffer);
+            buffer += TPropertyInstrumentVersion::getMsgLength();
+            data_length += TPropertyInstrumentVersion::getMsgLength();
+            TPropertyTradeDate::writeBuffer(field.tradeDate, buffer);
+            buffer += TPropertyTradeDate::getMsgLength();
+            data_length += TPropertyTradeDate::getMsgLength();
+            TPropertyYdBuyHedgePosition::writeBuffer(field.ydBuyHedgePosition, buffer);
+            buffer += TPropertyYdBuyHedgePosition::getMsgLength();
+            data_length += TPropertyYdBuyHedgePosition::getMsgLength();
+            TPropertyYdBuySpecPosition::writeBuffer(field.ydBuySpecPosition, buffer);
+            buffer += TPropertyYdBuySpecPosition::getMsgLength();
+            data_length += TPropertyYdBuySpecPosition::getMsgLength();
+            TPropertyYdSellHedgePosition::writeBuffer(field.ydSellHedgePosition, buffer);
+            buffer += TPropertyYdSellHedgePosition::getMsgLength();
+            data_length += TPropertyYdSellHedgePosition::getMsgLength();
+            TPropertyYdSellSpecPosition::writeBuffer(field.ydSellSpecPosition, buffer);
+            buffer += TPropertyYdSellSpecPosition::getMsgLength();
+            data_length += TPropertyYdSellSpecPosition::getMsgLength();
+            TPropertyBuyHedgeVolume::writeBuffer(field.buyHedgeVolume, buffer);
+            buffer += TPropertyBuyHedgeVolume::getMsgLength();
+            data_length += TPropertyBuyHedgeVolume::getMsgLength();
+            TPropertyBuySpecVolume::writeBuffer(field.buySpecVolume, buffer);
+            buffer += TPropertyBuySpecVolume::getMsgLength();
+            data_length += TPropertyBuySpecVolume::getMsgLength();
+            TPropertySellHedgeVolume::writeBuffer(field.sellHedgeVolume, buffer);
+            buffer += TPropertySellHedgeVolume::getMsgLength();
+            data_length += TPropertySellHedgeVolume::getMsgLength();
+            TPropertySellSpecVolume::writeBuffer(field.sellSpecVolume, buffer);
+            buffer += TPropertySellSpecVolume::getMsgLength();
+            data_length += TPropertySellSpecVolume::getMsgLength();
+            TPropertyBuyHedgePosition::writeBuffer(field.buyHedgePosition, buffer);
+            buffer += TPropertyBuyHedgePosition::getMsgLength();
+            data_length += TPropertyBuyHedgePosition::getMsgLength();
+            TPropertyBuySpecPosition::writeBuffer(field.buySpecPosition, buffer);
+            buffer += TPropertyBuySpecPosition::getMsgLength();
+            data_length += TPropertyBuySpecPosition::getMsgLength();
+            TPropertySellHedgePosition::writeBuffer(field.sellHedgePosition, buffer);
+            buffer += TPropertySellHedgePosition::getMsgLength();
+            data_length += TPropertySellHedgePosition::getMsgLength();
+            TPropertySellSpecPosition::writeBuffer(field.sellSpecPosition, buffer);
+            buffer += TPropertySellSpecPosition::getMsgLength();
+            data_length += TPropertySellSpecPosition::getMsgLength();
+            TPropertyBuyOffsHPosition::writeBuffer(field.buyOffsHPosition, buffer);
+            buffer += TPropertyBuyOffsHPosition::getMsgLength();
+            data_length += TPropertyBuyOffsHPosition::getMsgLength();
+            TPropertyBuyOffsSPosition::writeBuffer(field.buyOffsSPosition, buffer);
+            buffer += TPropertyBuyOffsSPosition::getMsgLength();
+            data_length += TPropertyBuyOffsSPosition::getMsgLength();
+            TPropertySellOffsHPosition::writeBuffer(field.sellOffsHPosition, buffer);
+            buffer += TPropertySellOffsHPosition::getMsgLength();
+            data_length += TPropertySellOffsHPosition::getMsgLength();
+            TPropertySellOffsSPosition::writeBuffer(field.sellOffsSPosition, buffer);
+            buffer += TPropertySellOffsSPosition::getMsgLength();
+            data_length += TPropertySellOffsSPosition::getMsgLength();
+            TPropertyYdBuyOffsHPosition::writeBuffer(field.ydBuyOffsHPosition, buffer);
+            buffer += TPropertyYdBuyOffsHPosition::getMsgLength();
+            data_length += TPropertyYdBuyOffsHPosition::getMsgLength();
+            TPropertyYdBuyOffsSPosition::writeBuffer(field.ydBuyOffsSPosition, buffer);
+            buffer += TPropertyYdBuyOffsSPosition::getMsgLength();
+            data_length += TPropertyYdBuyOffsSPosition::getMsgLength();
+            TPropertyYdSellOffsHPosition::writeBuffer(field.ydSellOffsHPosition, buffer);
+            buffer += TPropertyYdSellOffsHPosition::getMsgLength();
+            data_length += TPropertyYdSellOffsHPosition::getMsgLength();
+            TPropertyYdSellOffsSPosition::writeBuffer(field.ydSellOffsSPosition, buffer);
+            buffer += TPropertyYdSellOffsSPosition::getMsgLength();
+            data_length += TPropertyYdSellOffsSPosition::getMsgLength();
+            TPropertyLongOpenFrozHPosition::writeBuffer(field.longOpenFrozHPosition, buffer);
+            buffer += TPropertyLongOpenFrozHPosition::getMsgLength();
+            data_length += TPropertyLongOpenFrozHPosition::getMsgLength();
+            TPropertyLongOpenFrozSPosition::writeBuffer(field.longOpenFrozSPosition, buffer);
+            buffer += TPropertyLongOpenFrozSPosition::getMsgLength();
+            data_length += TPropertyLongOpenFrozSPosition::getMsgLength();
+            TPropertyShortOpenFrozHPosition::writeBuffer(field.shortOpenFrozHPosition, buffer);
+            buffer += TPropertyShortOpenFrozHPosition::getMsgLength();
+            data_length += TPropertyShortOpenFrozHPosition::getMsgLength();
+            TPropertyShortOpenFrozSPosition::writeBuffer(field.shortOpenFrozSPosition, buffer);
+            buffer += TPropertyShortOpenFrozSPosition::getMsgLength();
+            data_length += TPropertyShortOpenFrozSPosition::getMsgLength();
+            TPropertyLongOffsFrozHPosition::writeBuffer(field.longOffsFrozHPosition, buffer);
+            buffer += TPropertyLongOffsFrozHPosition::getMsgLength();
+            data_length += TPropertyLongOffsFrozHPosition::getMsgLength();
+            TPropertyLongOffsFrozSPosition::writeBuffer(field.longOffsFrozSPosition, buffer);
+            buffer += TPropertyLongOffsFrozSPosition::getMsgLength();
+            data_length += TPropertyLongOffsFrozSPosition::getMsgLength();
+            TPropertyShortOffsFrozHPosition::writeBuffer(field.shortOffsFrozHPosition, buffer);
+            buffer += TPropertyShortOffsFrozHPosition::getMsgLength();
+            data_length += TPropertyShortOffsFrozHPosition::getMsgLength();
+            TPropertyShortOffsFrozSPosition::writeBuffer(field.shortOffsFrozSPosition, buffer);
+            buffer += TPropertyShortOffsFrozSPosition::getMsgLength();
+            data_length += TPropertyShortOffsFrozSPosition::getMsgLength();
+            TPropertyYdLongOffsFrozHPosition::writeBuffer(field.ydLongOffsFrozHPosition, buffer);
+            buffer += TPropertyYdLongOffsFrozHPosition::getMsgLength();
+            data_length += TPropertyYdLongOffsFrozHPosition::getMsgLength();
+            TPropertyYdLongOffsFrozSPosition::writeBuffer(field.ydLongOffsFrozSPosition, buffer);
+            buffer += TPropertyYdLongOffsFrozSPosition::getMsgLength();
+            data_length += TPropertyYdLongOffsFrozSPosition::getMsgLength();
+            TPropertyYdShortOffsFrozHPosition::writeBuffer(field.ydShortOffsFrozHPosition, buffer);
+            buffer += TPropertyYdShortOffsFrozHPosition::getMsgLength();
+            data_length += TPropertyYdShortOffsFrozHPosition::getMsgLength();
+            TPropertyYdShortOffsFrozSPosition::writeBuffer(field.ydShortOffsFrozSPosition, buffer);
+            buffer += TPropertyYdShortOffsFrozSPosition::getMsgLength();
+            data_length += TPropertyYdShortOffsFrozSPosition::getMsgLength();
+			writenLen = data_length;
+		}
 
-	
-};
+		static void readBuffer(const char* buffer, PositionField& field, int& readLen)
+		{
+			int data_length = 0;
+            TPropertyParticipantId::readBuffer(buffer, field.participantId);
+            buffer += TPropertyParticipantId::getMsgLength();
+            data_length += TPropertyParticipantId::getMsgLength();
+            TPropertyClientId::readBuffer(buffer, field.clientId);
+            buffer += TPropertyClientId::getMsgLength();
+            data_length += TPropertyClientId::getMsgLength();
+            TPropertyInstrumentId::readBuffer(buffer, field.instrumentId);
+            buffer += TPropertyInstrumentId::getMsgLength();
+            data_length += TPropertyInstrumentId::getMsgLength();
+            TPropertyInstrumentVersion::readBuffer(buffer, field.instrumentVersion);
+            buffer += TPropertyInstrumentVersion::getMsgLength();
+            data_length += TPropertyInstrumentVersion::getMsgLength();
+            TPropertyTradeDate::readBuffer(buffer, field.tradeDate);
+            buffer += TPropertyTradeDate::getMsgLength();
+            data_length += TPropertyTradeDate::getMsgLength();
+            TPropertyYdBuyHedgePosition::readBuffer(buffer, field.ydBuyHedgePosition);
+            buffer += TPropertyYdBuyHedgePosition::getMsgLength();
+            data_length += TPropertyYdBuyHedgePosition::getMsgLength();
+            TPropertyYdBuySpecPosition::readBuffer(buffer, field.ydBuySpecPosition);
+            buffer += TPropertyYdBuySpecPosition::getMsgLength();
+            data_length += TPropertyYdBuySpecPosition::getMsgLength();
+            TPropertyYdSellHedgePosition::readBuffer(buffer, field.ydSellHedgePosition);
+            buffer += TPropertyYdSellHedgePosition::getMsgLength();
+            data_length += TPropertyYdSellHedgePosition::getMsgLength();
+            TPropertyYdSellSpecPosition::readBuffer(buffer, field.ydSellSpecPosition);
+            buffer += TPropertyYdSellSpecPosition::getMsgLength();
+            data_length += TPropertyYdSellSpecPosition::getMsgLength();
+            TPropertyBuyHedgeVolume::readBuffer(buffer, field.buyHedgeVolume);
+            buffer += TPropertyBuyHedgeVolume::getMsgLength();
+            data_length += TPropertyBuyHedgeVolume::getMsgLength();
+            TPropertyBuySpecVolume::readBuffer(buffer, field.buySpecVolume);
+            buffer += TPropertyBuySpecVolume::getMsgLength();
+            data_length += TPropertyBuySpecVolume::getMsgLength();
+            TPropertySellHedgeVolume::readBuffer(buffer, field.sellHedgeVolume);
+            buffer += TPropertySellHedgeVolume::getMsgLength();
+            data_length += TPropertySellHedgeVolume::getMsgLength();
+            TPropertySellSpecVolume::readBuffer(buffer, field.sellSpecVolume);
+            buffer += TPropertySellSpecVolume::getMsgLength();
+            data_length += TPropertySellSpecVolume::getMsgLength();
+            TPropertyBuyHedgePosition::readBuffer(buffer, field.buyHedgePosition);
+            buffer += TPropertyBuyHedgePosition::getMsgLength();
+            data_length += TPropertyBuyHedgePosition::getMsgLength();
+            TPropertyBuySpecPosition::readBuffer(buffer, field.buySpecPosition);
+            buffer += TPropertyBuySpecPosition::getMsgLength();
+            data_length += TPropertyBuySpecPosition::getMsgLength();
+            TPropertySellHedgePosition::readBuffer(buffer, field.sellHedgePosition);
+            buffer += TPropertySellHedgePosition::getMsgLength();
+            data_length += TPropertySellHedgePosition::getMsgLength();
+            TPropertySellSpecPosition::readBuffer(buffer, field.sellSpecPosition);
+            buffer += TPropertySellSpecPosition::getMsgLength();
+            data_length += TPropertySellSpecPosition::getMsgLength();
+            TPropertyBuyOffsHPosition::readBuffer(buffer, field.buyOffsHPosition);
+            buffer += TPropertyBuyOffsHPosition::getMsgLength();
+            data_length += TPropertyBuyOffsHPosition::getMsgLength();
+            TPropertyBuyOffsSPosition::readBuffer(buffer, field.buyOffsSPosition);
+            buffer += TPropertyBuyOffsSPosition::getMsgLength();
+            data_length += TPropertyBuyOffsSPosition::getMsgLength();
+            TPropertySellOffsHPosition::readBuffer(buffer, field.sellOffsHPosition);
+            buffer += TPropertySellOffsHPosition::getMsgLength();
+            data_length += TPropertySellOffsHPosition::getMsgLength();
+            TPropertySellOffsSPosition::readBuffer(buffer, field.sellOffsSPosition);
+            buffer += TPropertySellOffsSPosition::getMsgLength();
+            data_length += TPropertySellOffsSPosition::getMsgLength();
+            TPropertyYdBuyOffsHPosition::readBuffer(buffer, field.ydBuyOffsHPosition);
+            buffer += TPropertyYdBuyOffsHPosition::getMsgLength();
+            data_length += TPropertyYdBuyOffsHPosition::getMsgLength();
+            TPropertyYdBuyOffsSPosition::readBuffer(buffer, field.ydBuyOffsSPosition);
+            buffer += TPropertyYdBuyOffsSPosition::getMsgLength();
+            data_length += TPropertyYdBuyOffsSPosition::getMsgLength();
+            TPropertyYdSellOffsHPosition::readBuffer(buffer, field.ydSellOffsHPosition);
+            buffer += TPropertyYdSellOffsHPosition::getMsgLength();
+            data_length += TPropertyYdSellOffsHPosition::getMsgLength();
+            TPropertyYdSellOffsSPosition::readBuffer(buffer, field.ydSellOffsSPosition);
+            buffer += TPropertyYdSellOffsSPosition::getMsgLength();
+            data_length += TPropertyYdSellOffsSPosition::getMsgLength();
+            TPropertyLongOpenFrozHPosition::readBuffer(buffer, field.longOpenFrozHPosition);
+            buffer += TPropertyLongOpenFrozHPosition::getMsgLength();
+            data_length += TPropertyLongOpenFrozHPosition::getMsgLength();
+            TPropertyLongOpenFrozSPosition::readBuffer(buffer, field.longOpenFrozSPosition);
+            buffer += TPropertyLongOpenFrozSPosition::getMsgLength();
+            data_length += TPropertyLongOpenFrozSPosition::getMsgLength();
+            TPropertyShortOpenFrozHPosition::readBuffer(buffer, field.shortOpenFrozHPosition);
+            buffer += TPropertyShortOpenFrozHPosition::getMsgLength();
+            data_length += TPropertyShortOpenFrozHPosition::getMsgLength();
+            TPropertyShortOpenFrozSPosition::readBuffer(buffer, field.shortOpenFrozSPosition);
+            buffer += TPropertyShortOpenFrozSPosition::getMsgLength();
+            data_length += TPropertyShortOpenFrozSPosition::getMsgLength();
+            TPropertyLongOffsFrozHPosition::readBuffer(buffer, field.longOffsFrozHPosition);
+            buffer += TPropertyLongOffsFrozHPosition::getMsgLength();
+            data_length += TPropertyLongOffsFrozHPosition::getMsgLength();
+            TPropertyLongOffsFrozSPosition::readBuffer(buffer, field.longOffsFrozSPosition);
+            buffer += TPropertyLongOffsFrozSPosition::getMsgLength();
+            data_length += TPropertyLongOffsFrozSPosition::getMsgLength();
+            TPropertyShortOffsFrozHPosition::readBuffer(buffer, field.shortOffsFrozHPosition);
+            buffer += TPropertyShortOffsFrozHPosition::getMsgLength();
+            data_length += TPropertyShortOffsFrozHPosition::getMsgLength();
+            TPropertyShortOffsFrozSPosition::readBuffer(buffer, field.shortOffsFrozSPosition);
+            buffer += TPropertyShortOffsFrozSPosition::getMsgLength();
+            data_length += TPropertyShortOffsFrozSPosition::getMsgLength();
+            TPropertyYdLongOffsFrozHPosition::readBuffer(buffer, field.ydLongOffsFrozHPosition);
+            buffer += TPropertyYdLongOffsFrozHPosition::getMsgLength();
+            data_length += TPropertyYdLongOffsFrozHPosition::getMsgLength();
+            TPropertyYdLongOffsFrozSPosition::readBuffer(buffer, field.ydLongOffsFrozSPosition);
+            buffer += TPropertyYdLongOffsFrozSPosition::getMsgLength();
+            data_length += TPropertyYdLongOffsFrozSPosition::getMsgLength();
+            TPropertyYdShortOffsFrozHPosition::readBuffer(buffer, field.ydShortOffsFrozHPosition);
+            buffer += TPropertyYdShortOffsFrozHPosition::getMsgLength();
+            data_length += TPropertyYdShortOffsFrozHPosition::getMsgLength();
+            TPropertyYdShortOffsFrozSPosition::readBuffer(buffer, field.ydShortOffsFrozSPosition);
+            buffer += TPropertyYdShortOffsFrozSPosition::getMsgLength();
+            data_length += TPropertyYdShortOffsFrozSPosition::getMsgLength();
+			readLen = data_length;
+		}
+	};
 }
 #endif

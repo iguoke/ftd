@@ -45,3 +45,5 @@ include/*
 /test/debug/ut
 /ftd_sw.VC.db
 /ftd_sw.VC.VC.opendb
+/auto_gen/FTD20/*
+/auto_gen/FTD10/*

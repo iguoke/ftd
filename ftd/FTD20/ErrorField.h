@@ -1,5 +1,5 @@
-#ifndef FTD20_CLIENT_FIELD_H
-#define FTD20_CLIENT_FIELD_H
+#ifndef FTD20_ERRORFIELD_H
+#define FTD20_ERRORFIELD_H
 
 #include "FTDProperties.h"
 #include "FTDFields.h"
@@ -8,61 +8,45 @@ using namespace FTD;
 
 namespace FTD20 {
 
-struct ClientField
-{
-	TTPropertyClientId  clientId;// 客户编码
-	TTPropertyParticipantId  participantId;// 交易会员编码
-	TTPropertyClientName  clientName; // 客户名称
-	TTPropertyClientType	clientType; // 客户类别
-	TTPropertyTradeRights tradeRights; //交易权限
-};
-
-class ClientFieldHelper
-{
-public:
-	static void writeBuffer(const ClientField& field, char* buffer, int& readLen)
+	struct ErrorField
 	{
-		int data_length = 0;
-		TPropertyClientId::writeBuffer(field.clientId, buffer);
-		buffer += TPropertyClientId::getMsgLength();
-		data_length += TPropertyClientId::getMsgLength();
-		TPropertyParticipantId::writeBuffer(field.participantId, buffer);
-		buffer += TPropertyParticipantId::getMsgLength();
-		data_length += TPropertyParticipantId::getMsgLength();
-		TPropertyClientName::writeBuffer(field.clientName, buffer);
-		buffer += TPropertyClientName::getMsgLength();
-		data_length += TPropertyClientName::getMsgLength();
-		TPropertyClientType::writeBuffer(field.clientType, buffer);
-		buffer += TPropertyClientType::getMsgLength();
-		data_length += TPropertyClientType::getMsgLength();
-		TPropertyTradeRights::writeBuffer(field.tradeRights, buffer);
-		buffer += TPropertyTradeRights::getMsgLength();
-		data_length += TPropertyTradeRights::getMsgLength();
-		readLen = data_length;
-	}
+            TTPropertyErrorCode errorCode;
+            TTPropertyErrorText errorText;
+            TTPropertyTimeStamp timeStamp;
+	};
 
-	static void readBuffer(const char* buffer, ClientField& field, int& readLen)
+	class ErrorFieldHelper
 	{
-		int data_length = 0;
-		TPropertyClientId::readBuffer(buffer, field.clientId);
-		buffer += TPropertyClientId::getMsgLength();
-		data_length += TPropertyClientId::getMsgLength();
-		TPropertyParticipantId::readBuffer(buffer, field.participantId);
-		buffer += TPropertyParticipantId::getMsgLength();
-		data_length += TPropertyParticipantId::getMsgLength();
-		TPropertyClientName::readBuffer(buffer, field.clientName);
-		buffer += TPropertyClientName::getMsgLength();
-		data_length += TPropertyClientName::getMsgLength();
-		TPropertyClientType::readBuffer(buffer, field.clientType);
-		buffer += TPropertyClientType::getMsgLength();
-		data_length += TPropertyClientType::getMsgLength();
-		TPropertyTradeRights::readBuffer(buffer, field.tradeRights);
-		buffer += TPropertyTradeRights::getMsgLength();
-		data_length += TPropertyTradeRights::getMsgLength();
-		readLen = data_length;
-	}
+	public:
+		static void writeBuffer(const ErrorField& field, char* buffer, int& writenLen)
+		{
+			int data_length = 0;
+            TPropertyErrorCode::writeBuffer(field.errorCode, buffer);
+            buffer += TPropertyErrorCode::getMsgLength();
+            data_length += TPropertyErrorCode::getMsgLength();
+            TPropertyErrorText::writeBuffer(field.errorText, buffer);
+            buffer += TPropertyErrorText::getMsgLength();
+            data_length += TPropertyErrorText::getMsgLength();
+            TPropertyTimeStamp::writeBuffer(field.timeStamp, buffer);
+            buffer += TPropertyTimeStamp::getMsgLength();
+            data_length += TPropertyTimeStamp::getMsgLength();
+			writenLen = data_length;
+		}
 
-	
-};
+		static void readBuffer(const char* buffer, ErrorField& field, int& readLen)
+		{
+			int data_length = 0;
+            TPropertyErrorCode::readBuffer(buffer, field.errorCode);
+            buffer += TPropertyErrorCode::getMsgLength();
+            data_length += TPropertyErrorCode::getMsgLength();
+            TPropertyErrorText::readBuffer(buffer, field.errorText);
+            buffer += TPropertyErrorText::getMsgLength();
+            data_length += TPropertyErrorText::getMsgLength();
+            TPropertyTimeStamp::readBuffer(buffer, field.timeStamp);
+            buffer += TPropertyTimeStamp::getMsgLength();
+            data_length += TPropertyTimeStamp::getMsgLength();
+			readLen = data_length;
+		}
+	};
 }
 #endif
