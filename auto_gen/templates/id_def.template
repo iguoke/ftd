@@ -1,0 +1,19 @@
+/*
+本文件自动生成，请勿手工修改
+Version={version}
+*/
+
+#ifndef FTD_ID_TYPE_H
+#define FTD_ID_TYPE_H
+
+
+namespace FTD {{
+
+///TID
+{tid_def}
+
+///FID
+{fid_def}
+
+}}
+#endif

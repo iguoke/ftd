@@ -41,13 +41,13 @@ struct FTDExtHeader
 
 struct FTDCHeader
 {
-	uint8_t Version;
-	uint32_t TransactionId;
-	char Chain;
-	uint16_t SequenceSeries;
-	uint32_t SequenceNO;
-	uint16_t FieldCount;
-	uint16_t ContentLength;
+	uint8_t version;
+	uint32_t transactionId;
+	char chain;
+	uint16_t sequenceSeries;
+	uint32_t sequenceNO;
+	uint16_t fieldCount;
+	uint16_t contentLength;
 };
 
 #define FTDCChainSingle 'S'
@@ -62,14 +62,11 @@ struct FTDCHeader
 
 struct FTDCFieldHeader
 {
-	int32_t FID;
-	uint16_t FIDLength;
+	int32_t fid;
+	uint16_t fidLength;
 };
 
-int readInt(const char* buffer);
-int16_t readWord(const char* buffer);
-void ReadFTDCHeader(FTDCHeader* header,const char* buffer);
-void ReadFTDCFieldHeader(FTDCFieldHeader* header, const char* buffer);
+
 
 
 

@@ -1,0 +1,23 @@
+/*
+本文件自动生成，请勿手工修改
+Version={version}
+*/
+
+#ifndef FTD_DERIVATIVE_TYPE_H
+#define FTD_DERIVATIVE_TYPE_H
+
+#include "FTDBaseType.h"
+
+
+
+namespace FTD {{
+
+///衍生类型定义	
+{t_type_def}
+
+///Field存储类型定义
+{tt_type_def}
+
+}}
+
+#endif

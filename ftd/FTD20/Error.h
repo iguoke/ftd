@@ -5,6 +5,8 @@
 #include <vector>
 #include "../ftd.h"
 #include "../FTDPackage.h"
+#include "../FtdIO.h"
+
 using namespace FTD;
 
 namespace FTD20 
@@ -35,30 +37,30 @@ namespace FTD20
 
 		static bool onFtdcMessage(const FTDCHeader& header, const std::string& ftdcContent, Error&  package)
 		{
-			if (header.Chain == FTDCChainSingle || header.Chain == FTDCChainFirst)
+			if (header.chain == FTDCChainSingle || header.chain == FTDCChainFirst)
 			{
 				package.clear();
 				package.header = header;
-				package.header.Chain = FTDCChainSingle;
-				package.header.FieldCount = 0;
-				package.header.ContentLength = 0;
+				package.header.chain = FTDCChainSingle;
+				package.header.fieldCount = 0;
+				package.header.contentLength = 0;
 			}
-			if (package.header.SequenceNO != header.SequenceNO
-				|| package.header.SequenceSeries != header.SequenceSeries)
+			if (package.header.sequenceNO != header.sequenceNO
+				|| package.header.sequenceSeries != header.sequenceSeries)
 				return false;
-			if (header.ContentLength != ftdcContent.size())
+			if (header.contentLength != ftdcContent.size())
 				return false;
-			package.header.FieldCount += header.FieldCount;
-			package.header.ContentLength = header.ContentLength;
+			package.header.fieldCount += header.fieldCount;
+			package.header.contentLength = header.contentLength;
 			FTDCFieldHeader field_header = { 0 };
 			FTD20::Field field = { 0 };
 			const char* buffer = ftdcContent.c_str();
 			int pos = 0;
-			for (int i = 0; i < header.FieldCount; i++)
+			for (int i = 0; i < header.contentLength; i++)
 			{
-				ReadFTDCFieldHeader(&field_header, buffer);
+				ReadFTDCFieldHeader(buffer, &field_header);
 				buffer += sizeof(field_header);
-				if(field_header.FIDLength != )
+				if(field_header.fidLength != )
 			}
 		}
 	};

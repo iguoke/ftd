@@ -1,0 +1,39 @@
+/*
+本文件自动生成，请勿手工修改
+Version={version}
+*/
+
+#ifndef {version}_FIELDS_H
+#define {version}_FIELDS_H
+
+{include_file_headers}
+
+namespace {version}
+{{
+
+union Field
+{{
+{field_members}
+}};
+
+bool ReadField(const char* buffer, int fid, union Field& field, int& readLen)
+{{
+	bool read_result = true;
+	switch(fid):
+	{{
+	case(FID_BulletinField):
+	{
+		TBulletinFieldHelper::readBuffer(buffer, field.bulletionField, &read_len);
+		break;
+	}
+	default:
+	{{
+		read_result = false;
+		break;
+	}}
+	}}
+	return read_result;
+}}
+
+}}
+#endif

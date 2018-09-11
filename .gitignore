@@ -47,3 +47,4 @@ include/*
 /ftd_sw.VC.VC.opendb
 /auto_gen/FTD20/*
 /auto_gen/FTD10/*
+*.pyc

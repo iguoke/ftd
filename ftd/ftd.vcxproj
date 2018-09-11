@@ -208,6 +208,7 @@ del /F EXCLUDE
     <ClInclude Include="FTD20\TradeInsertSingleField.h" />
     <ClInclude Include="FTD20\UserField.h" />
     <ClInclude Include="FTD20\UserLoginField.h" />
+    <ClInclude Include="FtdIO.h" />
     <ClInclude Include="FTDPackage.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="session.h" />
