@@ -155,6 +155,7 @@ del /F EXCLUDE
     <ClInclude Include="FTD20\DissenminationstartField.h" />
     <ClInclude Include="FTD20\EnquireQuoteField.h" />
     <ClInclude Include="FTD20\EnquireQuoteNotifyField.h" />
+    <ClInclude Include="FTD20\Error.h" />
     <ClInclude Include="FTD20\ErrorField.h" />
     <ClInclude Include="FTD20\ErrorTargetOrderField.h" />
     <ClInclude Include="FTD20\ErrorTargetSequenceField.h" />
@@ -163,7 +164,6 @@ del /F EXCLUDE
     <ClInclude Include="FTD20\ExecOrderField.h" />
     <ClInclude Include="FTD20\FlowMessageCancelField.h" />
     <ClInclude Include="FTD20\ForceExitField.h" />
-    <ClInclude Include="FTD20\FTDFields.h" />
     <ClInclude Include="FTD20\FTDProperties.h" />
     <ClInclude Include="FTD20\InputExecOrderField.h" />
     <ClInclude Include="FTD20\InstrumentField.h" />
@@ -208,8 +208,7 @@ del /F EXCLUDE
     <ClInclude Include="FTD20\TradeInsertSingleField.h" />
     <ClInclude Include="FTD20\UserField.h" />
     <ClInclude Include="FTD20\UserLoginField.h" />
-    <ClInclude Include="FTDDataTypes.h" />
-    <ClInclude Include="FTDFields.h" />
+    <ClInclude Include="FTDPackage.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="session.h" />
     <ClInclude Include="Utility.h" />

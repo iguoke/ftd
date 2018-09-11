@@ -5,7 +5,7 @@
 #include "config.h"
 #endif
 
-#include <FTDDataTypes.h>
+#include <FTDBaseType.h>
 #include <UnitTest++.h>
 #include <FTD20/BulletinField.h>
 #include <FTD20/ClientField.h>

@@ -1,8 +1,12 @@
+/*
+本文件自动生成，请勿手工修改
+*/
+
 #ifndef FTD20_USERLOGINFIELD_H
 #define FTD20_USERLOGINFIELD_H
 
-#include "FTDProperties.h"
-#include "FTDFields.h"
+#include "../FTDItemType.h"
+
 
 using namespace FTD;
 
@@ -10,19 +14,19 @@ namespace FTD20 {
 
 	struct UserLoginField
 	{
-            TTPropertyParticipantId participantId;
-            TTPropertyUserId userId;
-            TTPropertyIpAddr ipAddr;
-            TTPropertyDialogStreamStatus dialogStreamStatus;
-            TTPropertyDialogLoginTime dialogLoginTime;
-            TTPropertyDialogLogoutTime dialogLogoutTime;
-            TTPropertyPrivateStreamStatus privateStreamStatus;
-            TTPropertyPrivateLoginTime privateLoginTime;
-            TTPropertyPrivateLogoutTime privateLogoutTime;
-            TTPropertyBroadcastStreamStatus broadcastStreamStatus;
-            TTPropertyBroadcastLoginTime broadcastLoginTime;
-            TTPropertyBroadcastLogOutTime broadcastLogOutTime;
-            TTPropertyFrontId frontId;
+            TTItemParticipantId participantId;
+            TTItemUserId userId;
+            TTItemIpAddr ipAddr;
+            TTItemDialogStreamStatus dialogStreamStatus;
+            TTItemDialogLoginTime dialogLoginTime;
+            TTItemDialogLogoutTime dialogLogoutTime;
+            TTItemPrivateStreamStatus privateStreamStatus;
+            TTItemPrivateLoginTime privateLoginTime;
+            TTItemPrivateLogoutTime privateLogoutTime;
+            TTItemBroadcastStreamStatus broadcastStreamStatus;
+            TTItemBroadcastLoginTime broadcastLoginTime;
+            TTItemBroadcastLogOutTime broadcastLogOutTime;
+            TTItemFrontId frontId;
 	};
 
 	class UserLoginFieldHelper
@@ -31,90 +35,90 @@ namespace FTD20 {
 		static void writeBuffer(const UserLoginField& field, char* buffer, int& writenLen)
 		{
 			int data_length = 0;
-            TPropertyParticipantId::writeBuffer(field.participantId, buffer);
-            buffer += TPropertyParticipantId::getMsgLength();
-            data_length += TPropertyParticipantId::getMsgLength();
-            TPropertyUserId::writeBuffer(field.userId, buffer);
-            buffer += TPropertyUserId::getMsgLength();
-            data_length += TPropertyUserId::getMsgLength();
-            TPropertyIpAddr::writeBuffer(field.ipAddr, buffer);
-            buffer += TPropertyIpAddr::getMsgLength();
-            data_length += TPropertyIpAddr::getMsgLength();
-            TPropertyDialogStreamStatus::writeBuffer(field.dialogStreamStatus, buffer);
-            buffer += TPropertyDialogStreamStatus::getMsgLength();
-            data_length += TPropertyDialogStreamStatus::getMsgLength();
-            TPropertyDialogLoginTime::writeBuffer(field.dialogLoginTime, buffer);
-            buffer += TPropertyDialogLoginTime::getMsgLength();
-            data_length += TPropertyDialogLoginTime::getMsgLength();
-            TPropertyDialogLogoutTime::writeBuffer(field.dialogLogoutTime, buffer);
-            buffer += TPropertyDialogLogoutTime::getMsgLength();
-            data_length += TPropertyDialogLogoutTime::getMsgLength();
-            TPropertyPrivateStreamStatus::writeBuffer(field.privateStreamStatus, buffer);
-            buffer += TPropertyPrivateStreamStatus::getMsgLength();
-            data_length += TPropertyPrivateStreamStatus::getMsgLength();
-            TPropertyPrivateLoginTime::writeBuffer(field.privateLoginTime, buffer);
-            buffer += TPropertyPrivateLoginTime::getMsgLength();
-            data_length += TPropertyPrivateLoginTime::getMsgLength();
-            TPropertyPrivateLogoutTime::writeBuffer(field.privateLogoutTime, buffer);
-            buffer += TPropertyPrivateLogoutTime::getMsgLength();
-            data_length += TPropertyPrivateLogoutTime::getMsgLength();
-            TPropertyBroadcastStreamStatus::writeBuffer(field.broadcastStreamStatus, buffer);
-            buffer += TPropertyBroadcastStreamStatus::getMsgLength();
-            data_length += TPropertyBroadcastStreamStatus::getMsgLength();
-            TPropertyBroadcastLoginTime::writeBuffer(field.broadcastLoginTime, buffer);
-            buffer += TPropertyBroadcastLoginTime::getMsgLength();
-            data_length += TPropertyBroadcastLoginTime::getMsgLength();
-            TPropertyBroadcastLogOutTime::writeBuffer(field.broadcastLogOutTime, buffer);
-            buffer += TPropertyBroadcastLogOutTime::getMsgLength();
-            data_length += TPropertyBroadcastLogOutTime::getMsgLength();
-            TPropertyFrontId::writeBuffer(field.frontId, buffer);
-            buffer += TPropertyFrontId::getMsgLength();
-            data_length += TPropertyFrontId::getMsgLength();
+            TItemParticipantId::writeBuffer(field.participantId, buffer);
+            buffer += TItemParticipantId::getMsgLength();
+            data_length += TItemParticipantId::getMsgLength();
+            TItemUserId::writeBuffer(field.userId, buffer);
+            buffer += TItemUserId::getMsgLength();
+            data_length += TItemUserId::getMsgLength();
+            TItemIpAddr::writeBuffer(field.ipAddr, buffer);
+            buffer += TItemIpAddr::getMsgLength();
+            data_length += TItemIpAddr::getMsgLength();
+            TItemDialogStreamStatus::writeBuffer(field.dialogStreamStatus, buffer);
+            buffer += TItemDialogStreamStatus::getMsgLength();
+            data_length += TItemDialogStreamStatus::getMsgLength();
+            TItemDialogLoginTime::writeBuffer(field.dialogLoginTime, buffer);
+            buffer += TItemDialogLoginTime::getMsgLength();
+            data_length += TItemDialogLoginTime::getMsgLength();
+            TItemDialogLogoutTime::writeBuffer(field.dialogLogoutTime, buffer);
+            buffer += TItemDialogLogoutTime::getMsgLength();
+            data_length += TItemDialogLogoutTime::getMsgLength();
+            TItemPrivateStreamStatus::writeBuffer(field.privateStreamStatus, buffer);
+            buffer += TItemPrivateStreamStatus::getMsgLength();
+            data_length += TItemPrivateStreamStatus::getMsgLength();
+            TItemPrivateLoginTime::writeBuffer(field.privateLoginTime, buffer);
+            buffer += TItemPrivateLoginTime::getMsgLength();
+            data_length += TItemPrivateLoginTime::getMsgLength();
+            TItemPrivateLogoutTime::writeBuffer(field.privateLogoutTime, buffer);
+            buffer += TItemPrivateLogoutTime::getMsgLength();
+            data_length += TItemPrivateLogoutTime::getMsgLength();
+            TItemBroadcastStreamStatus::writeBuffer(field.broadcastStreamStatus, buffer);
+            buffer += TItemBroadcastStreamStatus::getMsgLength();
+            data_length += TItemBroadcastStreamStatus::getMsgLength();
+            TItemBroadcastLoginTime::writeBuffer(field.broadcastLoginTime, buffer);
+            buffer += TItemBroadcastLoginTime::getMsgLength();
+            data_length += TItemBroadcastLoginTime::getMsgLength();
+            TItemBroadcastLogOutTime::writeBuffer(field.broadcastLogOutTime, buffer);
+            buffer += TItemBroadcastLogOutTime::getMsgLength();
+            data_length += TItemBroadcastLogOutTime::getMsgLength();
+            TItemFrontId::writeBuffer(field.frontId, buffer);
+            buffer += TItemFrontId::getMsgLength();
+            data_length += TItemFrontId::getMsgLength();
 			writenLen = data_length;
 		}
 
 		static void readBuffer(const char* buffer, UserLoginField& field, int& readLen)
 		{
 			int data_length = 0;
-            TPropertyParticipantId::readBuffer(buffer, field.participantId);
-            buffer += TPropertyParticipantId::getMsgLength();
-            data_length += TPropertyParticipantId::getMsgLength();
-            TPropertyUserId::readBuffer(buffer, field.userId);
-            buffer += TPropertyUserId::getMsgLength();
-            data_length += TPropertyUserId::getMsgLength();
-            TPropertyIpAddr::readBuffer(buffer, field.ipAddr);
-            buffer += TPropertyIpAddr::getMsgLength();
-            data_length += TPropertyIpAddr::getMsgLength();
-            TPropertyDialogStreamStatus::readBuffer(buffer, field.dialogStreamStatus);
-            buffer += TPropertyDialogStreamStatus::getMsgLength();
-            data_length += TPropertyDialogStreamStatus::getMsgLength();
-            TPropertyDialogLoginTime::readBuffer(buffer, field.dialogLoginTime);
-            buffer += TPropertyDialogLoginTime::getMsgLength();
-            data_length += TPropertyDialogLoginTime::getMsgLength();
-            TPropertyDialogLogoutTime::readBuffer(buffer, field.dialogLogoutTime);
-            buffer += TPropertyDialogLogoutTime::getMsgLength();
-            data_length += TPropertyDialogLogoutTime::getMsgLength();
-            TPropertyPrivateStreamStatus::readBuffer(buffer, field.privateStreamStatus);
-            buffer += TPropertyPrivateStreamStatus::getMsgLength();
-            data_length += TPropertyPrivateStreamStatus::getMsgLength();
-            TPropertyPrivateLoginTime::readBuffer(buffer, field.privateLoginTime);
-            buffer += TPropertyPrivateLoginTime::getMsgLength();
-            data_length += TPropertyPrivateLoginTime::getMsgLength();
-            TPropertyPrivateLogoutTime::readBuffer(buffer, field.privateLogoutTime);
-            buffer += TPropertyPrivateLogoutTime::getMsgLength();
-            data_length += TPropertyPrivateLogoutTime::getMsgLength();
-            TPropertyBroadcastStreamStatus::readBuffer(buffer, field.broadcastStreamStatus);
-            buffer += TPropertyBroadcastStreamStatus::getMsgLength();
-            data_length += TPropertyBroadcastStreamStatus::getMsgLength();
-            TPropertyBroadcastLoginTime::readBuffer(buffer, field.broadcastLoginTime);
-            buffer += TPropertyBroadcastLoginTime::getMsgLength();
-            data_length += TPropertyBroadcastLoginTime::getMsgLength();
-            TPropertyBroadcastLogOutTime::readBuffer(buffer, field.broadcastLogOutTime);
-            buffer += TPropertyBroadcastLogOutTime::getMsgLength();
-            data_length += TPropertyBroadcastLogOutTime::getMsgLength();
-            TPropertyFrontId::readBuffer(buffer, field.frontId);
-            buffer += TPropertyFrontId::getMsgLength();
-            data_length += TPropertyFrontId::getMsgLength();
+            TItemParticipantId::readBuffer(buffer, field.participantId);
+            buffer += TItemParticipantId::getMsgLength();
+            data_length += TItemParticipantId::getMsgLength();
+            TItemUserId::readBuffer(buffer, field.userId);
+            buffer += TItemUserId::getMsgLength();
+            data_length += TItemUserId::getMsgLength();
+            TItemIpAddr::readBuffer(buffer, field.ipAddr);
+            buffer += TItemIpAddr::getMsgLength();
+            data_length += TItemIpAddr::getMsgLength();
+            TItemDialogStreamStatus::readBuffer(buffer, field.dialogStreamStatus);
+            buffer += TItemDialogStreamStatus::getMsgLength();
+            data_length += TItemDialogStreamStatus::getMsgLength();
+            TItemDialogLoginTime::readBuffer(buffer, field.dialogLoginTime);
+            buffer += TItemDialogLoginTime::getMsgLength();
+            data_length += TItemDialogLoginTime::getMsgLength();
+            TItemDialogLogoutTime::readBuffer(buffer, field.dialogLogoutTime);
+            buffer += TItemDialogLogoutTime::getMsgLength();
+            data_length += TItemDialogLogoutTime::getMsgLength();
+            TItemPrivateStreamStatus::readBuffer(buffer, field.privateStreamStatus);
+            buffer += TItemPrivateStreamStatus::getMsgLength();
+            data_length += TItemPrivateStreamStatus::getMsgLength();
+            TItemPrivateLoginTime::readBuffer(buffer, field.privateLoginTime);
+            buffer += TItemPrivateLoginTime::getMsgLength();
+            data_length += TItemPrivateLoginTime::getMsgLength();
+            TItemPrivateLogoutTime::readBuffer(buffer, field.privateLogoutTime);
+            buffer += TItemPrivateLogoutTime::getMsgLength();
+            data_length += TItemPrivateLogoutTime::getMsgLength();
+            TItemBroadcastStreamStatus::readBuffer(buffer, field.broadcastStreamStatus);
+            buffer += TItemBroadcastStreamStatus::getMsgLength();
+            data_length += TItemBroadcastStreamStatus::getMsgLength();
+            TItemBroadcastLoginTime::readBuffer(buffer, field.broadcastLoginTime);
+            buffer += TItemBroadcastLoginTime::getMsgLength();
+            data_length += TItemBroadcastLoginTime::getMsgLength();
+            TItemBroadcastLogOutTime::readBuffer(buffer, field.broadcastLogOutTime);
+            buffer += TItemBroadcastLogOutTime::getMsgLength();
+            data_length += TItemBroadcastLogOutTime::getMsgLength();
+            TItemFrontId::readBuffer(buffer, field.frontId);
+            buffer += TItemFrontId::getMsgLength();
+            data_length += TItemFrontId::getMsgLength();
 			readLen = data_length;
 		}
 	};

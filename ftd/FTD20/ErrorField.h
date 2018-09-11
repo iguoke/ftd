@@ -1,8 +1,12 @@
+/*
+本文件自动生成，请勿手工修改
+*/
+
 #ifndef FTD20_ERRORFIELD_H
 #define FTD20_ERRORFIELD_H
 
-#include "FTDProperties.h"
-#include "FTDFields.h"
+#include "../FTDItemType.h"
+
 
 using namespace FTD;
 
@@ -10,9 +14,9 @@ namespace FTD20 {
 
 	struct ErrorField
 	{
-            TTPropertyErrorCode errorCode;
-            TTPropertyErrorText errorText;
-            TTPropertyTimeStamp timeStamp;
+            TTItemErrorCode errorCode;
+            TTItemErrorText errorText;
+            TTItemTimeStamp timeStamp;
 	};
 
 	class ErrorFieldHelper
@@ -21,30 +25,30 @@ namespace FTD20 {
 		static void writeBuffer(const ErrorField& field, char* buffer, int& writenLen)
 		{
 			int data_length = 0;
-            TPropertyErrorCode::writeBuffer(field.errorCode, buffer);
-            buffer += TPropertyErrorCode::getMsgLength();
-            data_length += TPropertyErrorCode::getMsgLength();
-            TPropertyErrorText::writeBuffer(field.errorText, buffer);
-            buffer += TPropertyErrorText::getMsgLength();
-            data_length += TPropertyErrorText::getMsgLength();
-            TPropertyTimeStamp::writeBuffer(field.timeStamp, buffer);
-            buffer += TPropertyTimeStamp::getMsgLength();
-            data_length += TPropertyTimeStamp::getMsgLength();
+            TItemErrorCode::writeBuffer(field.errorCode, buffer);
+            buffer += TItemErrorCode::getMsgLength();
+            data_length += TItemErrorCode::getMsgLength();
+            TItemErrorText::writeBuffer(field.errorText, buffer);
+            buffer += TItemErrorText::getMsgLength();
+            data_length += TItemErrorText::getMsgLength();
+            TItemTimeStamp::writeBuffer(field.timeStamp, buffer);
+            buffer += TItemTimeStamp::getMsgLength();
+            data_length += TItemTimeStamp::getMsgLength();
 			writenLen = data_length;
 		}
 
 		static void readBuffer(const char* buffer, ErrorField& field, int& readLen)
 		{
 			int data_length = 0;
-            TPropertyErrorCode::readBuffer(buffer, field.errorCode);
-            buffer += TPropertyErrorCode::getMsgLength();
-            data_length += TPropertyErrorCode::getMsgLength();
-            TPropertyErrorText::readBuffer(buffer, field.errorText);
-            buffer += TPropertyErrorText::getMsgLength();
-            data_length += TPropertyErrorText::getMsgLength();
-            TPropertyTimeStamp::readBuffer(buffer, field.timeStamp);
-            buffer += TPropertyTimeStamp::getMsgLength();
-            data_length += TPropertyTimeStamp::getMsgLength();
+            TItemErrorCode::readBuffer(buffer, field.errorCode);
+            buffer += TItemErrorCode::getMsgLength();
+            data_length += TItemErrorCode::getMsgLength();
+            TItemErrorText::readBuffer(buffer, field.errorText);
+            buffer += TItemErrorText::getMsgLength();
+            data_length += TItemErrorText::getMsgLength();
+            TItemTimeStamp::readBuffer(buffer, field.timeStamp);
+            buffer += TItemTimeStamp::getMsgLength();
+            data_length += TItemTimeStamp::getMsgLength();
 			readLen = data_length;
 		}
 	};

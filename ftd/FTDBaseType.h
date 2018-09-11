@@ -1,5 +1,5 @@
-#ifndef FTD_DATA_TYPE_H
-#define FTD_DATA_TYPE_H
+#ifndef FTD_BASE_TYPE_H
+#define FTD_BASE_TYPE_H
 
 #include <memory.h>
 #include <string>

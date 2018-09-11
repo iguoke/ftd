@@ -1,8 +1,12 @@
+/*
+本文件自动生成，请勿手工修改
+*/
+
 #ifndef FTD20_REQQRYMARKETMATCHDATAFIELD_H
 #define FTD20_REQQRYMARKETMATCHDATAFIELD_H
 
-#include "FTDProperties.h"
-#include "FTDFields.h"
+#include "../FTDItemType.h"
+
 
 using namespace FTD;
 
@@ -10,7 +14,7 @@ namespace FTD20 {
 
 	struct ReqQryMarketMatchDataField
 	{
-            TTPropertyInstrumentId instrumentId;
+            TTItemInstrumentId instrumentId;
 	};
 
 	class ReqQryMarketMatchDataFieldHelper
@@ -19,18 +23,18 @@ namespace FTD20 {
 		static void writeBuffer(const ReqQryMarketMatchDataField& field, char* buffer, int& writenLen)
 		{
 			int data_length = 0;
-            TPropertyInstrumentId::writeBuffer(field.instrumentId, buffer);
-            buffer += TPropertyInstrumentId::getMsgLength();
-            data_length += TPropertyInstrumentId::getMsgLength();
+            TItemInstrumentId::writeBuffer(field.instrumentId, buffer);
+            buffer += TItemInstrumentId::getMsgLength();
+            data_length += TItemInstrumentId::getMsgLength();
 			writenLen = data_length;
 		}
 
 		static void readBuffer(const char* buffer, ReqQryMarketMatchDataField& field, int& readLen)
 		{
 			int data_length = 0;
-            TPropertyInstrumentId::readBuffer(buffer, field.instrumentId);
-            buffer += TPropertyInstrumentId::getMsgLength();
-            data_length += TPropertyInstrumentId::getMsgLength();
+            TItemInstrumentId::readBuffer(buffer, field.instrumentId);
+            buffer += TItemInstrumentId::getMsgLength();
+            data_length += TItemInstrumentId::getMsgLength();
 			readLen = data_length;
 		}
 	};

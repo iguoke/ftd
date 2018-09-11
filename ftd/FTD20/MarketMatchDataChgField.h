@@ -1,8 +1,12 @@
+/*
+本文件自动生成，请勿手工修改
+*/
+
 #ifndef FTD20_MARKETMATCHDATACHGFIELD_H
 #define FTD20_MARKETMATCHDATACHGFIELD_H
 
-#include "FTDProperties.h"
-#include "FTDFields.h"
+#include "../FTDItemType.h"
+
 
 using namespace FTD;
 
@@ -10,18 +14,18 @@ namespace FTD20 {
 
 	struct MarketMatchDataChgField
 	{
-            TTPropertyInstrumentId instrumentId;
-            TTPropertyInstrumentVersion instrumentVersion;
-            TTPropertyOpenPrice openPrice;
-            TTPropertyHighPrice highPrice;
-            TTPropertyLowPrice lowPrice;
-            TTPropertyLastPrice lastPrice;
-            TTPropertyBidPrice bidPrice;
-            TTPropertyAskPrice askPrice;
-            TTPropertyBidLot bidLot;
-            TTPropertyAskLot askLot;
-            TTPropertyVolume volume;
-            TTPropertyOpenInterest openInterest;
+            TTItemInstrumentId instrumentId;
+            TTItemInstrumentVersion instrumentVersion;
+            TTItemOpenPrice openPrice;
+            TTItemHighPrice highPrice;
+            TTItemLowPrice lowPrice;
+            TTItemLastPrice lastPrice;
+            TTItemBidPrice bidPrice;
+            TTItemAskPrice askPrice;
+            TTItemBidLot bidLot;
+            TTItemAskLot askLot;
+            TTItemVolume volume;
+            TTItemOpenInterest openInterest;
 	};
 
 	class MarketMatchDataChgFieldHelper
@@ -30,84 +34,84 @@ namespace FTD20 {
 		static void writeBuffer(const MarketMatchDataChgField& field, char* buffer, int& writenLen)
 		{
 			int data_length = 0;
-            TPropertyInstrumentId::writeBuffer(field.instrumentId, buffer);
-            buffer += TPropertyInstrumentId::getMsgLength();
-            data_length += TPropertyInstrumentId::getMsgLength();
-            TPropertyInstrumentVersion::writeBuffer(field.instrumentVersion, buffer);
-            buffer += TPropertyInstrumentVersion::getMsgLength();
-            data_length += TPropertyInstrumentVersion::getMsgLength();
-            TPropertyOpenPrice::writeBuffer(field.openPrice, buffer);
-            buffer += TPropertyOpenPrice::getMsgLength();
-            data_length += TPropertyOpenPrice::getMsgLength();
-            TPropertyHighPrice::writeBuffer(field.highPrice, buffer);
-            buffer += TPropertyHighPrice::getMsgLength();
-            data_length += TPropertyHighPrice::getMsgLength();
-            TPropertyLowPrice::writeBuffer(field.lowPrice, buffer);
-            buffer += TPropertyLowPrice::getMsgLength();
-            data_length += TPropertyLowPrice::getMsgLength();
-            TPropertyLastPrice::writeBuffer(field.lastPrice, buffer);
-            buffer += TPropertyLastPrice::getMsgLength();
-            data_length += TPropertyLastPrice::getMsgLength();
-            TPropertyBidPrice::writeBuffer(field.bidPrice, buffer);
-            buffer += TPropertyBidPrice::getMsgLength();
-            data_length += TPropertyBidPrice::getMsgLength();
-            TPropertyAskPrice::writeBuffer(field.askPrice, buffer);
-            buffer += TPropertyAskPrice::getMsgLength();
-            data_length += TPropertyAskPrice::getMsgLength();
-            TPropertyBidLot::writeBuffer(field.bidLot, buffer);
-            buffer += TPropertyBidLot::getMsgLength();
-            data_length += TPropertyBidLot::getMsgLength();
-            TPropertyAskLot::writeBuffer(field.askLot, buffer);
-            buffer += TPropertyAskLot::getMsgLength();
-            data_length += TPropertyAskLot::getMsgLength();
-            TPropertyVolume::writeBuffer(field.volume, buffer);
-            buffer += TPropertyVolume::getMsgLength();
-            data_length += TPropertyVolume::getMsgLength();
-            TPropertyOpenInterest::writeBuffer(field.openInterest, buffer);
-            buffer += TPropertyOpenInterest::getMsgLength();
-            data_length += TPropertyOpenInterest::getMsgLength();
+            TItemInstrumentId::writeBuffer(field.instrumentId, buffer);
+            buffer += TItemInstrumentId::getMsgLength();
+            data_length += TItemInstrumentId::getMsgLength();
+            TItemInstrumentVersion::writeBuffer(field.instrumentVersion, buffer);
+            buffer += TItemInstrumentVersion::getMsgLength();
+            data_length += TItemInstrumentVersion::getMsgLength();
+            TItemOpenPrice::writeBuffer(field.openPrice, buffer);
+            buffer += TItemOpenPrice::getMsgLength();
+            data_length += TItemOpenPrice::getMsgLength();
+            TItemHighPrice::writeBuffer(field.highPrice, buffer);
+            buffer += TItemHighPrice::getMsgLength();
+            data_length += TItemHighPrice::getMsgLength();
+            TItemLowPrice::writeBuffer(field.lowPrice, buffer);
+            buffer += TItemLowPrice::getMsgLength();
+            data_length += TItemLowPrice::getMsgLength();
+            TItemLastPrice::writeBuffer(field.lastPrice, buffer);
+            buffer += TItemLastPrice::getMsgLength();
+            data_length += TItemLastPrice::getMsgLength();
+            TItemBidPrice::writeBuffer(field.bidPrice, buffer);
+            buffer += TItemBidPrice::getMsgLength();
+            data_length += TItemBidPrice::getMsgLength();
+            TItemAskPrice::writeBuffer(field.askPrice, buffer);
+            buffer += TItemAskPrice::getMsgLength();
+            data_length += TItemAskPrice::getMsgLength();
+            TItemBidLot::writeBuffer(field.bidLot, buffer);
+            buffer += TItemBidLot::getMsgLength();
+            data_length += TItemBidLot::getMsgLength();
+            TItemAskLot::writeBuffer(field.askLot, buffer);
+            buffer += TItemAskLot::getMsgLength();
+            data_length += TItemAskLot::getMsgLength();
+            TItemVolume::writeBuffer(field.volume, buffer);
+            buffer += TItemVolume::getMsgLength();
+            data_length += TItemVolume::getMsgLength();
+            TItemOpenInterest::writeBuffer(field.openInterest, buffer);
+            buffer += TItemOpenInterest::getMsgLength();
+            data_length += TItemOpenInterest::getMsgLength();
 			writenLen = data_length;
 		}
 
 		static void readBuffer(const char* buffer, MarketMatchDataChgField& field, int& readLen)
 		{
 			int data_length = 0;
-            TPropertyInstrumentId::readBuffer(buffer, field.instrumentId);
-            buffer += TPropertyInstrumentId::getMsgLength();
-            data_length += TPropertyInstrumentId::getMsgLength();
-            TPropertyInstrumentVersion::readBuffer(buffer, field.instrumentVersion);
-            buffer += TPropertyInstrumentVersion::getMsgLength();
-            data_length += TPropertyInstrumentVersion::getMsgLength();
-            TPropertyOpenPrice::readBuffer(buffer, field.openPrice);
-            buffer += TPropertyOpenPrice::getMsgLength();
-            data_length += TPropertyOpenPrice::getMsgLength();
-            TPropertyHighPrice::readBuffer(buffer, field.highPrice);
-            buffer += TPropertyHighPrice::getMsgLength();
-            data_length += TPropertyHighPrice::getMsgLength();
-            TPropertyLowPrice::readBuffer(buffer, field.lowPrice);
-            buffer += TPropertyLowPrice::getMsgLength();
-            data_length += TPropertyLowPrice::getMsgLength();
-            TPropertyLastPrice::readBuffer(buffer, field.lastPrice);
-            buffer += TPropertyLastPrice::getMsgLength();
-            data_length += TPropertyLastPrice::getMsgLength();
-            TPropertyBidPrice::readBuffer(buffer, field.bidPrice);
-            buffer += TPropertyBidPrice::getMsgLength();
-            data_length += TPropertyBidPrice::getMsgLength();
-            TPropertyAskPrice::readBuffer(buffer, field.askPrice);
-            buffer += TPropertyAskPrice::getMsgLength();
-            data_length += TPropertyAskPrice::getMsgLength();
-            TPropertyBidLot::readBuffer(buffer, field.bidLot);
-            buffer += TPropertyBidLot::getMsgLength();
-            data_length += TPropertyBidLot::getMsgLength();
-            TPropertyAskLot::readBuffer(buffer, field.askLot);
-            buffer += TPropertyAskLot::getMsgLength();
-            data_length += TPropertyAskLot::getMsgLength();
-            TPropertyVolume::readBuffer(buffer, field.volume);
-            buffer += TPropertyVolume::getMsgLength();
-            data_length += TPropertyVolume::getMsgLength();
-            TPropertyOpenInterest::readBuffer(buffer, field.openInterest);
-            buffer += TPropertyOpenInterest::getMsgLength();
-            data_length += TPropertyOpenInterest::getMsgLength();
+            TItemInstrumentId::readBuffer(buffer, field.instrumentId);
+            buffer += TItemInstrumentId::getMsgLength();
+            data_length += TItemInstrumentId::getMsgLength();
+            TItemInstrumentVersion::readBuffer(buffer, field.instrumentVersion);
+            buffer += TItemInstrumentVersion::getMsgLength();
+            data_length += TItemInstrumentVersion::getMsgLength();
+            TItemOpenPrice::readBuffer(buffer, field.openPrice);
+            buffer += TItemOpenPrice::getMsgLength();
+            data_length += TItemOpenPrice::getMsgLength();
+            TItemHighPrice::readBuffer(buffer, field.highPrice);
+            buffer += TItemHighPrice::getMsgLength();
+            data_length += TItemHighPrice::getMsgLength();
+            TItemLowPrice::readBuffer(buffer, field.lowPrice);
+            buffer += TItemLowPrice::getMsgLength();
+            data_length += TItemLowPrice::getMsgLength();
+            TItemLastPrice::readBuffer(buffer, field.lastPrice);
+            buffer += TItemLastPrice::getMsgLength();
+            data_length += TItemLastPrice::getMsgLength();
+            TItemBidPrice::readBuffer(buffer, field.bidPrice);
+            buffer += TItemBidPrice::getMsgLength();
+            data_length += TItemBidPrice::getMsgLength();
+            TItemAskPrice::readBuffer(buffer, field.askPrice);
+            buffer += TItemAskPrice::getMsgLength();
+            data_length += TItemAskPrice::getMsgLength();
+            TItemBidLot::readBuffer(buffer, field.bidLot);
+            buffer += TItemBidLot::getMsgLength();
+            data_length += TItemBidLot::getMsgLength();
+            TItemAskLot::readBuffer(buffer, field.askLot);
+            buffer += TItemAskLot::getMsgLength();
+            data_length += TItemAskLot::getMsgLength();
+            TItemVolume::readBuffer(buffer, field.volume);
+            buffer += TItemVolume::getMsgLength();
+            data_length += TItemVolume::getMsgLength();
+            TItemOpenInterest::readBuffer(buffer, field.openInterest);
+            buffer += TItemOpenInterest::getMsgLength();
+            data_length += TItemOpenInterest::getMsgLength();
 			readLen = data_length;
 		}
 	};

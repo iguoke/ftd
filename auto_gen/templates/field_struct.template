@@ -1,8 +1,12 @@
+/*
+本文件自动生成，请勿手工修改
+*/
+
 #ifndef {version}_{field_name_upper}_H
 #define {version}_{field_name_upper}_H
 
-#include "FTDProperties.h"
-#include "FTDFields.h"
+#include "../FTDItemType.h"
+
 
 using namespace FTD;
 
@@ -10,7 +14,7 @@ namespace {version} {{
 
 	struct {field_name}
 	{{
-{property_type_var_pair_list_string}
+{item_type_var_pair_list_string}
 	}};
 
 	class {field_name}Helper
@@ -19,14 +23,14 @@ namespace {version} {{
 		static void writeBuffer(const {field_name}& field, char* buffer, int& writenLen)
 		{{
 			int data_length = 0;
-{write_properties_string}
+{write_items_string}
 			writenLen = data_length;
 		}}
 
 		static void readBuffer(const char* buffer, {field_name}& field, int& readLen)
 		{{
 			int data_length = 0;
-{read_properties_string}
+{read_items_string}
 			readLen = data_length;
 		}}
 	}};

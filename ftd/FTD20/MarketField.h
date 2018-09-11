@@ -1,8 +1,12 @@
+/*
+本文件自动生成，请勿手工修改
+*/
+
 #ifndef FTD20_MARKETFIELD_H
 #define FTD20_MARKETFIELD_H
 
-#include "FTDProperties.h"
-#include "FTDFields.h"
+#include "../FTDItemType.h"
+
 
 using namespace FTD;
 
@@ -10,10 +14,10 @@ namespace FTD20 {
 
 	struct MarketField
 	{
-            TTPropertyMarketId marketId;
-            TTPropertyMarketName marketName;
-            TTPropertyBroadcastSequenceSeries broadcastSequenceSeries;
-            TTPropertyTradeType tradeType;
+            TTItemMarketId marketId;
+            TTItemMarketName marketName;
+            TTItemBroadcastSequenceSeries broadcastSequenceSeries;
+            TTItemTradeType tradeType;
 	};
 
 	class MarketFieldHelper
@@ -22,36 +26,36 @@ namespace FTD20 {
 		static void writeBuffer(const MarketField& field, char* buffer, int& writenLen)
 		{
 			int data_length = 0;
-            TPropertyMarketId::writeBuffer(field.marketId, buffer);
-            buffer += TPropertyMarketId::getMsgLength();
-            data_length += TPropertyMarketId::getMsgLength();
-            TPropertyMarketName::writeBuffer(field.marketName, buffer);
-            buffer += TPropertyMarketName::getMsgLength();
-            data_length += TPropertyMarketName::getMsgLength();
-            TPropertyBroadcastSequenceSeries::writeBuffer(field.broadcastSequenceSeries, buffer);
-            buffer += TPropertyBroadcastSequenceSeries::getMsgLength();
-            data_length += TPropertyBroadcastSequenceSeries::getMsgLength();
-            TPropertyTradeType::writeBuffer(field.tradeType, buffer);
-            buffer += TPropertyTradeType::getMsgLength();
-            data_length += TPropertyTradeType::getMsgLength();
+            TItemMarketId::writeBuffer(field.marketId, buffer);
+            buffer += TItemMarketId::getMsgLength();
+            data_length += TItemMarketId::getMsgLength();
+            TItemMarketName::writeBuffer(field.marketName, buffer);
+            buffer += TItemMarketName::getMsgLength();
+            data_length += TItemMarketName::getMsgLength();
+            TItemBroadcastSequenceSeries::writeBuffer(field.broadcastSequenceSeries, buffer);
+            buffer += TItemBroadcastSequenceSeries::getMsgLength();
+            data_length += TItemBroadcastSequenceSeries::getMsgLength();
+            TItemTradeType::writeBuffer(field.tradeType, buffer);
+            buffer += TItemTradeType::getMsgLength();
+            data_length += TItemTradeType::getMsgLength();
 			writenLen = data_length;
 		}
 
 		static void readBuffer(const char* buffer, MarketField& field, int& readLen)
 		{
 			int data_length = 0;
-            TPropertyMarketId::readBuffer(buffer, field.marketId);
-            buffer += TPropertyMarketId::getMsgLength();
-            data_length += TPropertyMarketId::getMsgLength();
-            TPropertyMarketName::readBuffer(buffer, field.marketName);
-            buffer += TPropertyMarketName::getMsgLength();
-            data_length += TPropertyMarketName::getMsgLength();
-            TPropertyBroadcastSequenceSeries::readBuffer(buffer, field.broadcastSequenceSeries);
-            buffer += TPropertyBroadcastSequenceSeries::getMsgLength();
-            data_length += TPropertyBroadcastSequenceSeries::getMsgLength();
-            TPropertyTradeType::readBuffer(buffer, field.tradeType);
-            buffer += TPropertyTradeType::getMsgLength();
-            data_length += TPropertyTradeType::getMsgLength();
+            TItemMarketId::readBuffer(buffer, field.marketId);
+            buffer += TItemMarketId::getMsgLength();
+            data_length += TItemMarketId::getMsgLength();
+            TItemMarketName::readBuffer(buffer, field.marketName);
+            buffer += TItemMarketName::getMsgLength();
+            data_length += TItemMarketName::getMsgLength();
+            TItemBroadcastSequenceSeries::readBuffer(buffer, field.broadcastSequenceSeries);
+            buffer += TItemBroadcastSequenceSeries::getMsgLength();
+            data_length += TItemBroadcastSequenceSeries::getMsgLength();
+            TItemTradeType::readBuffer(buffer, field.tradeType);
+            buffer += TItemTradeType::getMsgLength();
+            data_length += TItemTradeType::getMsgLength();
 			readLen = data_length;
 		}
 	};

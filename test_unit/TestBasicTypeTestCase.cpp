@@ -5,7 +5,7 @@
 #include "config.h"
 #endif
 
-#include <FTDDataTypes.h>
+#include <FTDBaseType.h>
 #include <UnitTest++.h>
 
 

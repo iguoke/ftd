@@ -1,8 +1,12 @@
+/*
+本文件自动生成，请勿手工修改
+*/
+
 #ifndef FTD20_USERFIELD_H
 #define FTD20_USERFIELD_H
 
-#include "FTDProperties.h"
-#include "FTDFields.h"
+#include "../FTDItemType.h"
+
 
 using namespace FTD;
 
@@ -10,12 +14,12 @@ namespace FTD20 {
 
 	struct UserField
 	{
-            TTPropertyUserId userId;
-            TTPropertyParticipantId participantId;
-            TTPropertyName name;
-            TTPropertyIsLogin isLogin;
-            TTPropertyUserStatus userStatus;
-            TTPropertyUserType userType;
+            TTItemUserId userId;
+            TTItemParticipantId participantId;
+            TTItemName name;
+            TTItemIsLogin isLogin;
+            TTItemUserStatus userStatus;
+            TTItemUserType userType;
 	};
 
 	class UserFieldHelper
@@ -24,48 +28,48 @@ namespace FTD20 {
 		static void writeBuffer(const UserField& field, char* buffer, int& writenLen)
 		{
 			int data_length = 0;
-            TPropertyUserId::writeBuffer(field.userId, buffer);
-            buffer += TPropertyUserId::getMsgLength();
-            data_length += TPropertyUserId::getMsgLength();
-            TPropertyParticipantId::writeBuffer(field.participantId, buffer);
-            buffer += TPropertyParticipantId::getMsgLength();
-            data_length += TPropertyParticipantId::getMsgLength();
-            TPropertyName::writeBuffer(field.name, buffer);
-            buffer += TPropertyName::getMsgLength();
-            data_length += TPropertyName::getMsgLength();
-            TPropertyIsLogin::writeBuffer(field.isLogin, buffer);
-            buffer += TPropertyIsLogin::getMsgLength();
-            data_length += TPropertyIsLogin::getMsgLength();
-            TPropertyUserStatus::writeBuffer(field.userStatus, buffer);
-            buffer += TPropertyUserStatus::getMsgLength();
-            data_length += TPropertyUserStatus::getMsgLength();
-            TPropertyUserType::writeBuffer(field.userType, buffer);
-            buffer += TPropertyUserType::getMsgLength();
-            data_length += TPropertyUserType::getMsgLength();
+            TItemUserId::writeBuffer(field.userId, buffer);
+            buffer += TItemUserId::getMsgLength();
+            data_length += TItemUserId::getMsgLength();
+            TItemParticipantId::writeBuffer(field.participantId, buffer);
+            buffer += TItemParticipantId::getMsgLength();
+            data_length += TItemParticipantId::getMsgLength();
+            TItemName::writeBuffer(field.name, buffer);
+            buffer += TItemName::getMsgLength();
+            data_length += TItemName::getMsgLength();
+            TItemIsLogin::writeBuffer(field.isLogin, buffer);
+            buffer += TItemIsLogin::getMsgLength();
+            data_length += TItemIsLogin::getMsgLength();
+            TItemUserStatus::writeBuffer(field.userStatus, buffer);
+            buffer += TItemUserStatus::getMsgLength();
+            data_length += TItemUserStatus::getMsgLength();
+            TItemUserType::writeBuffer(field.userType, buffer);
+            buffer += TItemUserType::getMsgLength();
+            data_length += TItemUserType::getMsgLength();
 			writenLen = data_length;
 		}
 
 		static void readBuffer(const char* buffer, UserField& field, int& readLen)
 		{
 			int data_length = 0;
-            TPropertyUserId::readBuffer(buffer, field.userId);
-            buffer += TPropertyUserId::getMsgLength();
-            data_length += TPropertyUserId::getMsgLength();
-            TPropertyParticipantId::readBuffer(buffer, field.participantId);
-            buffer += TPropertyParticipantId::getMsgLength();
-            data_length += TPropertyParticipantId::getMsgLength();
-            TPropertyName::readBuffer(buffer, field.name);
-            buffer += TPropertyName::getMsgLength();
-            data_length += TPropertyName::getMsgLength();
-            TPropertyIsLogin::readBuffer(buffer, field.isLogin);
-            buffer += TPropertyIsLogin::getMsgLength();
-            data_length += TPropertyIsLogin::getMsgLength();
-            TPropertyUserStatus::readBuffer(buffer, field.userStatus);
-            buffer += TPropertyUserStatus::getMsgLength();
-            data_length += TPropertyUserStatus::getMsgLength();
-            TPropertyUserType::readBuffer(buffer, field.userType);
-            buffer += TPropertyUserType::getMsgLength();
-            data_length += TPropertyUserType::getMsgLength();
+            TItemUserId::readBuffer(buffer, field.userId);
+            buffer += TItemUserId::getMsgLength();
+            data_length += TItemUserId::getMsgLength();
+            TItemParticipantId::readBuffer(buffer, field.participantId);
+            buffer += TItemParticipantId::getMsgLength();
+            data_length += TItemParticipantId::getMsgLength();
+            TItemName::readBuffer(buffer, field.name);
+            buffer += TItemName::getMsgLength();
+            data_length += TItemName::getMsgLength();
+            TItemIsLogin::readBuffer(buffer, field.isLogin);
+            buffer += TItemIsLogin::getMsgLength();
+            data_length += TItemIsLogin::getMsgLength();
+            TItemUserStatus::readBuffer(buffer, field.userStatus);
+            buffer += TItemUserStatus::getMsgLength();
+            data_length += TItemUserStatus::getMsgLength();
+            TItemUserType::readBuffer(buffer, field.userType);
+            buffer += TItemUserType::getMsgLength();
+            data_length += TItemUserType::getMsgLength();
 			readLen = data_length;
 		}
 	};

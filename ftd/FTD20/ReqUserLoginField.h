@@ -1,8 +1,12 @@
+/*
+本文件自动生成，请勿手工修改
+*/
+
 #ifndef FTD20_REQUSERLOGINFIELD_H
 #define FTD20_REQUSERLOGINFIELD_H
 
-#include "FTDProperties.h"
-#include "FTDFields.h"
+#include "../FTDItemType.h"
+
 
 using namespace FTD;
 
@@ -10,15 +14,15 @@ namespace FTD20 {
 
 	struct ReqUserLoginField
 	{
-            TTPropertyDataFlowFlag dataFlowFlag;
-            TTPropertyParticipantId participantId;
-            TTPropertyUserId userId;
-            TTPropertyPassword password;
-            TTPropertyConnectionReference connectionReference;
-            TTPropertyServerAppName serverAppName;
-            TTPropertyProtocolVersion protocolVersion;
-            TTPropertyTimeOut timeOut;
-            TTPropertyIpAddr ipAddr;
+            TTItemDataFlowFlag dataFlowFlag;
+            TTItemParticipantId participantId;
+            TTItemUserId userId;
+            TTItemPassword password;
+            TTItemConnectionReference connectionReference;
+            TTItemServerAppName serverAppName;
+            TTItemProtocolVersion protocolVersion;
+            TTItemTimeOut timeOut;
+            TTItemIpAddr ipAddr;
 	};
 
 	class ReqUserLoginFieldHelper
@@ -27,66 +31,66 @@ namespace FTD20 {
 		static void writeBuffer(const ReqUserLoginField& field, char* buffer, int& writenLen)
 		{
 			int data_length = 0;
-            TPropertyDataFlowFlag::writeBuffer(field.dataFlowFlag, buffer);
-            buffer += TPropertyDataFlowFlag::getMsgLength();
-            data_length += TPropertyDataFlowFlag::getMsgLength();
-            TPropertyParticipantId::writeBuffer(field.participantId, buffer);
-            buffer += TPropertyParticipantId::getMsgLength();
-            data_length += TPropertyParticipantId::getMsgLength();
-            TPropertyUserId::writeBuffer(field.userId, buffer);
-            buffer += TPropertyUserId::getMsgLength();
-            data_length += TPropertyUserId::getMsgLength();
-            TPropertyPassword::writeBuffer(field.password, buffer);
-            buffer += TPropertyPassword::getMsgLength();
-            data_length += TPropertyPassword::getMsgLength();
-            TPropertyConnectionReference::writeBuffer(field.connectionReference, buffer);
-            buffer += TPropertyConnectionReference::getMsgLength();
-            data_length += TPropertyConnectionReference::getMsgLength();
-            TPropertyServerAppName::writeBuffer(field.serverAppName, buffer);
-            buffer += TPropertyServerAppName::getMsgLength();
-            data_length += TPropertyServerAppName::getMsgLength();
-            TPropertyProtocolVersion::writeBuffer(field.protocolVersion, buffer);
-            buffer += TPropertyProtocolVersion::getMsgLength();
-            data_length += TPropertyProtocolVersion::getMsgLength();
-            TPropertyTimeOut::writeBuffer(field.timeOut, buffer);
-            buffer += TPropertyTimeOut::getMsgLength();
-            data_length += TPropertyTimeOut::getMsgLength();
-            TPropertyIpAddr::writeBuffer(field.ipAddr, buffer);
-            buffer += TPropertyIpAddr::getMsgLength();
-            data_length += TPropertyIpAddr::getMsgLength();
+            TItemDataFlowFlag::writeBuffer(field.dataFlowFlag, buffer);
+            buffer += TItemDataFlowFlag::getMsgLength();
+            data_length += TItemDataFlowFlag::getMsgLength();
+            TItemParticipantId::writeBuffer(field.participantId, buffer);
+            buffer += TItemParticipantId::getMsgLength();
+            data_length += TItemParticipantId::getMsgLength();
+            TItemUserId::writeBuffer(field.userId, buffer);
+            buffer += TItemUserId::getMsgLength();
+            data_length += TItemUserId::getMsgLength();
+            TItemPassword::writeBuffer(field.password, buffer);
+            buffer += TItemPassword::getMsgLength();
+            data_length += TItemPassword::getMsgLength();
+            TItemConnectionReference::writeBuffer(field.connectionReference, buffer);
+            buffer += TItemConnectionReference::getMsgLength();
+            data_length += TItemConnectionReference::getMsgLength();
+            TItemServerAppName::writeBuffer(field.serverAppName, buffer);
+            buffer += TItemServerAppName::getMsgLength();
+            data_length += TItemServerAppName::getMsgLength();
+            TItemProtocolVersion::writeBuffer(field.protocolVersion, buffer);
+            buffer += TItemProtocolVersion::getMsgLength();
+            data_length += TItemProtocolVersion::getMsgLength();
+            TItemTimeOut::writeBuffer(field.timeOut, buffer);
+            buffer += TItemTimeOut::getMsgLength();
+            data_length += TItemTimeOut::getMsgLength();
+            TItemIpAddr::writeBuffer(field.ipAddr, buffer);
+            buffer += TItemIpAddr::getMsgLength();
+            data_length += TItemIpAddr::getMsgLength();
 			writenLen = data_length;
 		}
 
 		static void readBuffer(const char* buffer, ReqUserLoginField& field, int& readLen)
 		{
 			int data_length = 0;
-            TPropertyDataFlowFlag::readBuffer(buffer, field.dataFlowFlag);
-            buffer += TPropertyDataFlowFlag::getMsgLength();
-            data_length += TPropertyDataFlowFlag::getMsgLength();
-            TPropertyParticipantId::readBuffer(buffer, field.participantId);
-            buffer += TPropertyParticipantId::getMsgLength();
-            data_length += TPropertyParticipantId::getMsgLength();
-            TPropertyUserId::readBuffer(buffer, field.userId);
-            buffer += TPropertyUserId::getMsgLength();
-            data_length += TPropertyUserId::getMsgLength();
-            TPropertyPassword::readBuffer(buffer, field.password);
-            buffer += TPropertyPassword::getMsgLength();
-            data_length += TPropertyPassword::getMsgLength();
-            TPropertyConnectionReference::readBuffer(buffer, field.connectionReference);
-            buffer += TPropertyConnectionReference::getMsgLength();
-            data_length += TPropertyConnectionReference::getMsgLength();
-            TPropertyServerAppName::readBuffer(buffer, field.serverAppName);
-            buffer += TPropertyServerAppName::getMsgLength();
-            data_length += TPropertyServerAppName::getMsgLength();
-            TPropertyProtocolVersion::readBuffer(buffer, field.protocolVersion);
-            buffer += TPropertyProtocolVersion::getMsgLength();
-            data_length += TPropertyProtocolVersion::getMsgLength();
-            TPropertyTimeOut::readBuffer(buffer, field.timeOut);
-            buffer += TPropertyTimeOut::getMsgLength();
-            data_length += TPropertyTimeOut::getMsgLength();
-            TPropertyIpAddr::readBuffer(buffer, field.ipAddr);
-            buffer += TPropertyIpAddr::getMsgLength();
-            data_length += TPropertyIpAddr::getMsgLength();
+            TItemDataFlowFlag::readBuffer(buffer, field.dataFlowFlag);
+            buffer += TItemDataFlowFlag::getMsgLength();
+            data_length += TItemDataFlowFlag::getMsgLength();
+            TItemParticipantId::readBuffer(buffer, field.participantId);
+            buffer += TItemParticipantId::getMsgLength();
+            data_length += TItemParticipantId::getMsgLength();
+            TItemUserId::readBuffer(buffer, field.userId);
+            buffer += TItemUserId::getMsgLength();
+            data_length += TItemUserId::getMsgLength();
+            TItemPassword::readBuffer(buffer, field.password);
+            buffer += TItemPassword::getMsgLength();
+            data_length += TItemPassword::getMsgLength();
+            TItemConnectionReference::readBuffer(buffer, field.connectionReference);
+            buffer += TItemConnectionReference::getMsgLength();
+            data_length += TItemConnectionReference::getMsgLength();
+            TItemServerAppName::readBuffer(buffer, field.serverAppName);
+            buffer += TItemServerAppName::getMsgLength();
+            data_length += TItemServerAppName::getMsgLength();
+            TItemProtocolVersion::readBuffer(buffer, field.protocolVersion);
+            buffer += TItemProtocolVersion::getMsgLength();
+            data_length += TItemProtocolVersion::getMsgLength();
+            TItemTimeOut::readBuffer(buffer, field.timeOut);
+            buffer += TItemTimeOut::getMsgLength();
+            data_length += TItemTimeOut::getMsgLength();
+            TItemIpAddr::readBuffer(buffer, field.ipAddr);
+            buffer += TItemIpAddr::getMsgLength();
+            data_length += TItemIpAddr::getMsgLength();
 			readLen = data_length;
 		}
 	};

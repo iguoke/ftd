@@ -1,8 +1,12 @@
+/*
+本文件自动生成，请勿手工修改
+*/
+
 #ifndef FTD20_REQUSERPASSWORDUPDATEFIELD_H
 #define FTD20_REQUSERPASSWORDUPDATEFIELD_H
 
-#include "FTDProperties.h"
-#include "FTDFields.h"
+#include "../FTDItemType.h"
+
 
 using namespace FTD;
 
@@ -10,10 +14,10 @@ namespace FTD20 {
 
 	struct ReqUserPasswordUpdateField
 	{
-            TTPropertyParticipantId participantId;
-            TTPropertyUserId userId;
-            TTPropertyNewPassword newPassword;
-            TTPropertyOldPassword oldPassword;
+            TTItemParticipantId participantId;
+            TTItemUserId userId;
+            TTItemNewPassword newPassword;
+            TTItemOldPassword oldPassword;
 	};
 
 	class ReqUserPasswordUpdateFieldHelper
@@ -22,36 +26,36 @@ namespace FTD20 {
 		static void writeBuffer(const ReqUserPasswordUpdateField& field, char* buffer, int& writenLen)
 		{
 			int data_length = 0;
-            TPropertyParticipantId::writeBuffer(field.participantId, buffer);
-            buffer += TPropertyParticipantId::getMsgLength();
-            data_length += TPropertyParticipantId::getMsgLength();
-            TPropertyUserId::writeBuffer(field.userId, buffer);
-            buffer += TPropertyUserId::getMsgLength();
-            data_length += TPropertyUserId::getMsgLength();
-            TPropertyNewPassword::writeBuffer(field.newPassword, buffer);
-            buffer += TPropertyNewPassword::getMsgLength();
-            data_length += TPropertyNewPassword::getMsgLength();
-            TPropertyOldPassword::writeBuffer(field.oldPassword, buffer);
-            buffer += TPropertyOldPassword::getMsgLength();
-            data_length += TPropertyOldPassword::getMsgLength();
+            TItemParticipantId::writeBuffer(field.participantId, buffer);
+            buffer += TItemParticipantId::getMsgLength();
+            data_length += TItemParticipantId::getMsgLength();
+            TItemUserId::writeBuffer(field.userId, buffer);
+            buffer += TItemUserId::getMsgLength();
+            data_length += TItemUserId::getMsgLength();
+            TItemNewPassword::writeBuffer(field.newPassword, buffer);
+            buffer += TItemNewPassword::getMsgLength();
+            data_length += TItemNewPassword::getMsgLength();
+            TItemOldPassword::writeBuffer(field.oldPassword, buffer);
+            buffer += TItemOldPassword::getMsgLength();
+            data_length += TItemOldPassword::getMsgLength();
 			writenLen = data_length;
 		}
 
 		static void readBuffer(const char* buffer, ReqUserPasswordUpdateField& field, int& readLen)
 		{
 			int data_length = 0;
-            TPropertyParticipantId::readBuffer(buffer, field.participantId);
-            buffer += TPropertyParticipantId::getMsgLength();
-            data_length += TPropertyParticipantId::getMsgLength();
-            TPropertyUserId::readBuffer(buffer, field.userId);
-            buffer += TPropertyUserId::getMsgLength();
-            data_length += TPropertyUserId::getMsgLength();
-            TPropertyNewPassword::readBuffer(buffer, field.newPassword);
-            buffer += TPropertyNewPassword::getMsgLength();
-            data_length += TPropertyNewPassword::getMsgLength();
-            TPropertyOldPassword::readBuffer(buffer, field.oldPassword);
-            buffer += TPropertyOldPassword::getMsgLength();
-            data_length += TPropertyOldPassword::getMsgLength();
+            TItemParticipantId::readBuffer(buffer, field.participantId);
+            buffer += TItemParticipantId::getMsgLength();
+            data_length += TItemParticipantId::getMsgLength();
+            TItemUserId::readBuffer(buffer, field.userId);
+            buffer += TItemUserId::getMsgLength();
+            data_length += TItemUserId::getMsgLength();
+            TItemNewPassword::readBuffer(buffer, field.newPassword);
+            buffer += TItemNewPassword::getMsgLength();
+            data_length += TItemNewPassword::getMsgLength();
+            TItemOldPassword::readBuffer(buffer, field.oldPassword);
+            buffer += TItemOldPassword::getMsgLength();
+            data_length += TItemOldPassword::getMsgLength();
 			readLen = data_length;
 		}
 	};

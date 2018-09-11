@@ -1,8 +1,12 @@
+/*
+本文件自动生成，请勿手工修改
+*/
+
 #ifndef FTD20_MARKETMATCHINCDATAFIELD_H
 #define FTD20_MARKETMATCHINCDATAFIELD_H
 
-#include "FTDProperties.h"
-#include "FTDFields.h"
+#include "../FTDItemType.h"
+
 
 using namespace FTD;
 
@@ -10,12 +14,12 @@ namespace FTD20 {
 
 	struct MarketMatchIncDataField
 	{
-            TTPropertyInstrumentId instrumentId;
-            TTPropertyInstrumentVersion instrumentVersion;
-            TTPropertyVolumeType volumeType;
-            TTPropertyPrice price;
-            TTPropertyVolume volume;
-            TTPropertyMatchFlag matchFlag;
+            TTItemInstrumentId instrumentId;
+            TTItemInstrumentVersion instrumentVersion;
+            TTItemVolumeType volumeType;
+            TTItemPrice price;
+            TTItemVolume volume;
+            TTItemMatchFlag matchFlag;
 	};
 
 	class MarketMatchIncDataFieldHelper
@@ -24,48 +28,48 @@ namespace FTD20 {
 		static void writeBuffer(const MarketMatchIncDataField& field, char* buffer, int& writenLen)
 		{
 			int data_length = 0;
-            TPropertyInstrumentId::writeBuffer(field.instrumentId, buffer);
-            buffer += TPropertyInstrumentId::getMsgLength();
-            data_length += TPropertyInstrumentId::getMsgLength();
-            TPropertyInstrumentVersion::writeBuffer(field.instrumentVersion, buffer);
-            buffer += TPropertyInstrumentVersion::getMsgLength();
-            data_length += TPropertyInstrumentVersion::getMsgLength();
-            TPropertyVolumeType::writeBuffer(field.volumeType, buffer);
-            buffer += TPropertyVolumeType::getMsgLength();
-            data_length += TPropertyVolumeType::getMsgLength();
-            TPropertyPrice::writeBuffer(field.price, buffer);
-            buffer += TPropertyPrice::getMsgLength();
-            data_length += TPropertyPrice::getMsgLength();
-            TPropertyVolume::writeBuffer(field.volume, buffer);
-            buffer += TPropertyVolume::getMsgLength();
-            data_length += TPropertyVolume::getMsgLength();
-            TPropertyMatchFlag::writeBuffer(field.matchFlag, buffer);
-            buffer += TPropertyMatchFlag::getMsgLength();
-            data_length += TPropertyMatchFlag::getMsgLength();
+            TItemInstrumentId::writeBuffer(field.instrumentId, buffer);
+            buffer += TItemInstrumentId::getMsgLength();
+            data_length += TItemInstrumentId::getMsgLength();
+            TItemInstrumentVersion::writeBuffer(field.instrumentVersion, buffer);
+            buffer += TItemInstrumentVersion::getMsgLength();
+            data_length += TItemInstrumentVersion::getMsgLength();
+            TItemVolumeType::writeBuffer(field.volumeType, buffer);
+            buffer += TItemVolumeType::getMsgLength();
+            data_length += TItemVolumeType::getMsgLength();
+            TItemPrice::writeBuffer(field.price, buffer);
+            buffer += TItemPrice::getMsgLength();
+            data_length += TItemPrice::getMsgLength();
+            TItemVolume::writeBuffer(field.volume, buffer);
+            buffer += TItemVolume::getMsgLength();
+            data_length += TItemVolume::getMsgLength();
+            TItemMatchFlag::writeBuffer(field.matchFlag, buffer);
+            buffer += TItemMatchFlag::getMsgLength();
+            data_length += TItemMatchFlag::getMsgLength();
 			writenLen = data_length;
 		}
 
 		static void readBuffer(const char* buffer, MarketMatchIncDataField& field, int& readLen)
 		{
 			int data_length = 0;
-            TPropertyInstrumentId::readBuffer(buffer, field.instrumentId);
-            buffer += TPropertyInstrumentId::getMsgLength();
-            data_length += TPropertyInstrumentId::getMsgLength();
-            TPropertyInstrumentVersion::readBuffer(buffer, field.instrumentVersion);
-            buffer += TPropertyInstrumentVersion::getMsgLength();
-            data_length += TPropertyInstrumentVersion::getMsgLength();
-            TPropertyVolumeType::readBuffer(buffer, field.volumeType);
-            buffer += TPropertyVolumeType::getMsgLength();
-            data_length += TPropertyVolumeType::getMsgLength();
-            TPropertyPrice::readBuffer(buffer, field.price);
-            buffer += TPropertyPrice::getMsgLength();
-            data_length += TPropertyPrice::getMsgLength();
-            TPropertyVolume::readBuffer(buffer, field.volume);
-            buffer += TPropertyVolume::getMsgLength();
-            data_length += TPropertyVolume::getMsgLength();
-            TPropertyMatchFlag::readBuffer(buffer, field.matchFlag);
-            buffer += TPropertyMatchFlag::getMsgLength();
-            data_length += TPropertyMatchFlag::getMsgLength();
+            TItemInstrumentId::readBuffer(buffer, field.instrumentId);
+            buffer += TItemInstrumentId::getMsgLength();
+            data_length += TItemInstrumentId::getMsgLength();
+            TItemInstrumentVersion::readBuffer(buffer, field.instrumentVersion);
+            buffer += TItemInstrumentVersion::getMsgLength();
+            data_length += TItemInstrumentVersion::getMsgLength();
+            TItemVolumeType::readBuffer(buffer, field.volumeType);
+            buffer += TItemVolumeType::getMsgLength();
+            data_length += TItemVolumeType::getMsgLength();
+            TItemPrice::readBuffer(buffer, field.price);
+            buffer += TItemPrice::getMsgLength();
+            data_length += TItemPrice::getMsgLength();
+            TItemVolume::readBuffer(buffer, field.volume);
+            buffer += TItemVolume::getMsgLength();
+            data_length += TItemVolume::getMsgLength();
+            TItemMatchFlag::readBuffer(buffer, field.matchFlag);
+            buffer += TItemMatchFlag::getMsgLength();
+            data_length += TItemMatchFlag::getMsgLength();
 			readLen = data_length;
 		}
 	};

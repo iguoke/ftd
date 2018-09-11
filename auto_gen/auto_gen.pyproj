@@ -23,7 +23,28 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="auto_gen.py" />
-    <Compile Include="ftd_generator.py">
+    <Compile Include="dtd_def.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="dtd_parse.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="file_util.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="gen_field_df.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="gen_id_def.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="gen_item_df.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="gen_package_df.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="gen_type_df.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

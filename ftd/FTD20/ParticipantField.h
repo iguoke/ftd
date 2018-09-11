@@ -1,8 +1,12 @@
+/*
+本文件自动生成，请勿手工修改
+*/
+
 #ifndef FTD20_PARTICIPANTFIELD_H
 #define FTD20_PARTICIPANTFIELD_H
 
-#include "FTDProperties.h"
-#include "FTDFields.h"
+#include "../FTDItemType.h"
+
 
 using namespace FTD;
 
@@ -10,10 +14,10 @@ namespace FTD20 {
 
 	struct ParticipantField
 	{
-            TTPropertyParticipantId participantId;
-            TTPropertyParticipantName participantName;
-            TTPropertyParticipantType participantType;
-            TTPropertyPartiTrdRight partiTrdRight;
+            TTItemParticipantId participantId;
+            TTItemParticipantName participantName;
+            TTItemParticipantType participantType;
+            TTItemPartiTrdRight partiTrdRight;
 	};
 
 	class ParticipantFieldHelper
@@ -22,36 +26,36 @@ namespace FTD20 {
 		static void writeBuffer(const ParticipantField& field, char* buffer, int& writenLen)
 		{
 			int data_length = 0;
-            TPropertyParticipantId::writeBuffer(field.participantId, buffer);
-            buffer += TPropertyParticipantId::getMsgLength();
-            data_length += TPropertyParticipantId::getMsgLength();
-            TPropertyParticipantName::writeBuffer(field.participantName, buffer);
-            buffer += TPropertyParticipantName::getMsgLength();
-            data_length += TPropertyParticipantName::getMsgLength();
-            TPropertyParticipantType::writeBuffer(field.participantType, buffer);
-            buffer += TPropertyParticipantType::getMsgLength();
-            data_length += TPropertyParticipantType::getMsgLength();
-            TPropertyPartiTrdRight::writeBuffer(field.partiTrdRight, buffer);
-            buffer += TPropertyPartiTrdRight::getMsgLength();
-            data_length += TPropertyPartiTrdRight::getMsgLength();
+            TItemParticipantId::writeBuffer(field.participantId, buffer);
+            buffer += TItemParticipantId::getMsgLength();
+            data_length += TItemParticipantId::getMsgLength();
+            TItemParticipantName::writeBuffer(field.participantName, buffer);
+            buffer += TItemParticipantName::getMsgLength();
+            data_length += TItemParticipantName::getMsgLength();
+            TItemParticipantType::writeBuffer(field.participantType, buffer);
+            buffer += TItemParticipantType::getMsgLength();
+            data_length += TItemParticipantType::getMsgLength();
+            TItemPartiTrdRight::writeBuffer(field.partiTrdRight, buffer);
+            buffer += TItemPartiTrdRight::getMsgLength();
+            data_length += TItemPartiTrdRight::getMsgLength();
 			writenLen = data_length;
 		}
 
 		static void readBuffer(const char* buffer, ParticipantField& field, int& readLen)
 		{
 			int data_length = 0;
-            TPropertyParticipantId::readBuffer(buffer, field.participantId);
-            buffer += TPropertyParticipantId::getMsgLength();
-            data_length += TPropertyParticipantId::getMsgLength();
-            TPropertyParticipantName::readBuffer(buffer, field.participantName);
-            buffer += TPropertyParticipantName::getMsgLength();
-            data_length += TPropertyParticipantName::getMsgLength();
-            TPropertyParticipantType::readBuffer(buffer, field.participantType);
-            buffer += TPropertyParticipantType::getMsgLength();
-            data_length += TPropertyParticipantType::getMsgLength();
-            TPropertyPartiTrdRight::readBuffer(buffer, field.partiTrdRight);
-            buffer += TPropertyPartiTrdRight::getMsgLength();
-            data_length += TPropertyPartiTrdRight::getMsgLength();
+            TItemParticipantId::readBuffer(buffer, field.participantId);
+            buffer += TItemParticipantId::getMsgLength();
+            data_length += TItemParticipantId::getMsgLength();
+            TItemParticipantName::readBuffer(buffer, field.participantName);
+            buffer += TItemParticipantName::getMsgLength();
+            data_length += TItemParticipantName::getMsgLength();
+            TItemParticipantType::readBuffer(buffer, field.participantType);
+            buffer += TItemParticipantType::getMsgLength();
+            data_length += TItemParticipantType::getMsgLength();
+            TItemPartiTrdRight::readBuffer(buffer, field.partiTrdRight);
+            buffer += TItemPartiTrdRight::getMsgLength();
+            data_length += TItemPartiTrdRight::getMsgLength();
 			readLen = data_length;
 		}
 	};

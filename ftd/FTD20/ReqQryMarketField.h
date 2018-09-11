@@ -1,8 +1,12 @@
+/*
+本文件自动生成，请勿手工修改
+*/
+
 #ifndef FTD20_REQQRYMARKETFIELD_H
 #define FTD20_REQQRYMARKETFIELD_H
 
-#include "FTDProperties.h"
-#include "FTDFields.h"
+#include "../FTDItemType.h"
+
 
 using namespace FTD;
 
@@ -10,7 +14,7 @@ namespace FTD20 {
 
 	struct ReqQryMarketField
 	{
-            TTPropertyMarketId marketId;
+            TTItemMarketId marketId;
 	};
 
 	class ReqQryMarketFieldHelper
@@ -19,18 +23,18 @@ namespace FTD20 {
 		static void writeBuffer(const ReqQryMarketField& field, char* buffer, int& writenLen)
 		{
 			int data_length = 0;
-            TPropertyMarketId::writeBuffer(field.marketId, buffer);
-            buffer += TPropertyMarketId::getMsgLength();
-            data_length += TPropertyMarketId::getMsgLength();
+            TItemMarketId::writeBuffer(field.marketId, buffer);
+            buffer += TItemMarketId::getMsgLength();
+            data_length += TItemMarketId::getMsgLength();
 			writenLen = data_length;
 		}
 
 		static void readBuffer(const char* buffer, ReqQryMarketField& field, int& readLen)
 		{
 			int data_length = 0;
-            TPropertyMarketId::readBuffer(buffer, field.marketId);
-            buffer += TPropertyMarketId::getMsgLength();
-            data_length += TPropertyMarketId::getMsgLength();
+            TItemMarketId::readBuffer(buffer, field.marketId);
+            buffer += TItemMarketId::getMsgLength();
+            data_length += TItemMarketId::getMsgLength();
 			readLen = data_length;
 		}
 	};
