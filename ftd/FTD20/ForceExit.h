@@ -1,5 +1,5 @@
-#ifndef FTD20_ERROR_H
-#define FTD20_ERROR_H
+#ifndef FTD20_FORCEEXIT_H
+#define FTD20_FORCEEXIT_H
 
 #include "Fields.h"
 #include <vector>
@@ -13,46 +13,28 @@ using namespace FTD;
 namespace FTD20 
 {
 
-struct Error : public Package
+struct ForceExit : public Package
 {
 
-    std::vector<ErrorField> errorFields;
-    ErrorTargetSequenceField errorTargetSequenceField;
-    ErrorTargetOrderFieldPtr pErrorTargetOrderField;
+    ForceExitField forceExitField;
 
 
 	void clear()
 	{
-        errorFields.clear();
-        memset(&errorTargetSequenceField, 0, sizeof(ErrorTargetSequenceField));
-        pErrorTargetOrderField = nullptr;			
+        memset(&forceExitField, 0, sizeof(ForceExitField));			
 	}
 
 	bool mergeField(const Field& field, int fid)
 	{
-        if (fid == FID_ErrorField)
+        if (fid == FID_ForceExitField)
         {
-        	errorFields.push_back(field.errorField);
-        	return true;
-        }
-        if (fid == FID_ErrorTargetSequenceField)
-        {
-        	memcpy(&errorTargetSequenceField, &field.errorTargetSequenceField, sizeof(ErrorTargetSequenceField));
-        	return true;
-        }
-        if (fid == FID_ErrorTargetOrderField)
-        {
-        	if (pErrorTargetOrderField.get() == nullptr)
-        	{
-        		pErrorTargetOrderField = ErrorTargetOrderFieldPtr(new ErrorTargetOrderField());
-        	}
-        	memcpy(pErrorTargetOrderField.get(), &field.errorTargetOrderField, sizeof(ErrorTargetOrderField));
+        	memcpy(&forceExitField, &field.forceExitField, sizeof(ForceExitField));
         	return true;
         }
 		return false;
 	}
 
-	static bool onFtdcMessage(const std::string& ftdcMsg, Error&  package)
+	static bool onFtdcMessage(const std::string& ftdcMsg, ForceExit&  package)
 	{
 		FTDCHeader header;
 		const char* ftdcBegin = readFTDCHeader(ftdcMsg.c_str(), header);
@@ -60,7 +42,7 @@ struct Error : public Package
 		return onFtdcMessage(header, ftdcContent, package);
 	}
 
-	static bool onFtdcMessage(const FTDCHeader& header, const std::string& ftdcContent, Error&  package)
+	static bool onFtdcMessage(const FTDCHeader& header, const std::string& ftdcContent, ForceExit&  package)
 	{
 		if (header.chain == FTDCChainSingle || header.chain == FTDCChainFirst)
 		{
@@ -106,7 +88,7 @@ struct Error : public Package
 	}
 		
 		
-	static void convertToFtdcString(const Error& package, std::vector<std::string>& ftdcMsgs)
+	static void convertToFtdcString(const ForceExit& package, std::vector<std::string>& ftdcMsgs)
 	{
 		std::vector<std::string> ftdcContents;
 		std::vector<FTDCHeader> headers;
@@ -120,33 +102,8 @@ struct Error : public Package
 		char* nextWrite = ftdcBuffer;
 		int vecSize = 0;
 		int fieldLen = 0;
-        //std::vector<ErrorField> 
-        vecSize = package.errorFields.size();			
-        for (int i = 0; i < vecSize; i++)
-        {
-        	ErrorFieldHelper::writeBuffer(package.errorFields[i],
-        		fieldBuffer, fieldLen);
-        	if (MAX_FTDC_LENGTH - (nextWrite - ftdcBuffer) < FTDC_FIELD_HEADER_LENGTH + fieldLen)
-        	{					
-        		header.contentLength = nextWrite - ftdcBuffer;
-        		header.fieldCount = writeFieldCount;
-        		headers.push_back(header);
-        		ftdcContents.push_back(std::string(ftdcBuffer, nextWrite - ftdcBuffer));
-        		memset(ftdcBuffer, 0, MAX_FTDC_LENGTH + 1);
-        		nextWrite = ftdcBuffer;
-        		writeFieldCount = 0;
-        	}
-        	FTDCFieldHeader fieldHeader;
-        	fieldHeader.fid = FID_ErrorField;
-        	fieldHeader.fidLength = fieldLen;
-        	nextWrite = writeFTDCFieldHeader(fieldHeader, nextWrite);
-        	memcpy(nextWrite, fieldBuffer, fieldLen);
-        	nextWrite += fieldLen;
-        	writeFieldCount += 1;
-        }
-        
-        //ErrorTargetSequenceField
-        ErrorTargetSequenceFieldHelper::writeBuffer(package.errorTargetSequenceField,
+        //ForceExitField
+        ForceExitFieldHelper::writeBuffer(package.forceExitField,
         	fieldBuffer, fieldLen);
         if (MAX_FTDC_LENGTH - (nextWrite - ftdcBuffer) < FTDC_FIELD_HEADER_LENGTH + fieldLen)
         {
@@ -159,36 +116,12 @@ struct Error : public Package
         	writeFieldCount = 0;
         }
         FTDCFieldHeader fieldHeader;
-        fieldHeader.fid = FID_ErrorTargetSequenceField;
+        fieldHeader.fid = FID_ForceExitField;
         fieldHeader.fidLength = fieldLen;
         nextWrite = writeFTDCFieldHeader(fieldHeader, nextWrite);
         memcpy(nextWrite, fieldBuffer, fieldLen);
         nextWrite += fieldLen;
         writeFieldCount += 1;
-        
-        //ErrorTargetOrderField
-        if(package.pErrorTargetOrderField.get() != nullptr)
-        {
-        	ErrorTargetOrderFieldHelper::writeBuffer(*(package.pErrorTargetOrderField.get()),
-        		fieldBuffer, fieldLen);
-        	if (MAX_FTDC_LENGTH - (nextWrite - ftdcBuffer) < FTDC_FIELD_HEADER_LENGTH + fieldLen)
-        	{
-        		header.contentLength = nextWrite - ftdcBuffer;
-        		header.fieldCount = writeFieldCount;
-        		headers.push_back(header);
-        		ftdcContents.push_back(std::string().append(ftdcBuffer, nextWrite - ftdcBuffer));
-        		memset(ftdcBuffer, 0, MAX_FTDC_LENGTH + 1);
-        		nextWrite = ftdcBuffer;
-        		writeFieldCount = 0;
-        	}
-        	FTDCFieldHeader fieldHeader;
-        	fieldHeader.fid = FID_ErrorTargetOrderField;
-        	fieldHeader.fidLength = fieldLen;
-        	nextWrite = writeFTDCFieldHeader(fieldHeader, nextWrite);
-        	memcpy(nextWrite, fieldBuffer, fieldLen);
-        	nextWrite += fieldLen;
-        	writeFieldCount += 1;
-        }
         
 
 		if (nextWrite != ftdcBuffer)

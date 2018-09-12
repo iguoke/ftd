@@ -1,5 +1,5 @@
-#ifndef FTD20_ERROR_H
-#define FTD20_ERROR_H
+#ifndef FTD20_REQUSERLOGIN_H
+#define FTD20_REQUSERLOGIN_H
 
 #include "Fields.h"
 #include <vector>
@@ -13,46 +13,39 @@ using namespace FTD;
 namespace FTD20 
 {
 
-struct Error : public Package
+struct ReqUserLogin : public Package
 {
 
-    std::vector<ErrorField> errorFields;
-    ErrorTargetSequenceField errorTargetSequenceField;
-    ErrorTargetOrderFieldPtr pErrorTargetOrderField;
+    ReqUserLoginField reqUserLoginField;
+    DissenminationstartFieldPtr pDissenminationstartField;
 
 
 	void clear()
 	{
-        errorFields.clear();
-        memset(&errorTargetSequenceField, 0, sizeof(ErrorTargetSequenceField));
-        pErrorTargetOrderField = nullptr;			
+        memset(&reqUserLoginField, 0, sizeof(ReqUserLoginField));
+        pDissenminationstartField = nullptr;			
 	}
 
 	bool mergeField(const Field& field, int fid)
 	{
-        if (fid == FID_ErrorField)
+        if (fid == FID_ReqUserLoginField)
         {
-        	errorFields.push_back(field.errorField);
+        	memcpy(&reqUserLoginField, &field.reqUserLoginField, sizeof(ReqUserLoginField));
         	return true;
         }
-        if (fid == FID_ErrorTargetSequenceField)
+        if (fid == FID_DissenminationstartField)
         {
-        	memcpy(&errorTargetSequenceField, &field.errorTargetSequenceField, sizeof(ErrorTargetSequenceField));
-        	return true;
-        }
-        if (fid == FID_ErrorTargetOrderField)
-        {
-        	if (pErrorTargetOrderField.get() == nullptr)
+        	if (pDissenminationstartField.get() == nullptr)
         	{
-        		pErrorTargetOrderField = ErrorTargetOrderFieldPtr(new ErrorTargetOrderField());
+        		pDissenminationstartField = DissenminationstartFieldPtr(new DissenminationstartField());
         	}
-        	memcpy(pErrorTargetOrderField.get(), &field.errorTargetOrderField, sizeof(ErrorTargetOrderField));
+        	memcpy(pDissenminationstartField.get(), &field.dissenminationstartField, sizeof(DissenminationstartField));
         	return true;
         }
 		return false;
 	}
 
-	static bool onFtdcMessage(const std::string& ftdcMsg, Error&  package)
+	static bool onFtdcMessage(const std::string& ftdcMsg, ReqUserLogin&  package)
 	{
 		FTDCHeader header;
 		const char* ftdcBegin = readFTDCHeader(ftdcMsg.c_str(), header);
@@ -60,7 +53,7 @@ struct Error : public Package
 		return onFtdcMessage(header, ftdcContent, package);
 	}
 
-	static bool onFtdcMessage(const FTDCHeader& header, const std::string& ftdcContent, Error&  package)
+	static bool onFtdcMessage(const FTDCHeader& header, const std::string& ftdcContent, ReqUserLogin&  package)
 	{
 		if (header.chain == FTDCChainSingle || header.chain == FTDCChainFirst)
 		{
@@ -106,7 +99,7 @@ struct Error : public Package
 	}
 		
 		
-	static void convertToFtdcString(const Error& package, std::vector<std::string>& ftdcMsgs)
+	static void convertToFtdcString(const ReqUserLogin& package, std::vector<std::string>& ftdcMsgs)
 	{
 		std::vector<std::string> ftdcContents;
 		std::vector<FTDCHeader> headers;
@@ -120,33 +113,8 @@ struct Error : public Package
 		char* nextWrite = ftdcBuffer;
 		int vecSize = 0;
 		int fieldLen = 0;
-        //std::vector<ErrorField> 
-        vecSize = package.errorFields.size();			
-        for (int i = 0; i < vecSize; i++)
-        {
-        	ErrorFieldHelper::writeBuffer(package.errorFields[i],
-        		fieldBuffer, fieldLen);
-        	if (MAX_FTDC_LENGTH - (nextWrite - ftdcBuffer) < FTDC_FIELD_HEADER_LENGTH + fieldLen)
-        	{					
-        		header.contentLength = nextWrite - ftdcBuffer;
-        		header.fieldCount = writeFieldCount;
-        		headers.push_back(header);
-        		ftdcContents.push_back(std::string(ftdcBuffer, nextWrite - ftdcBuffer));
-        		memset(ftdcBuffer, 0, MAX_FTDC_LENGTH + 1);
-        		nextWrite = ftdcBuffer;
-        		writeFieldCount = 0;
-        	}
-        	FTDCFieldHeader fieldHeader;
-        	fieldHeader.fid = FID_ErrorField;
-        	fieldHeader.fidLength = fieldLen;
-        	nextWrite = writeFTDCFieldHeader(fieldHeader, nextWrite);
-        	memcpy(nextWrite, fieldBuffer, fieldLen);
-        	nextWrite += fieldLen;
-        	writeFieldCount += 1;
-        }
-        
-        //ErrorTargetSequenceField
-        ErrorTargetSequenceFieldHelper::writeBuffer(package.errorTargetSequenceField,
+        //ReqUserLoginField
+        ReqUserLoginFieldHelper::writeBuffer(package.reqUserLoginField,
         	fieldBuffer, fieldLen);
         if (MAX_FTDC_LENGTH - (nextWrite - ftdcBuffer) < FTDC_FIELD_HEADER_LENGTH + fieldLen)
         {
@@ -159,17 +127,17 @@ struct Error : public Package
         	writeFieldCount = 0;
         }
         FTDCFieldHeader fieldHeader;
-        fieldHeader.fid = FID_ErrorTargetSequenceField;
+        fieldHeader.fid = FID_ReqUserLoginField;
         fieldHeader.fidLength = fieldLen;
         nextWrite = writeFTDCFieldHeader(fieldHeader, nextWrite);
         memcpy(nextWrite, fieldBuffer, fieldLen);
         nextWrite += fieldLen;
         writeFieldCount += 1;
         
-        //ErrorTargetOrderField
-        if(package.pErrorTargetOrderField.get() != nullptr)
+        //DissenminationstartField
+        if(package.pDissenminationstartField.get() != nullptr)
         {
-        	ErrorTargetOrderFieldHelper::writeBuffer(*(package.pErrorTargetOrderField.get()),
+        	DissenminationstartFieldHelper::writeBuffer(*(package.pDissenminationstartField.get()),
         		fieldBuffer, fieldLen);
         	if (MAX_FTDC_LENGTH - (nextWrite - ftdcBuffer) < FTDC_FIELD_HEADER_LENGTH + fieldLen)
         	{
@@ -182,7 +150,7 @@ struct Error : public Package
         		writeFieldCount = 0;
         	}
         	FTDCFieldHeader fieldHeader;
-        	fieldHeader.fid = FID_ErrorTargetOrderField;
+        	fieldHeader.fid = FID_DissenminationstartField;
         	fieldHeader.fidLength = fieldLen;
         	nextWrite = writeFTDCFieldHeader(fieldHeader, nextWrite);
         	memcpy(nextWrite, fieldBuffer, fieldLen);
