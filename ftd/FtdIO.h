@@ -45,24 +45,87 @@ int readUInt8(const char* buffer, uint8_t& result)
 
 }
 
-const char* ReadFTDCHeader(const char* buffer, FTDCHeader* header)
+
+int writeUInt32(const uint32_t& result, char* buffer)
+{
+	uint32_t nvalue = htonl(result);
+	memcpy(buffer, &nvalue, 4);
+	return 4;
+}
+
+int writeInt32(const int32_t& result, char* buffer)
+{
+	int32_t nvalue = htonl(result);
+	memcpy(buffer, &nvalue, 4);
+	return 4;
+}
+
+int writeUInt16(const uint16_t & result, char* buffer)
+{
+	uint16_t nvalue = htons(result);
+	memcpy(buffer, &nvalue, 2);
+	return 2;
+}
+
+int writeInt16(const int16_t & result, char* buffer)
+{
+	int16_t nvalue = htons(result);
+	memcpy(buffer, &nvalue, 2);
+	return 2;
+}
+
+int writeChar(const char& result, char* buffer)
+{
+	memcpy(buffer, &result, 1);
+	return 1;
+}
+
+int writeUInt8(const uint8_t& result, char* buffer)
+{
+	memcpy(buffer, &result, 1);
+	return 1;
+
+}
+
+const char* readFTDCHeader(const char* buffer, FTDCHeader& header)
 {
 	const char* pos = buffer;
-	pos += readUInt8(buffer, header->version);
-	pos += readUInt32(buffer, header->transactionId);
-	pos += readChar(buffer, header->chain);
-	pos += readUInt16(buffer, header->sequenceSeries);
-	pos += readUInt32(buffer, header->sequenceNO);
-	pos += readUInt16(buffer, header->fieldCount);
-	pos += readUInt16(buffer, header->contentLength);
+	pos += readUInt8(pos, header.version);
+	pos += readUInt32(pos, header.transactionId);
+	pos += readChar(pos, header.chain);
+	pos += readUInt16(pos, header.sequenceSeries);
+	pos += readUInt32(pos, header.sequenceNO);
+	pos += readUInt16(pos, header.fieldCount);
+	pos += readUInt16(pos, header.contentLength);
 	return pos;
 }
 
-const char* ReadFTDCFieldHeader(const char* buffer, FTDCFieldHeader* header)
+const char* readFTDCFieldHeader(const char* buffer, FTDCFieldHeader& header)
 {
 	const char* pos = buffer;
-	pos += readInt32(buffer, header->fid);
-	pos += readUInt16(buffer, header->fidLength);
+	pos += readInt32(pos, header.fid);
+	pos += readUInt16(pos, header.fidLength);
+	return pos;
+}
+
+char* writeFTDCHeader(const FTDCHeader& header, char* buffer)
+{
+	char* pos = buffer;
+	pos += writeUInt8(header.version, pos);
+	pos += writeUInt32(header.transactionId, pos);
+	pos += writeChar(header.chain, pos);
+	pos += writeUInt16(header.sequenceSeries, pos);
+	pos += writeUInt32(header.sequenceNO, pos);
+	pos += writeUInt16(header.fieldCount, pos);
+	pos += writeUInt16(header.contentLength, pos);
+	return pos;
+}
+
+char* writeFTDCFieldHeader(const FTDCFieldHeader& header, char* buffer)
+{
+	char* pos = buffer;
+	pos += writeInt32(header.fid, pos);
+	pos += writeUInt16(header.fidLength, pos);
 	return pos;
 }
 

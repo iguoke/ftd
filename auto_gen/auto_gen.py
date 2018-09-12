@@ -27,7 +27,7 @@ def generate_ftd(path, file, target_path):
     gen_field_df.generate_fields_include(version,
            list(fields.values()), target_path)
     for package in packages.values():
-        gen_package_df.generate_package_class(version, package, target_path)
+        gen_package_df.generate_package_struct(version, package, target_path)
     
 
 

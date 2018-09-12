@@ -3,6 +3,12 @@
 #include <cstdio>
 #include <memory>
 
+#define MAX_FTD_LENGTH 4096
+#define MAX_FTDC_LENGTH 4096 - 16
+
+#define FTDC_FIELD_HEADER_LENGTH 6
+#define FTDC_HEADER_LENGTH 16
+
 struct FTDHeader
 {
 	int8_t FTDType;

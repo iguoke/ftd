@@ -1,4 +1,4 @@
-from dtd_def import *
+﻿from dtd_def import *
 from lxml import etree as ET
 from io import BytesIO
 from collections import OrderedDict
@@ -23,7 +23,25 @@ def load_item_node(node):
     return item
 
 def load_package_node(node):
-    return None
+    item = PackageDTD()
+    item.name = node.get('name')
+    item.tid = node.get('tid')
+    item.model = node.get('dialog')
+    item.comment = node.get('comment')
+    item.fields = []
+    for child in list(node.iter()):
+        if child.tag == 'field':
+            field_info = FieldInfo()
+            field_info.name = child.get('name')
+            max_occur = child.get('maxOccur')
+            if max_occur == '任意':
+                field_info.max_occur = 999
+            else:
+                field_info.max_occur = int(max_occur)
+            field_info.min_occur = int(child.get('minOccur'))
+            field_info.comment = child.get('comment')
+            item.fields.append(field_info)
+    return item
 
 
 def load_field_node(f):

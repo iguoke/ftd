@@ -121,3 +121,28 @@ class TIdDTD:
     def __init__(self):
         self.name = ""
         self.value = ""
+
+class FieldInfo:
+    def __init__(self):
+        self.name = ''
+        self.max_occur = 0
+        self.min_occur = 0
+        self.comment = ''
+
+    def use_vector(self):
+        return self.max_occur > 99
+
+    def use_field(self):
+        return self.max_occur == 1 and self.min_occur == 1
+
+    def use_smart_ptr(self):
+        return self.max_occur == 1 and self.min_occur == 0
+
+
+class PackageDTD:
+    def __init__(self):
+        self.name = ''
+        self.tid = ''
+        self.model = ''
+        self.comment = ''
+        self.fields = []

@@ -12,27 +12,28 @@ using namespace FTD;
 
 namespace {version} {{
 
-	struct {field_name}
-	{{
+struct {field_name}
+{{
 {item_type_var_pair_list_string}
-	}};
+}};
 
-	class {field_name}Helper
+class {field_name}Helper
+{{
+public:
+	static void writeBuffer(const {field_name}& field, char* buffer, int& writenLen)
 	{{
-	public:
-		static void writeBuffer(const {field_name}& field, char* buffer, int& writenLen)
-		{{
-			int data_length = 0;
+		int data_length = 0;
 {write_items_string}
-			writenLen = data_length;
-		}}
+		writenLen = data_length;
+	}}
 
-		static void readBuffer(const char* buffer, {field_name}& field, int& readLen)
-		{{
-			int data_length = 0;
+	static void readBuffer(const char* buffer, {field_name}& field, int& readLen)
+	{{
+		int data_length = 0;
 {read_items_string}
-			readLen = data_length;
-		}}
-	}};
+		readLen = data_length;
+	}}
+}};
+
 }}
 #endif

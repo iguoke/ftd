@@ -9,3 +9,9 @@ def load_template_file(fname):
 def save_cpp_file(content, fname):
     with open(fname, 'w') as f:
         f.writelines(content)
+
+
+def add_whitespaces(content, count):
+    lines = content.split('\n')
+    lines =[count *' ' + line for line in lines]
+    return '\n'.join(lines)

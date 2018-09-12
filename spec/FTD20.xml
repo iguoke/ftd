@@ -3,8 +3,8 @@
 <ftd>
 	<packages>
 		<packageDefine name="Error" tid="TID_Error" model="dialog" comment="´íÎóÏìÓ¦">
-			<field name="ErrorField" maxOccur="1" minOccur="1" comment="´íÎóÓò"/>
-			<field name="ErrorTargetSequenceField" maxOccur="1" minOccur="0" comment="´íÎóÐòÁÐºÅÓò"/>
+			<field name="ErrorField" maxOccur="ÈÎÒâ" minOccur="1" comment="´íÎóÓò"/>
+			<field name="ErrorTargetSequenceField" maxOccur="1" minOccur="1" comment="´íÎóÐòÁÐºÅÓò"/>
 			<field name="ErrorTargetOrderField" maxOccur="1" minOccur="0" comment="´íÎó±¨µ¥ºÅÓò"/>
 		</packageDefine>
 		<packageDefine name="ForceExit" tid="TID_ForceExit" model="none" comment="Ç¿ÖÆÍË³ö">

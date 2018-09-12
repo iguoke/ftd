@@ -6,26 +6,27 @@ Version={version}
 #ifndef {version}_FIELDS_H
 #define {version}_FIELDS_H
 
+#include "../FTDID.h"
+#include "../FtdDeclare.h"
+
 {include_file_headers}
 
 namespace {version}
 {{
+
+{declare_smart_ptr_lines}
 
 union Field
 {{
 {field_members}
 }};
 
-bool ReadField(const char* buffer, int fid, union Field& field, int& readLen)
+bool readField(const char* buffer, int fid, union Field& field, int& readLen)
 {{
 	bool read_result = true;
-	switch(fid):
+	switch(fid)
 	{{
-	case(FID_BulletinField):
-	{
-		TBulletinFieldHelper::readBuffer(buffer, field.bulletionField, &read_len);
-		break;
-	}
+{cases}
 	default:
 	{{
 		read_result = false;

@@ -6,64 +6,225 @@
 #include "../ftd.h"
 #include "../FTDPackage.h"
 #include "../FtdIO.h"
+#include "../FTDID.h"
 
 using namespace FTD;
 
-namespace FTD20 
+namespace FTD20 {
+
+struct Error : public Package
 {
 
-	struct Error : public Package
+    std::vector<ErrorField> errorFields;
+    ErrorTargetSequenceField errorTargetSequenceField;
+    ErrorTargetOrderFieldPtr pErrorTargetOrderField;
+
+
+	void clear()
 	{
-		std::vector<ErrorField> errorFields;
-		std::vector<ErrorTargetSequenceField> errorTargetSequenceFields;
-		std::vector<ErrorTargetOrderField> errorTargetOrderFields;
+        errorFields.clear();
+        memset(&errorTargetSequenceField, 0, sizeof(ErrorTargetSequenceField));
+        pErrorTargetOrderField = nullptr;			
+	}
 
-		bool checkFieldCount()
+	bool mergeField(const Field& field, int fid)
+	{
+        if (fid == FID_ErrorField)
+        {
+        	errorFields.push_back(field.errorField);
+        	return true;
+        }
+        if (fid == FID_ErrorTargetSequenceField)
+        {
+        	memcpy(&errorTargetSequenceField, &field.errorTargetSequenceField, sizeof(ErrorTargetSequenceField));
+        	return true;
+        }
+        if (fid == FID_ErrorTargetOrderField)
+        {
+        	if (pErrorTargetOrderField.get() == nullptr)
+        	{
+        		pErrorTargetOrderField = ErrorTargetOrderFieldPtr(new ErrorTargetOrderField());
+        	}
+        	memcpy(pErrorTargetOrderField.get(), &field.errorTargetOrderField, sizeof(ErrorTargetOrderField));
+        	return true;
+        }
+		return false;
+	}
+
+	static bool onFtdcMessage(const std::string& ftdcMsg, Error&  package)
+	{
+		FTDCHeader header;
+		const char* ftdcBegin = readFTDCHeader(ftdcMsg.c_str(), header);
+		std::string ftdcContent(ftdcBegin, header.contentLength);
+		return onFtdcMessage(header, ftdcContent, package);
+	}
+
+	static bool onFtdcMessage(const FTDCHeader& header, const std::string& ftdcContent, Error&  package)
+	{
+		if (header.chain == FTDCChainSingle || header.chain == FTDCChainFirst)
 		{
-			if (errorFields.size() == 1
-				&& errorTargetSequenceFields.size() <= 1
-				&& errorTargetOrderFields.size() <= 1)
-				return true;
+			package.clear();
+			package.header = header;
+			package.header.chain = FTDCChainSingle;
+			package.header.fieldCount = 0;
+			package.header.contentLength = 0;
+		}
+		if (package.header.sequenceNO != header.sequenceNO
+			|| package.header.sequenceSeries != header.sequenceSeries)
+			return false;
+		if (header.contentLength != ftdcContent.size())
+			return false;
+		package.header.fieldCount += header.fieldCount;
+		package.header.contentLength += header.contentLength;
+		FTDCFieldHeader field_header = { 0 };
+		FTD20::Field field = { 0 };
+		const char* buffer = ftdcContent.c_str();
+		const char* pos = buffer;
+		bool readFieldSucc = false;
+		for (int i = 0; i < header.fieldCount; i++)
+		{
+			pos = readFTDCFieldHeader(pos, field_header);
+			int readLen = 0;
+			readFieldSucc = readField(pos, field_header.fid, field, readLen);
+			if (readLen != field_header.fidLength)
+			{
+				return false;
+			}
 			else
-				return false;
+			{
+				package.mergeField(field, field_header.fid);
+			}
+			pos += readLen;
+		}
+		if (pos - buffer != header.contentLength)
+			return false;
+		if (header.chain == FTDCChainSingle || header.chain == FTDCChainLast)
+			return true;
+		else
+			return false;
+	}
+	
+	
+	static void convertToFtdcString(const Error& package, std::vector<std::string>& ftdcMsgs)
+	{
+		std::vector<std::string> ftdcContents;
+		std::vector<FTDCHeader> headers;
+		
+		char* ftdcBuffer = new char[MAX_FTDC_LENGTH + 1];
+		char* fieldBuffer = new char[MAX_FTDC_LENGTH + 1];
+		char* ftdcHeaderBuffer = new char[FTDC_HEADER_LENGTH + 1];
+		FTDCHeader header = { 0 };
+		memcpy(&header, &package.header, sizeof(FTDCHeader));
+		int writeFieldCount = 0;
+		char* nextWrite = ftdcBuffer;
+		int vecSize = 0;
+		int fieldLen = 0;
+        //std::vector<ErrorField> 
+        vecSize = package.errorFields.size();			
+        for (int i = 0; i < vecSize; i++)
+        {
+        	ErrorFieldHelper::writeBuffer(package.errorFields[i],
+        		fieldBuffer, fieldLen);
+        	if (MAX_FTDC_LENGTH - (nextWrite - ftdcBuffer) < FTDC_FIELD_HEADER_LENGTH + fieldLen)
+        	{					
+        		header.contentLength = nextWrite - ftdcBuffer;
+        		header.fieldCount = writeFieldCount;
+        		headers.push_back(header);
+        		ftdcContents.push_back(std::string(ftdcBuffer, nextWrite - ftdcBuffer));
+        		memset(ftdcBuffer, 0, MAX_FTDC_LENGTH + 1);
+        		nextWrite = ftdcBuffer;
+        		writeFieldCount = 0;
+        	}
+        	FTDCFieldHeader fieldHeader;
+        	fieldHeader.fid = FID_ErrorField;
+        	fieldHeader.fidLength = fieldLen;
+        	nextWrite = writeFTDCFieldHeader(fieldHeader, nextWrite);
+        	memcpy(nextWrite, fieldBuffer, fieldLen);
+        	nextWrite += fieldLen;
+        	writeFieldCount += 1;
+        }
+        
+        //ErrorTargetSequenceField
+        ErrorTargetSequenceFieldHelper::writeBuffer(package.errorTargetSequenceField,
+        	fieldBuffer, fieldLen);
+        if (MAX_FTDC_LENGTH - (nextWrite - ftdcBuffer) < FTDC_FIELD_HEADER_LENGTH + fieldLen)
+        {
+        	header.contentLength = nextWrite - ftdcBuffer;
+        	header.fieldCount = writeFieldCount;
+        	headers.push_back(header);
+        	ftdcContents.push_back(std::string().append(ftdcBuffer, nextWrite - ftdcBuffer));
+        	memset(ftdcBuffer, 0, MAX_FTDC_LENGTH + 1);
+        	nextWrite = ftdcBuffer;
+        	writeFieldCount = 0;
+        }
+        FTDCFieldHeader fieldHeader;
+        fieldHeader.fid = FID_ErrorTargetSequenceField;
+        fieldHeader.fidLength = fieldLen;
+        nextWrite = writeFTDCFieldHeader(fieldHeader, nextWrite);
+        memcpy(nextWrite, fieldBuffer, fieldLen);
+        nextWrite += fieldLen;
+        writeFieldCount += 1;
+        
+        //ErrorTargetOrderField
+        if(package.pErrorTargetOrderField.get() != nullptr)
+        {
+        	ErrorTargetOrderFieldHelper::writeBuffer(*(package.pErrorTargetOrderField.get()),
+        		fieldBuffer, fieldLen);
+        	if (MAX_FTDC_LENGTH - (nextWrite - ftdcBuffer) < FTDC_FIELD_HEADER_LENGTH + fieldLen)
+        	{
+        		header.contentLength = nextWrite - ftdcBuffer;
+        		header.fieldCount = writeFieldCount;
+        		headers.push_back(header);
+        		ftdcContents.push_back(std::string().append(ftdcBuffer, nextWrite - ftdcBuffer));
+        		memset(ftdcBuffer, 0, MAX_FTDC_LENGTH + 1);
+        		nextWrite = ftdcBuffer;
+        		writeFieldCount = 0;
+        	}
+        	FTDCFieldHeader fieldHeader;
+        	fieldHeader.fid = FID_ErrorTargetOrderField;
+        	fieldHeader.fidLength = fieldLen;
+        	nextWrite = writeFTDCFieldHeader(fieldHeader, nextWrite);
+        	memcpy(nextWrite, fieldBuffer, fieldLen);
+        	nextWrite += fieldLen;
+        	writeFieldCount += 1;
+        }
+        
+
+		if (nextWrite != ftdcBuffer)
+		{
+			header.contentLength = nextWrite - ftdcBuffer;
+			header.fieldCount = writeFieldCount;
+			headers.push_back(header);
+			ftdcContents.push_back(std::string().append(ftdcBuffer, nextWrite - ftdcBuffer));
+		}
+		int contentLength = ftdcContents.size();
+		if (contentLength == 1)
+		{
+			headers[0].chain = FTDCChainSingle;
+		}
+		if (contentLength > 1)
+		{
+			headers[0].chain = FTDCChainFirst;
+			headers[contentLength - 1].chain = FTDCChainLast;
+			for (int i = 1; i < contentLength - 1; i++)
+			{
+				headers[i].chain = FTDCChainMiddle;
+			}
+		}
+		for (int i = 0; i < contentLength; i++)
+		{
+			writeFTDCHeader(headers[i], ftdcHeaderBuffer);
+			std::string ftdMsg;
+			ftdMsg.append(ftdcHeaderBuffer, FTDC_HEADER_LENGTH);
+			ftdMsg.append(ftdcContents[i]);
+			ftdcMsgs.push_back(ftdMsg);
 		}
 
-		void clear()
-		{
-			errorFields.clear();
-			errorTargetSequenceFields.clear();
-			errorTargetOrderFields.clear();			
-		}
-
-		static bool onFtdcMessage(const FTDCHeader& header, const std::string& ftdcContent, Error&  package)
-		{
-			if (header.chain == FTDCChainSingle || header.chain == FTDCChainFirst)
-			{
-				package.clear();
-				package.header = header;
-				package.header.chain = FTDCChainSingle;
-				package.header.fieldCount = 0;
-				package.header.contentLength = 0;
-			}
-			if (package.header.sequenceNO != header.sequenceNO
-				|| package.header.sequenceSeries != header.sequenceSeries)
-				return false;
-			if (header.contentLength != ftdcContent.size())
-				return false;
-			package.header.fieldCount += header.fieldCount;
-			package.header.contentLength = header.contentLength;
-			FTDCFieldHeader field_header = { 0 };
-			FTD20::Field field = { 0 };
-			const char* buffer = ftdcContent.c_str();
-			int pos = 0;
-			for (int i = 0; i < header.contentLength; i++)
-			{
-				ReadFTDCFieldHeader(buffer, &field_header);
-				buffer += sizeof(field_header);
-				if(field_header.fidLength != )
-			}
-		}
-	};
+		delete[] ftdcHeaderBuffer;
+		delete[] ftdcBuffer;
+		delete[] fieldBuffer;
+	}
+};
 
 }
 
