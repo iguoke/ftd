@@ -1,3 +1,7 @@
+/*
+本文件自动生成，请勿手工修改
+*/
+
 #ifndef FTD20_RSPORDERINSERT_H
 #define FTD20_RSPORDERINSERT_H
 
