@@ -67,9 +67,9 @@ SUITE(FTD20Test)
 		FTD20::Field field;
 		memcpy(&field.errorField, &errorField, sizeof(FTD20::ErrorField));
 
-		
-
-		for (int i = 0; i < 10000; i++)
+		int len = 1000000;
+		package.errorFields.reserve(len);
+		for (int i = 0; i < len; i++)
 		{
 			package.mergeField(field, FID_ErrorField);
 		}
@@ -79,20 +79,22 @@ SUITE(FTD20Test)
 		package.mergeField(field, FID_ErrorTargetOrderField);
 
 		std::vector<std::string> msgs;
-		FTD20::Error::convertToFtdcString(package, msgs);
+		package.toMessages(msgs);
 		for (int i = 0; i < msgs.size(); i++)
 		{
-			if (FTD20::Error::onFtdcMessage(msgs[i], package2))
+			;
+			if (package2.mergeFtdcMessage(msgs[i]))
 			{
 				break;
 			}
 		}
-		CHECK_EQUAL(10000, package2.errorFields.size());
-		CHECK_EQUAL("ok", package2.errorFields[9999].errorCode);
+		CHECK_EQUAL(len, package2.errorFields.size());
+		CHECK_EQUAL("ok", package2.errorFields[len-1].errorCode);
 		//CHECK_EQUAL(nullptr, package2.errorTargetOrderFields.get());
 		CHECK_EQUAL("okokokokokokok", package2.pErrorTargetOrderField->orderLocalId);
 	}
 
+	
 	TEST(MarketMatchData)
 	{
 		FTD20::MarketMatchData package;
@@ -100,25 +102,27 @@ SUITE(FTD20Test)
 		FTD20::MarketMatchDataField dataField = { 0 };
 		FTD20::MarketMatchDataChgField chgField = { 0 };
 		FTD20::Field field;
-		for (int i = 0; i < 100; i++)
+		int matchCount = 10000;
+		int matchChgCount = 10000;
+		for (int i = 0; i < matchCount; i++)
 		{
 			memcpy(&field.marketMatchDataField, &dataField, sizeof(dataField));
 			package.mergeField(field, FID_MarketMatchDataField);
 		}
-		for (int i = 0; i < 1000; i++)
+		for (int i = 0; i < matchChgCount; i++)
 		{
 			memcpy(&field.marketMatchDataChgField, &chgField, sizeof(chgField));
 			package.mergeField(field, FID_MarketMatchDataChgField);
 		}
 		std::vector<std::string> msgs;
-		FTD20::MarketMatchData::convertToFtdcString(package, msgs);
+		package.toMessages(msgs);
 		for (int i = 0; i < msgs.size(); i++)
 		{
-			if (FTD20::MarketMatchData::onFtdcMessage(msgs[i], package2))
+			if (package.mergeFieldMessage(msgs[i]))
 				break;
 		}
-		CHECK_EQUAL(100, package2.marketMatchDataFields.size());
-		CHECK_EQUAL(1000, package2.marketMatchDataChgFields.size());
+		CHECK_EQUAL(10000, package2.marketMatchDataFields.size());
+		CHECK_EQUAL(10000, package2.marketMatchDataChgFields.size());
 	}
-
+	
 }

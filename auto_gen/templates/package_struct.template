@@ -38,76 +38,38 @@ struct {package_name} : public Package
 {member_merge_lines}
 		return false;
 	}}
-
-	static bool onFtdcMessage(const std::string& ftdcMsg, {package_name}&  package)
+	
+	virtual bool mergeFieldMessage(const FTDCFieldHeader& header, const char* msg)
 	{{
-		FTDCHeader header;
-		const char* ftdcBegin = readFTDCHeader(ftdcMsg.c_str(), header);
-		std::string ftdcContent(ftdcBegin, header.contentLength);
-		return onFtdcMessage(header, ftdcContent, package);
+		Field field = {{ 0 }};
+		int readLen = 0;
+		bool readFieldSucc = readField(msg, header.fid, field, readLen);
+		if (readFieldSucc)
+		{{
+			if (readLen != header.fidLength)
+			{{
+				//Read Field's return length != fieldHeader.length Exception
+				return false;
+			}}
+			return mergeField(field, header.fid);
+		}}
+		return false;
 	}}
 
-	static bool onFtdcMessage(const FTDCHeader& header, const std::string& ftdcContent, {package_name}&  package)
-	{{
-		if (header.chain == FTDCChainSingle || header.chain == FTDCChainFirst)
-		{{
-			package.clear();
-			package.header = header;
-			package.header.chain = FTDCChainSingle;
-			package.header.fieldCount = 0;
-			package.header.contentLength = 0;
-		}}
-		if (package.header.sequenceNO != header.sequenceNO
-			|| package.header.sequenceSeries != header.sequenceSeries)
-			return false;
-		if (header.contentLength != ftdcContent.size())
-			return false;
-		package.header.fieldCount += header.fieldCount;
-		package.header.contentLength += header.contentLength;
-		FTDCFieldHeader field_header = {{ 0 }};
-		FTD20::Field field = {{ 0 }};
-		const char* buffer = ftdcContent.c_str();
-		const char* pos = buffer;
-		bool readFieldSucc = false;
-		for (int i = 0; i < header.fieldCount; i++)
-		{{
-			pos = readFTDCFieldHeader(pos, field_header);
-			int readLen = 0;
-			readFieldSucc = readField(pos, field_header.fid, field, readLen);
-			if (readFieldSucc)
-			{{
-				if (readLen != field_header.fidLength)
-				{{
-					//Read Field's return length != fieldHeader.length Exception
-					return false;
-				}}
-				package.mergeField(field, field_header.fid);
-			}}
-			else
-			{{
-				//recerive not recognized field, now just ignore
-			}}
-			pos += field_header.fidLength;
-		}}
-		if (pos - buffer != header.contentLength)
-			return false;
-		if (header.chain == FTDCChainSingle || header.chain == FTDCChainLast)
-			return true;
-		else
-			return false;
-	}}
+	
 		
 		
-	static void convertToFtdcString(const {package_name}& package, std::vector<std::string>& ftdcMsgs)
+	void toMessages(std::vector<std::string>& ftdcMsgs)
 	{{
+		ftdcMsgs.clear();
 		std::vector<std::string> ftdcContents;
 		std::vector<FTDCHeader> headers;
 			
 		char* ftdcBuffer = new char[MAX_FTDC_LENGTH + 1];
 		char* fieldBuffer = new char[MAX_FTDC_LENGTH + 1];
 		char* ftdcHeaderBuffer = new char[FTDC_HEADER_LENGTH + 1];
-		FTDCHeader header = {{ 0 }};
-		memcpy(&header, &package.header, sizeof(FTDCHeader));
+		FTDCHeader ftdcHeader = {{ 0 }};
+		memcpy(&ftdcHeader, &header, sizeof(FTDCHeader));
 		int writeFieldCount = 0;
 		char* nextWrite = ftdcBuffer;
 		int vecSize = 0;
@@ -116,10 +78,10 @@ struct {package_name} : public Package
 
 		if (nextWrite != ftdcBuffer)
 		{{
-			header.contentLength = nextWrite - ftdcBuffer;
-			header.fieldCount = writeFieldCount;
-			headers.push_back(header);
-			ftdcContents.push_back(std::string().append(ftdcBuffer, nextWrite - ftdcBuffer));
+			ftdcHeader.contentLength = nextWrite - ftdcBuffer;
+			ftdcHeader.fieldCount = writeFieldCount;
+			headers.push_back(ftdcHeader);
+			ftdcContents.push_back(std::string(ftdcBuffer, nextWrite - ftdcBuffer));
 		}}
 		int contentLength = ftdcContents.size();
 		if (contentLength == 1)

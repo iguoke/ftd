@@ -88,16 +88,16 @@ def _format_member_merge_lines(field_info):
 def _format_member_write_lines(field_info):
     fname = field_info.name
     vec_fmt = """//std::vector<{0}> 
-vecSize = package.{1}s.size();			
+vecSize = {1}s.size();			
 for (int i = 0; i < vecSize; i++)
 {{
-	{0}Helper::writeBuffer(package.{1}s[i],
+	{0}Helper::writeBuffer({1}s[i],
 		fieldBuffer, fieldLen);
 	if (MAX_FTDC_LENGTH - (nextWrite - ftdcBuffer) < FTDC_FIELD_HEADER_LENGTH + fieldLen)
 	{{					
-		header.contentLength = nextWrite - ftdcBuffer;
-		header.fieldCount = writeFieldCount;
-		headers.push_back(header);
+		ftdcHeader.contentLength = nextWrite - ftdcBuffer;
+		ftdcHeader.fieldCount = writeFieldCount;
+		headers.push_back(ftdcHeader);
 		ftdcContents.push_back(std::string(ftdcBuffer, nextWrite - ftdcBuffer));
 		memset(ftdcBuffer, 0, MAX_FTDC_LENGTH + 1);
 		nextWrite = ftdcBuffer;
@@ -113,14 +113,14 @@ for (int i = 0; i < vecSize; i++)
 }}
 """
     field_fmt = """//{0}
-{0}Helper::writeBuffer(package.{1},
+{0}Helper::writeBuffer({1},
 	fieldBuffer, fieldLen);
 if (MAX_FTDC_LENGTH - (nextWrite - ftdcBuffer) < FTDC_FIELD_HEADER_LENGTH + fieldLen)
 {{
-	header.contentLength = nextWrite - ftdcBuffer;
-	header.fieldCount = writeFieldCount;
-	headers.push_back(header);
-	ftdcContents.push_back(std::string().append(ftdcBuffer, nextWrite - ftdcBuffer));
+	ftdcHeader.contentLength = nextWrite - ftdcBuffer;
+	ftdcHeader.fieldCount = writeFieldCount;
+	headers.push_back(ftdcHeader);
+	ftdcContents.push_back(std::string(ftdcBuffer, nextWrite - ftdcBuffer));
 	memset(ftdcBuffer, 0, MAX_FTDC_LENGTH + 1);
 	nextWrite = ftdcBuffer;
 	writeFieldCount = 0;
@@ -134,16 +134,16 @@ nextWrite += fieldLen;
 writeFieldCount += 1;
 """
     ptr_fmt = """//{0}
-if(package.p{0}.get() != nullptr)
+if(p{0}.get() != nullptr)
 {{
-	{0}Helper::writeBuffer(*(package.p{0}.get()),
+	{0}Helper::writeBuffer(*(p{0}.get()),
 		fieldBuffer, fieldLen);
 	if (MAX_FTDC_LENGTH - (nextWrite - ftdcBuffer) < FTDC_FIELD_HEADER_LENGTH + fieldLen)
 	{{
-		header.contentLength = nextWrite - ftdcBuffer;
-		header.fieldCount = writeFieldCount;
-		headers.push_back(header);
-		ftdcContents.push_back(std::string().append(ftdcBuffer, nextWrite - ftdcBuffer));
+		ftdcHeader.contentLength = nextWrite - ftdcBuffer;
+		ftdcHeader.fieldCount = writeFieldCount;
+		headers.push_back(ftdcHeader);
+		ftdcContents.push_back(std::string(ftdcBuffer, nextWrite - ftdcBuffer));
 		memset(ftdcBuffer, 0, MAX_FTDC_LENGTH + 1);
 		nextWrite = ftdcBuffer;
 		writeFieldCount = 0;
