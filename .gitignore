@@ -33,7 +33,7 @@
 
 *.sdf
 *.opensdf
-.vs/*
+/.vs/*
 ipch/*
 include/*
 /ftd/Debug
@@ -48,3 +48,7 @@ include/*
 /auto_gen/FTD20/*
 /auto_gen/FTD10/*
 *.pyc
+/ftd/FTD20/*
+/ftd/FTDDerivativeType.h
+/ftd/FTDID.h
+/ftd/FTDItemType.h
