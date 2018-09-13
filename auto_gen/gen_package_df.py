@@ -7,7 +7,7 @@ from file_util import *
 
 package_struct_template_file = './templates/package_struct.template'
 
-def generate_package_struct(version, package, target_path):
+def generate_package_struct(version, package, target_path, version_number):
     template = load_template_file(package_struct_template_file)
     package_name_upper = package.name.upper()
     member_def_lines = []
@@ -28,6 +28,7 @@ def generate_package_struct(version, package, target_path):
     d['member_clear_lines'] = add_whitespaces('\n'.join(member_clear_lines), 8)
     d['member_merge_lines'] = add_whitespaces('\n'.join(member_merge_lines), 8)
     d['member_write_sections'] = add_whitespaces('\n'.join(member_write_sections), 8)
+    d['version_number'] = version_number
     target_fpath = '{0}/{1}/{2}.h'.format(target_path, version,package.name) 
     save_cpp_file(template.format_map(d), target_fpath)
 

@@ -22,6 +22,11 @@ struct {package_name} : public Package
 
 {member_def_lines}
 
+	{package_name}()
+	{{
+		header.version = {version_number};
+		header.transactionId = TID_{package_name};
+	}}
 
 	void clear()
 	{{
@@ -69,15 +74,20 @@ struct {package_name} : public Package
 			pos = readFTDCFieldHeader(pos, field_header);
 			int readLen = 0;
 			readFieldSucc = readField(pos, field_header.fid, field, readLen);
-			if (readLen != field_header.fidLength)
+			if (readFieldSucc)
 			{{
-				return false;
+				if (readLen != field_header.fidLength)
+				{{
+					//Read Field's return length != fieldHeader.length Exception
+					return false;
+				}}
+				package.mergeField(field, field_header.fid);
 			}}
 			else
 			{{
-				package.mergeField(field, field_header.fid);
+				//recerive not recognized field, now just ignore
 			}}
-			pos += readLen;
+			pos += field_header.fidLength;
 		}}
 		if (pos - buffer != header.contentLength)
 			return false;

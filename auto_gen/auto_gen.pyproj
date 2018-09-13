@@ -56,6 +56,7 @@
     <Content Include="templates\field_struct.template" />
     <Content Include="templates\id_def.template" />
     <Content Include="templates\item_def.template" />
+    <Content Include="templates\package_struct.template" />
     <Content Include="templates\type_def.template" />
   </ItemGroup>
   <PropertyGroup>

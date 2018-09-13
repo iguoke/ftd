@@ -3,7 +3,7 @@ import os
 
 path = '../spec/'
 target_path = '../ftd/'
-files = ['FTD20.xml',]
+files = ['ftd_2_0.xml',]
 
 import gen_type_df
 import gen_item_df
@@ -16,6 +16,9 @@ from dtd_parse import *
 def generate_ftd(path, file, target_path):
     types,items,fields, packages, tids = load_dtd_file_fields(path, file)
     version = file.split('.')[0]
+    nodes = version.split('_')
+    version_number = nodes[1]
+    version = ''.join(nodes).upper()
     ver_path = '%s/%s' %(target_path, version)
     if not os.path.exists(ver_path):
         os.makedirs(ver_path)
@@ -27,7 +30,7 @@ def generate_ftd(path, file, target_path):
     gen_field_df.generate_fields_include(version,
            list(fields.values()), target_path)
     for package in packages.values():
-        gen_package_df.generate_package_struct(version, package, target_path)
+        gen_package_df.generate_package_struct(version, package, target_path, version_number)
     
 
 
