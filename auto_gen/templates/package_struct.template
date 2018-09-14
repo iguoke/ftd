@@ -22,7 +22,7 @@ struct {package_name} : public Package
 
 {member_def_lines}
 
-	{package_name}()
+	{package_name}() : Package({version_number}, TID_{package_name})
 	{{
 		header.version = {version_number};
 		header.transactionId = TID_{package_name};
