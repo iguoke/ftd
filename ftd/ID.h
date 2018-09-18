@@ -6,6 +6,7 @@ Version=FTD20
 #ifndef FTD_ID_TYPE_H
 #define FTD_ID_TYPE_H
 
+#define FTD_VERSION 2
 
 namespace FTD {
 

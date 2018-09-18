@@ -11,7 +11,7 @@ Version={version}
 
 {include_file_headers}
 
-namespace {version}
+namespace FTD
 {{
 
 {declare_smart_ptr_lines}

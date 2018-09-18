@@ -8,9 +8,9 @@
 #include "../ItemType.h"
 
 
-using namespace FTD;
 
-namespace {version} {{
+
+namespace FTD {{
 
 struct {field_name}
 {{

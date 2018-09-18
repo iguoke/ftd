@@ -8,7 +8,7 @@ from file_util import *
 ftd_type_template = './templates/id_def.template'
 target_fname = 'Id.h'
 
-def generate_id_df(version, tids, fields, target_path):
+def generate_id_df(version, tids, fields, target_path, version_number):
     template = load_template_file(ftd_type_template)
     d = {}
     tid_statments = []
@@ -21,4 +21,5 @@ def generate_id_df(version, tids, fields, target_path):
     d['version'] = version
     d['tid_def'] = '\n'.join(tid_statments)
     d['fid_def'] = '\n'.join(fid_statements)
+    d['version_number'] = version_number
     save_cpp_file(template.format_map(d), '%s/%s'%(target_path, target_fname))

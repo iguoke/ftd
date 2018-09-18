@@ -156,7 +156,6 @@ del /F EXCLUDE
     <ClInclude Include="Acceptor.h" />
     <ClInclude Include="Exceptions.h" />
     <ClInclude Include="ftd.h" />
-    <ClInclude Include="FTD20\Error.h" />
     <ClInclude Include="Declare.h" />
     <ClInclude Include="ID.h" />
     <ClInclude Include="IO.h" />

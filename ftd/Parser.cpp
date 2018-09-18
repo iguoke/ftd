@@ -7,6 +7,7 @@
 #include "Parser.h"
 #include "Utility.h"
 #include "ftd.h"
+#include "IO.h"
 #include <algorithm>
 
 namespace FTD
@@ -15,18 +16,16 @@ namespace FTD
 		const std::string& buffer)
 		throw(MessageParseError)
 	{
-		int header_size = sizeof(FTDHeader);
-		std::string::size_type pos = 0;
 
-		if (buffer.length() < header_size)
+		if (buffer.length() < FTD_HEADER_LENGTH)
 			return false;
 		FTDHeader header;
-		memcpy(&header, m_buffer.c_str(), sizeof(header));
-		length = header_size + header.FTDExtHeaderLength + header.FTDCLength;
+		readFTDHeader(buffer.c_str(), header);
+		length = FTD_HEADER_LENGTH + header.FTDExtHeaderLength + header.FTDCLength;
 		return true;
 	}
 
-	bool Parser::readFixMessage(std::string& str)
+	bool Parser::readFtdMessage(std::string& str)
 		throw(MessageParseError)
 	{
 		int length = 0;

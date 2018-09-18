@@ -3,6 +3,8 @@
 #include <cstdio>
 #include <memory>
 
+#define FTD_HEADER_LENGTH 4
+
 #define MAX_FTD_LENGTH 4096
 #define MAX_FTDC_LENGTH 4096 - 16
 
@@ -11,8 +13,8 @@
 
 struct FTDHeader
 {
-	int8_t FTDType;
-	int8_t FTDExtHeaderLength;
+	uint8_t FTDType;
+	uint8_t FTDExtHeaderLength;
 	int16_t FTDCLength;
 };
 
@@ -23,7 +25,7 @@ struct FTDHeader
 
 struct FTDExtHeader
 {
-	int8_t FTDTag;
+	uint8_t FTDTag;
 	int8_t FTDTagLength;
 };
 #define FTDTagNone 0x00
@@ -33,6 +35,7 @@ struct FTDExtHeader
 #define FTDTagKeepAlive 0x04
 #define FTDTagTradedate 0x05
 #define FTDTagTarget 0x06
+
 #define FTDTagNoneLength 0
 #define FTDTagDatetimeLength  4
 #define FTDTagComressMethodLength 1
@@ -40,6 +43,16 @@ struct FTDExtHeader
 #define FTDTagKeepAliveLength 0
 #define FTDTagTradedateLength 4
 #define FTDTagTargetLength 2
+
+struct FtdExt
+{
+	int dateTime;
+	char compressMethod;
+	char sessionState;
+	int tradeDate;
+	char target[3];
+
+};
 
 #define DIALOG 0
 #define PRIVATE 1
@@ -49,7 +62,7 @@ struct FTDCHeader
 {
 	uint8_t version;
 	uint32_t transactionId;
-	char chain;
+	uint8_t chain;
 	uint16_t sequenceSeries;
 	uint32_t sequenceNO;
 	uint16_t fieldCount;

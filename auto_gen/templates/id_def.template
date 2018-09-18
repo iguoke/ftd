@@ -6,6 +6,7 @@ Version={version}
 #ifndef FTD_ID_TYPE_H
 #define FTD_ID_TYPE_H
 
+#define FTD_VERSION {version_number}
 
 namespace FTD {{
 

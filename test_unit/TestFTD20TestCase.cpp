@@ -7,37 +7,35 @@
 
 #include <BaseType.h>
 #include <UnitTest++.h>
-#include <FTD20/BulletinField.h>
-#include <FTD20/ClientField.h>
+#include <FTD20/Fields.h>
 #include <FTD20/Error.h>
-#include <FTD20/MarketMatchData.h>
 using namespace FTD;
 
-SUITE(FTD20Test)
+SUITE(FTDTest)
 {
 
 	TEST(BulltinField)
 	{
-		FTD20::BulletinField field = { 0 };
+		FTD::BulletinField field = { 0 };
 		char* buffer = new char[4096];
 		int writeLen = 20;
 		int readLen = 10;
-		FTD20::BulletinFieldHelper::writeBuffer(field, buffer, writeLen);
-		FTD20::BulletinFieldHelper::readBuffer(buffer, field, readLen);
+		FTD::BulletinFieldHelper::writeBuffer(field, buffer, writeLen);
+		FTD::BulletinFieldHelper::readBuffer(buffer, field, readLen);
 		CHECK_EQUAL(writeLen, readLen);
 		delete buffer;
 	}
 
 	TEST(ClientField)
 	{
-		FTD20::ClientField field = { 0 };
-		FTD20::ClientField field2 = { 0 };
+		FTD::ClientField field = { 0 };
+		FTD::ClientField field2 = { 0 };
 		strcpy(field.clientId, "12345678");
 		char* buffer = new char[4096];
 		int writeLen = 20;
 		int readLen = 10;
-		FTD20::ClientFieldHelper::writeBuffer(field, buffer, writeLen);
-		FTD20::ClientFieldHelper::readBuffer(buffer, field2, readLen);
+		FTD::ClientFieldHelper::writeBuffer(field, buffer, writeLen);
+		FTD::ClientFieldHelper::readBuffer(buffer, field2, readLen);
 		CHECK_EQUAL(writeLen, readLen);
 		CHECK_EQUAL("12345678", field2.clientId);
 		delete buffer;
@@ -45,14 +43,14 @@ SUITE(FTD20Test)
 
 	TEST(ClientField2)
 	{
-		FTD20::ClientField field = { 0 };
-		FTD20::ClientField field2 = { 0 };
+		FTD::ClientField field = { 0 };
+		FTD::ClientField field2 = { 0 };
 		strcpy(field.clientId, "1234");
 		char* buffer = new char[4096];
 		int writeLen = 20;
 		int readLen = 10;
-		FTD20::ClientFieldHelper::writeBuffer(field, buffer, writeLen);
-		FTD20::ClientFieldHelper::readBuffer(buffer, field2, readLen);
+		FTD::ClientFieldHelper::writeBuffer(field, buffer, writeLen);
+		FTD::ClientFieldHelper::readBuffer(buffer, field2, readLen);
 		CHECK_EQUAL(writeLen, readLen);
 		CHECK_EQUAL("1234", field2.clientId);
 		delete buffer;
@@ -60,12 +58,12 @@ SUITE(FTD20Test)
 
 	TEST(Error)
 	{
-		FTD20::Error package;
-		FTD20::Error package2;
-		FTD20::ErrorField errorField;
+		FTD::Error package;
+		FTD::Error package2;
+		FTD::ErrorField errorField;
 		strcpy(errorField.errorCode, "ok");
-		FTD20::Field field;
-		memcpy(&field.errorField, &errorField, sizeof(FTD20::ErrorField));
+		FTD::Field field;
+		memcpy(&field.errorField, &errorField, sizeof(FTD::ErrorField));
 
 		int len = 1000000;
 		//package.errorFields.reserve(len);
@@ -73,9 +71,9 @@ SUITE(FTD20Test)
 		{
 			package.mergeField(field, FID_ErrorField);
 		}
-		FTD20::ErrorTargetOrderField errorTargetOrderField;
+		FTD::ErrorTargetOrderField errorTargetOrderField;
 		strcpy(errorTargetOrderField.orderLocalId, "okokokokokokok");
-		memcpy(&field.errorTargetOrderField, &errorTargetOrderField, sizeof(FTD20::ErrorTargetOrderField));
+		memcpy(&field.errorTargetOrderField, &errorTargetOrderField, sizeof(FTD::ErrorTargetOrderField));
 		package.mergeField(field, FID_ErrorTargetOrderField);
 
 		std::vector<std::string> msgs;
@@ -97,11 +95,11 @@ SUITE(FTD20Test)
 	/*
 	TEST(MarketMatchData)
 	{
-		FTD20::MarketMatchData package;
-		FTD20::MarketMatchData package2;
-		FTD20::MarketMatchDataField dataField = { 0 };
-		FTD20::MarketMatchDataChgField chgField = { 0 };
-		FTD20::Field field;
+		FTD::MarketMatchData package;
+		FTD::MarketMatchData package2;
+		FTD::MarketMatchDataField dataField = { 0 };
+		FTD::MarketMatchDataChgField chgField = { 0 };
+		FTD::Field field;
 		int matchCount = 10000;
 		int matchChgCount = 10000;
 		for (int i = 0; i < matchCount; i++)

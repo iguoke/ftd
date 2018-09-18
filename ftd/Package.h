@@ -22,8 +22,7 @@ namespace FTD
 		{
 			if (ftdcHeader.contentLength != ftdcContent.size())
 				return false;
-			if (transactionId != ftdcHeader.transactionId
-				|| version != ftdcHeader.version)
+			if (transactionId != ftdcHeader.transactionId)
 			{
 				return false;
 			}

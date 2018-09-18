@@ -87,12 +87,22 @@ int writeUInt8(const uint8_t& result, char* buffer)
 
 }
 
+const char* readFTDHeader(const char* buffer, FTDHeader& header)
+{
+	const char* pos = buffer;
+	pos += readUInt8(pos, header.FTDType);
+	pos += readUInt8(pos, header.FTDExtHeaderLength);
+	pos += readInt16(pos, header.FTDCLength);
+	return pos;
+}
+
+
 const char* readFTDCHeader(const char* buffer, FTDCHeader& header)
 {
 	const char* pos = buffer;
 	pos += readUInt8(pos, header.version);
 	pos += readUInt32(pos, header.transactionId);
-	pos += readChar(pos, header.chain);
+	pos += readUInt8(pos, header.chain);
 	pos += readUInt16(pos, header.sequenceSeries);
 	pos += readUInt32(pos, header.sequenceNO);
 	pos += readUInt16(pos, header.fieldCount);
@@ -113,7 +123,7 @@ char* writeFTDCHeader(const FTDCHeader& header, char* buffer)
 	char* pos = buffer;
 	pos += writeUInt8(header.version, pos);
 	pos += writeUInt32(header.transactionId, pos);
-	pos += writeChar(header.chain, pos);
+	pos += writeUInt8(header.chain, pos);
 	pos += writeUInt16(header.sequenceSeries, pos);
 	pos += writeUInt32(header.sequenceNO, pos);
 	pos += writeUInt16(header.fieldCount, pos);

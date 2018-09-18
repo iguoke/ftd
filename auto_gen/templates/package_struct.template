@@ -12,9 +12,9 @@
 #include "../IO.h"
 #include "../ID.h"
 
-using namespace FTD;
 
-namespace {version} 
+
+namespace FTD
 {{
 
 struct {package_name} : public Package
@@ -22,7 +22,7 @@ struct {package_name} : public Package
 
 {member_def_lines}
 
-	{package_name}() : Package({version_number}, TID_{package_name})
+	{package_name}() : Package(FTD_VERSION, TID_{package_name})
 	{{
 		header.version = {version_number};
 		header.transactionId = TID_{package_name};

@@ -21,7 +21,7 @@ namespace FTD
 		bool extractLength(int& length,
 			const std::string& buffer)
 			throw (MessageParseError);
-		bool readFixMessage(std::string& str)
+		bool readFtdMessage(std::string& str)
 			throw (MessageParseError);
 
 		void addToStream(const char* str, size_t len)
