@@ -6,7 +6,7 @@ Version=FTD20
 #ifndef FTD_ITEM_TYPE_H
 #define FTD_ITEM_TYPE_H
 
-#include "FTDDerivativeType.h"
+#include "DerivativeType.h"
 
 
 

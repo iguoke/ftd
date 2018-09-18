@@ -31,6 +31,7 @@ namespace FTD
 				clear();
 				header.sequenceNO = ftdcHeader.sequenceNO;
 				header.sequenceSeries = ftdcHeader.sequenceSeries;
+				header.version = ftdcHeader.version;
 			}
 			if (header.sequenceNO != ftdcHeader.sequenceNO
 				|| header.sequenceSeries != ftdcHeader.sequenceSeries)
