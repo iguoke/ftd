@@ -6,7 +6,7 @@ from dtd_def import *
 from file_util import *
 
 ftd_type_template = './templates/type_def.template'
-target_fname = 'FTDDerivativeType.h'
+target_fname = 'DerivativeType.h'
 
 def generate_type_df(version, types, target_path):
     template = load_template_file(ftd_type_template)

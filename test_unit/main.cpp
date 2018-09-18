@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "FTDBaseType.h"
+#include "BaseType.h"
 using namespace std;
 using namespace FTD;
 

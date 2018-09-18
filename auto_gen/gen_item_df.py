@@ -6,7 +6,7 @@ from dtd_def import *
 from file_util import *
 
 ftd_type_template = './templates/item_def.template'
-target_fname = 'FTDItemType.h'
+target_fname = 'ItemType.h'
 
 def generate_item_df(version, items, target_path):
     template = load_template_file(ftd_type_template)

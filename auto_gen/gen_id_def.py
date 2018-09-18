@@ -6,7 +6,7 @@ from dtd_def import *
 from file_util import *
 
 ftd_type_template = './templates/id_def.template'
-target_fname = 'FTDID.h'
+target_fname = 'Id.h'
 
 def generate_id_df(version, tids, fields, target_path):
     template = load_template_file(ftd_type_template)

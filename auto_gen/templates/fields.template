@@ -6,8 +6,8 @@ Version={version}
 #ifndef {version}_FIELDS_H
 #define {version}_FIELDS_H
 
-#include "../FTDID.h"
-#include "../FtdDeclare.h"
+#include "../ID.h"
+#include "../Declare.h"
 
 {include_file_headers}
 

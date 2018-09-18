@@ -8,9 +8,9 @@
 #include "Fields.h"
 #include <vector>
 #include "../ftd.h"
-#include "../FTDPackage.h"
-#include "../FtdIO.h"
-#include "../FTDID.h"
+#include "../Package.h"
+#include "../IO.h"
+#include "../ID.h"
 
 using namespace FTD;
 
