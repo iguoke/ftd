@@ -8,6 +8,8 @@
 class Acceptor
 {
 public:
-	Acceptor()
+	Acceptor();
+
 };
+
 #endif

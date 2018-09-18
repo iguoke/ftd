@@ -100,10 +100,10 @@ struct {package_name} : public Package
 		for (int i = 0; i < contentLength; i++)
 		{{
 			writeFTDCHeader(headers[i], ftdcHeaderBuffer);
-			std::string ftdMsg;
-			ftdMsg.append(ftdcHeaderBuffer, FTDC_HEADER_LENGTH);
-			ftdMsg.append(ftdcContents[i]);
-			ftdcMsgs.push_back(ftdMsg);
+			std::string ftdcMsg;
+			ftdcMsg.append(ftdcHeaderBuffer, FTDC_HEADER_LENGTH);
+			ftdcMsg.append(ftdcContents[i]);
+			ftdcMsgs.push_back(ftdcMsg);
 		}}
 
 		delete[] ftdcHeaderBuffer;

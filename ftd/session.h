@@ -1,9 +1,19 @@
-#pragma once
+#ifndef FTD_SESSION_H
+#define FTD_SESSION_H
 
-class Session
+namespace FTD
 {
-public:
-	Session();
-	virtual ~Session();
+	typedef int SessionID;
 
-};
+	class Session
+	{
+	public:
+		Session();
+		virtual ~Session();
+
+	};
+}
+
+
+
+#endif
