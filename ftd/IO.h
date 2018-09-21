@@ -87,7 +87,7 @@ int writeUInt8(const uint8_t& result, char* buffer)
 
 }
 
-const char* readFTDHeader(const char* buffer, FTDHeader& header)
+const char* readFtdHeader(const char* buffer, FtdHeader& header)
 {
 	const char* pos = buffer;
 	pos += readUInt8(pos, header.FTDType);
@@ -97,7 +97,7 @@ const char* readFTDHeader(const char* buffer, FTDHeader& header)
 }
 
 
-const char* readFTDCHeader(const char* buffer, FTDCHeader& header)
+const char* readFtdcHeader(const char* buffer, FtdcHeader& header)
 {
 	const char* pos = buffer;
 	pos += readUInt8(pos, header.version);
@@ -110,7 +110,7 @@ const char* readFTDCHeader(const char* buffer, FTDCHeader& header)
 	return pos;
 }
 
-const char* readFTDCFieldHeader(const char* buffer, FTDCFieldHeader& header)
+const char* readFtdcFieldHeader(const char* buffer, FtdcFieldHeader& header)
 {
 	const char* pos = buffer;
 	pos += readInt32(pos, header.fid);
@@ -118,7 +118,7 @@ const char* readFTDCFieldHeader(const char* buffer, FTDCFieldHeader& header)
 	return pos;
 }
 
-char* writeFTDCHeader(const FTDCHeader& header, char* buffer)
+char* writeFtdcHeader(const FtdcHeader& header, char* buffer)
 {
 	char* pos = buffer;
 	pos += writeUInt8(header.version, pos);
@@ -131,7 +131,7 @@ char* writeFTDCHeader(const FTDCHeader& header, char* buffer)
 	return pos;
 }
 
-char* writeFTDCFieldHeader(const FTDCFieldHeader& header, char* buffer)
+char* writeFtdcFieldHeader(const FtdcFieldHeader& header, char* buffer)
 {
 	char* pos = buffer;
 	pos += writeInt32(header.fid, pos);

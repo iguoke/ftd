@@ -9,7 +9,7 @@ namespace FTD
 	{
 		const uint8_t version;
 		const uint32_t transactionId; 
-		FTDCHeader header;
+		FtdcHeader header;
 		Package(uint8_t version_, uint32_t transactionId_) :
 			version(version_), transactionId(transactionId_), header({ 0 })
 		{}
@@ -18,7 +18,7 @@ namespace FTD
 		
 		virtual  void toMessages(std::vector<std::string>& resultBuf) { }
 		
-		bool mergeFtdcMessage(const FTDCHeader& ftdcHeader, const std::string& ftdcContent)
+		bool mergeFtdcMessage(const FtdcHeader& ftdcHeader, const std::string& ftdcContent)
 		{
 			if (ftdcHeader.contentLength != ftdcContent.size())
 				return false;
@@ -38,12 +38,12 @@ namespace FTD
 				return false;
 			header.fieldCount += ftdcHeader.fieldCount;
 			header.contentLength += ftdcHeader.contentLength;
-			FTDCFieldHeader fieldHeader = { 0 };
+			FtdcFieldHeader fieldHeader = { 0 };
 			const char* buffer = ftdcContent.c_str();
 			const char* pos = buffer;
 			for (int i = 0; i < ftdcHeader.fieldCount; i++)
 			{
-				pos = readFTDCFieldHeader(pos, fieldHeader);
+				pos = readFtdcFieldHeader(pos, fieldHeader);
 				int readLen = 0;
 				mergeFieldMessage(fieldHeader, pos);
 				pos += fieldHeader.fidLength;
@@ -59,14 +59,14 @@ namespace FTD
 
 		bool mergeFtdcMessage(const std::string& ftdcMsg)
 		{
-			FTDCHeader header;
-			const char* ftdcBegin = readFTDCHeader(ftdcMsg.c_str(), header);
+			FtdcHeader header;
+			const char* ftdcBegin = readFtdcHeader(ftdcMsg.c_str(), header);
 			std::string ftdcContent(ftdcBegin, header.contentLength);
 			return mergeFtdcMessage(header, ftdcContent);
 		}
 
 	protected:
-		virtual bool mergeFieldMessage(const FTDCFieldHeader& header, const char* msg) = 0;
+		virtual bool mergeFieldMessage(const FtdcFieldHeader& header, const char* msg) = 0;
 
 		
 	};

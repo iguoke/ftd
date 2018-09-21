@@ -30,7 +30,7 @@
 namespace FTD
 {
 SocketInitiator::SocketInitiator( Application& application,
-                                  MessageStoreFactory& factory,
+                                  PackageStoreFactory& factory,
                                   const SessionSettings& settings )
 throw( ConfigError )
 : Initiator( application, factory, settings ),
@@ -41,7 +41,7 @@ throw( ConfigError )
 }
 
 SocketInitiator::SocketInitiator( Application& application,
-                                  MessageStoreFactory& factory,
+                                  PackageStoreFactory& factory,
                                   const SessionSettings& settings,
                                   LogFactory& logFactory )
 throw( ConfigError )

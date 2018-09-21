@@ -39,7 +39,7 @@ struct {package_name} : public Package
 		return false;
 	}}
 	
-	virtual bool mergeFieldMessage(const FTDCFieldHeader& header, const char* msg)
+	virtual bool mergeFieldMessage(const FtdcFieldHeader& header, const char* msg)
 	{{
 		Field field = {{ 0 }};
 		int readLen = 0;
@@ -63,13 +63,13 @@ struct {package_name} : public Package
 	{{
 		ftdcMsgs.clear();
 		std::vector<std::string> ftdcContents;
-		std::vector<FTDCHeader> headers;
+		std::vector<FtdcHeader> headers;
 			
 		char* ftdcBuffer = new char[MAX_FTDC_LENGTH + 1];
 		char* fieldBuffer = new char[MAX_FTDC_LENGTH + 1];
 		char* ftdcHeaderBuffer = new char[FTDC_HEADER_LENGTH + 1];
-		FTDCHeader ftdcHeader = {{ 0 }};
-		memcpy(&ftdcHeader, &header, sizeof(FTDCHeader));
+		FtdcHeader ftdcHeader = {{ 0 }};
+		memcpy(&ftdcHeader, &header, sizeof(FtdcHeader));
 		int writeFieldCount = 0;
 		char* nextWrite = ftdcBuffer;
 		int vecSize = 0;

@@ -19,8 +19,8 @@ namespace FTD
 
 		if (buffer.length() < FTD_HEADER_LENGTH)
 			return false;
-		FTDHeader header;
-		readFTDHeader(buffer.c_str(), header);
+		FtdHeader header;
+		readFtdHeader(buffer.c_str(), header);
 		length = FTD_HEADER_LENGTH + header.FTDExtHeaderLength + header.FTDCLength;
 		return true;
 	}

@@ -11,7 +11,7 @@
 #define FTDC_FIELD_HEADER_LENGTH 6
 #define FTDC_HEADER_LENGTH 16
 
-struct FTDHeader
+struct FtdHeader
 {
 	uint8_t FTDType;
 	uint8_t FTDExtHeaderLength;
@@ -23,7 +23,7 @@ struct FTDHeader
 #define FTDTypeCompressed 0x02
 
 
-struct FTDExtHeader
+struct FtdExtHeader
 {
 	uint8_t FTDTag;
 	int8_t FTDTagLength;
@@ -58,7 +58,7 @@ struct FtdExt
 #define PRIVATE 1
 #define BROADCAST 2
 
-struct FTDCHeader
+struct FtdcHeader
 {
 	uint8_t version;
 	uint32_t transactionId;
@@ -79,7 +79,7 @@ struct FTDCHeader
 私有模式 下行的序列类别号对于每个会员是不同的
 */
 
-struct FTDCFieldHeader
+struct FtdcFieldHeader
 {
 	int32_t fid;
 	uint16_t fidLength;

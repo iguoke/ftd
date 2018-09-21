@@ -137,9 +137,14 @@ del /F EXCLUDE
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Acceptor.cpp" />
+    <ClCompile Include="Dictionary.cpp" />
+    <ClCompile Include="FixConvertors.cpp" />
+    <ClCompile Include="FixTypes.cpp" />
     <ClCompile Include="Parser.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="SessionFactory.cpp" />
     <ClCompile Include="SocketConnection.cpp" />
     <ClCompile Include="SocketConnector.cpp" />
     <ClCompile Include="SocketInitiator.cpp" />
@@ -154,14 +159,23 @@ del /F EXCLUDE
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Acceptor.h" />
+    <ClInclude Include="Application.h" />
+    <ClInclude Include="Dictionary.h" />
     <ClInclude Include="Exceptions.h" />
+    <ClInclude Include="FixConvertors.h" />
+    <ClInclude Include="FixTypes.h" />
     <ClInclude Include="ftd.h" />
     <ClInclude Include="Declare.h" />
     <ClInclude Include="ID.h" />
     <ClInclude Include="IO.h" />
+    <ClInclude Include="Log.h" />
+    <ClInclude Include="PackageStore.h" />
     <ClInclude Include="Package.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="session.h" />
+    <ClInclude Include="SessionFactory.h" />
+    <ClInclude Include="SessionID.h" />
+    <ClInclude Include="SessionSetting.h" />
     <ClInclude Include="SocketConnection.h" />
     <ClInclude Include="SocketConnector.h" />
     <ClInclude Include="SocketInitiator.h" />
