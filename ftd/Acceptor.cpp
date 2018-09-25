@@ -102,39 +102,6 @@ Acceptor::~Acceptor()
     m_pLogFactory->destroy( m_pLog );
 }
 
-Session* Acceptor::getSession
-( const std::string& msg, Responder& responder )
-{
-  Message message;
-  if ( !message.setStringHeader( msg ) )
-    return 0;
-
-  BeginString beginString;
-  SenderCompID clSenderCompID;
-  TargetCompID clTargetCompID;
-  MsgType msgType;
-  try
-  {
-    message.getHeader().getField( beginString );
-    message.getHeader().getField( clSenderCompID );
-    message.getHeader().getField( clTargetCompID );
-    message.getHeader().getField( msgType );
-    if ( msgType != "A" ) return 0;
-
-    SenderCompID senderCompID( clTargetCompID );
-    TargetCompID targetCompID( clSenderCompID );
-    SessionID sessionID( beginString, senderCompID, targetCompID );
-
-    Sessions::iterator i = m_sessions.find( sessionID );
-    if ( i != m_sessions.end() )
-    {
-      i->second->setResponder( &responder );
-      return i->second;
-    }
-  }
-  catch ( FieldNotFound& ) {}
-  return 0;
-}
 
 Session* Acceptor::getSession( const SessionID& sessionID ) const
 {
@@ -145,25 +112,14 @@ Session* Acceptor::getSession( const SessionID& sessionID ) const
     return 0;
 }
 
-const Dictionary* const Acceptor::getSessionSettings( const SessionID& sessionID ) const
-{
-  try
-  {
-    return &m_settings.get( sessionID );
-  }
-  catch( ConfigError& )
-  {
-    return 0;
-  }
-}
+
 
 void Acceptor::start() throw ( ConfigError, RuntimeError )
 {
   m_stop = false;
-  onConfigure( m_settings );
-  onInitialize( m_settings );
+  onConfigure( m_setting );
+  onInitialize( m_setting );
 
-  HttpServer::startGlobal( m_settings );
 
   if( !thread_spawn( &startThread, this, m_threadid ) )
     throw RuntimeError("Unable to spawn thread");
@@ -172,8 +128,8 @@ void Acceptor::start() throw ( ConfigError, RuntimeError )
 void Acceptor::block() throw ( ConfigError, RuntimeError )
 {
   m_stop = false;
-  onConfigure( m_settings );
-  onInitialize( m_settings );
+  onConfigure( m_setting );
+  onInitialize( m_setting );
 
   startThread(this);
 }
@@ -183,8 +139,8 @@ bool Acceptor::poll( double timeout ) throw ( ConfigError, RuntimeError )
   if( m_firstPoll )
   {
     m_stop = false;
-    onConfigure( m_settings );
-    onInitialize( m_settings );
+    onConfigure( m_setting );
+    onInitialize( m_setting );
     m_firstPoll = false;
   }
 
@@ -195,7 +151,6 @@ void Acceptor::stop( bool force )
 {
   if( isStopped() ) return;
 
-  HttpServer::stopGlobal();
 
   std::vector<Session*> enabledSessions;
 
@@ -240,6 +195,7 @@ bool Acceptor::isLoggedOn()
   }
   return false;
 }
+
 
 THREAD_PROC Acceptor::startThread( void* p )
 {

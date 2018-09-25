@@ -99,9 +99,9 @@ namespace FTD
 		///fix:initialize create all sessions ftd:a new socket accepted,new session created
 		void createSession(const SessionID& id, const int& socket);
 		/// Implemented to configure acceptor
-		virtual void onConfigure(const SessionSettings&) throw (ConfigError) {};
+		virtual void onConfigure(const SessionSetting&) throw (ConfigError) {};
 		/// Implemented to initialize acceptor
-		virtual void onInitialize(const SessionSettings&) throw (RuntimeError) {};
+		virtual void onInitialize(const SessionSetting&) throw (RuntimeError) {};
 		/// Implemented to start listening for connections.
 		virtual void onStart() = 0;
 		/// Implemented to connect and poll for events.

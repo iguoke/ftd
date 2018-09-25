@@ -74,21 +74,21 @@ namespace FTD
 		{
 			Locker l(m_mutex); app().onLogout(sessionID);
 		}
-		void toAdmin(Message& message, const SessionID& sessionID)
+		void toAdmin(Package& message, const SessionID& sessionID)
 		{
 			Locker l(m_mutex); app().toAdmin(message, sessionID);
 		}
-		void toApp(Message& message, const SessionID& sessionID)
+		void toApp(Package& message, const SessionID& sessionID)
 			throw(DoNotSend)
 		{
 			Locker l(m_mutex); app().toApp(message, sessionID);
 		}
-		void fromAdmin(const Message& message, const SessionID& sessionID)
+		void fromAdmin(const Package& message, const SessionID& sessionID)
 			throw(FieldNotFound, IncorrectDataFormat, IncorrectTagValue, RejectLogon)
 		{
 			Locker l(m_mutex); app().fromAdmin(message, sessionID);
 		}
-		void fromApp(const Message& message, const SessionID& sessionID)
+		void fromApp(const Package& message, const SessionID& sessionID)
 			throw(FieldNotFound, IncorrectDataFormat, IncorrectTagValue, UnsupportedMessageType)
 		{
 			Locker l(m_mutex); app().fromApp(message, sessionID);
@@ -111,12 +111,12 @@ namespace FTD
 		void onCreate(const SessionID&) {}
 		void onLogon(const SessionID&) {}
 		void onLogout(const SessionID&) {}
-		void toAdmin(Message&, const SessionID&) {}
-		void toApp(Message&, const SessionID&)
+		void toAdmin(Package&, const SessionID&) {}
+		void toApp(Package&, const SessionID&)
 			throw(DoNotSend) {}
-		void fromAdmin(const Message&, const SessionID&)
+		void fromAdmin(const Package&, const SessionID&)
 			throw(FieldNotFound, IncorrectDataFormat, IncorrectTagValue, RejectLogon) {}
-		void fromApp(const Message&, const SessionID&)
+		void fromApp(const Package&, const SessionID&)
 			throw(FieldNotFound, IncorrectDataFormat, IncorrectTagValue, UnsupportedMessageType) {}
 	};
 	/*! @} */

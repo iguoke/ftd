@@ -26,7 +26,7 @@ def load_package_node(node):
     item = PackageDTD()
     item.name = node.get('name')
     item.tid = node.get('tid')
-    item.model = node.get('dialog')
+    item.model = node.get('model')
     item.comment = node.get('comment')
     item.fields = []
     for child in list(node.iter()):

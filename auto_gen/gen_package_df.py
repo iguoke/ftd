@@ -187,18 +187,58 @@ def generate_package_include(version, packages, target_path):
     }}
     break;
 }}"""
+    read_template_dialog = """case(TID_{0}):
+{{
+    bool parseRtn = false;
+    if(m_isReceiveReq && req{0}.mergeFtdcMessage(message))
+    {{
+        readResult = TID_{0};
+        break;
+    }}
+    if(!m_isReceiveReq && rsp{0}.mergeFtdcMessage(message))
+    {{
+        readResult = TID_{0};
+        break;
+    }}
+    break;
+}}"""
     retrieve_template = """case(TID_{0}):
 {{
     retrieveResult = (Package*)&{1};
     break;
 }}"""
+    retrieve_template_dialog = """case(TID_{0}):
+{{
+    if(m_isReceiveReq)
+    {{
+        retrieveResult = (Package*)&req{0};
+    }}
+    else
+    {{
+        retrieveResult = (Package*)&rsp{0};
+    }}
+    break;
+}}"""
+    tids = {}
     for package in packages:
         var_name = package.name[0].lower() + package.name[1:]
         include_lines.append(include_template.format(package.name))
         ptr_lines.append(ptr_template.format(package.name))
-        member_lines.append(member_template.format(package.name, var_name ))
-        read_cases_lines.append(read_template.format(package.name, var_name))
-        retrieve_cases_lines.append(retrieve_template.format(package.name, var_name))
+        member_lines.append(member_template.format(package.name, var_name ))        
+        tids[package.tid] = package.model
+    
+
+    for tid in tids.items():
+        tid_tag = tid[0].split('_')[1]
+        if tid[1] != 'dialog':
+            var_name = tid_tag[0].lower() + tid_tag[1:]
+            read_cases_lines.append(read_template.format(tid_tag, var_name))
+            retrieve_cases_lines.append(retrieve_template.format(tid_tag, var_name))
+        else:
+            read_cases_lines.append(read_template_dialog.format(tid_tag))
+            retrieve_cases_lines.append(retrieve_template_dialog.format(tid_tag))
+
+
     d = {}
     d['version'] = version
     d['include_file_headers'] = '\n'.join(include_lines)
@@ -206,6 +246,7 @@ def generate_package_include(version, packages, target_path):
     d['package_members'] = add_whitespaces('\n'.join(member_lines),4)
     d['read_cases'] = add_whitespaces('\n'.join(read_cases_lines), 8)
     d['retrieve_cases'] = add_whitespaces('\n'.join(retrieve_cases_lines),8)
+
     target_fpath = '{0}/{1}/{2}'.format(target_path, version, include_all_headers) 
     save_cpp_file(template.format_map(d), target_fpath)
 

@@ -1,6 +1,9 @@
 #ifndef FTD_PACKAGE_H
 #define FTD_PACKAGE_H
 
+#include <vector>
+#include <string>
+
 #include "ftd.h"
 #include "IO.h"
 namespace FTD
