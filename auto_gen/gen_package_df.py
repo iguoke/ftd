@@ -7,6 +7,10 @@ from file_util import *
 
 package_struct_template_file = './templates/package_struct.template'
 
+packages_include_template_file = './templates/packages.template'
+
+include_all_headers = 'Packages.h'
+
 def generate_package_struct(version, package, target_path, version_number):
     template = load_template_file(package_struct_template_file)
     package_name_upper = package.name.upper()
@@ -163,3 +167,50 @@ if(p{0}.get() != nullptr)
         return field_fmt.format(fname, fname[0].lower()+fname[1:])
     if field_info.use_smart_ptr():
         return ptr_fmt.format(fname, fname[0].lower()+fname[1:])
+
+
+def generate_package_include(version, packages, target_path):
+    template = load_template_file(packages_include_template_file)
+    include_lines = []
+    ptr_lines = []
+    member_lines = []
+    read_cases_lines = []
+    retrieve_cases_lines = []
+    include_template = '#include "{0}.h"'
+    ptr_template = 'DECLARE_PTR({0})'
+    member_template ='{0} {1};'
+    read_template = """case(TID_{0}):
+{{
+    if({1}.mergeFtdcMessage(message))
+    {{
+        readResult = TID_{0};       
+    }}
+    break;
+}}"""
+    retrieve_template = """case(TID_{0}):
+{{
+    retrieveResult = (Package*)&{1};
+    break;
+}}"""
+    for package in packages:
+        var_name = package.name[0].lower() + package.name[1:]
+        include_lines.append(include_template.format(package.name))
+        ptr_lines.append(ptr_template.format(package.name))
+        member_lines.append(member_template.format(package.name, var_name ))
+        read_cases_lines.append(read_template.format(package.name, var_name))
+        retrieve_cases_lines.append(retrieve_template.format(package.name, var_name))
+    d = {}
+    d['version'] = version
+    d['include_file_headers'] = '\n'.join(include_lines)
+    d['declare_smart_ptr_lines'] = '\n'.join(ptr_lines)
+    d['package_members'] = add_whitespaces('\n'.join(member_lines),4)
+    d['read_cases'] = add_whitespaces('\n'.join(read_cases_lines), 8)
+    d['retrieve_cases'] = add_whitespaces('\n'.join(retrieve_cases_lines),8)
+    target_fpath = '{0}/{1}/{2}'.format(target_path, version, include_all_headers) 
+    save_cpp_file(template.format_map(d), target_fpath)
+
+
+
+    
+    
+

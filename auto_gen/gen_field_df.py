@@ -97,7 +97,7 @@ def generate_fields_include(version, fields, target_path):
     d['cases'] = '\n'.join(case_lines)
     d['declare_smart_ptr_lines'] = '\n'.join(ptr_lines)
     save_cpp_file(template.format_map(d),
-                  '{0}/{1}/{2}'.format(target_path, version,include_all_headers))
+                  '{0}/{1}/{2}'.format(target_path, version, include_all_headers))
 
 
 

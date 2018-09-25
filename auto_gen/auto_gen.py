@@ -31,6 +31,7 @@ def generate_ftd(path, file, target_path):
            list(fields.values()), target_path)
     for package in packages.values():
         gen_package_df.generate_package_struct(version, package, target_path, version_number)
+    gen_package_df.generate_package_include(version, list(packages.values()), target_path)
     
 
 

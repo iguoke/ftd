@@ -8,6 +8,7 @@
 #include <BaseType.h>
 #include <UnitTest++.h>
 #include <FTD20/Fields.h>
+#include <FTD20/Packages.h>
 #include <FTD20/Error.h>
 using namespace FTD;
 
