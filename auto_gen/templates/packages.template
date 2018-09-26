@@ -1,0 +1,68 @@
+/*
+本文件自动生成，请勿手工修改
+Version={version}
+*/
+
+#ifndef {version}_PACKAGES_H
+#define {version}_PACKAGES_H
+
+#include "../ID.h"
+#include "../Declare.h"
+
+{include_file_headers}
+
+namespace FTD
+{{
+
+{declare_smart_ptr_lines}
+
+struct PackageBuffer
+{{
+    bool m_isReceiveReq;
+	PackageBuffer(bool isReceiveReq) : m_isReceiveReq(isReceiveReq)
+	{{
+	}}
+{package_members}
+
+
+	int readFtdcMessage(const std::string& message)
+	{{
+		FtdcHeader header;
+		readFtdcHeader(message.c_str(), header);
+
+		int readResult = -1;
+		switch(header.transactionId)
+		{{
+{read_cases}
+			default:
+			{{
+				break;
+			}}
+		}}
+		return readResult;
+	}}
+
+	Package* retrievePackage(int transactionId)
+	{{
+		Package* result = nullptr;
+		switch(transactionId)
+		{{
+{retrieve_cases}
+            default:
+			{{
+				break;
+			}}
+		}}
+		return result;
+	}}
+
+	Package* OnFtdcMessage(const std::string& message)
+	{{
+		int transactionId = readFtdcMessage(message);
+		return retrievePackage(transactionId);
+	}}
+}};
+
+	
+}}
+#endif
