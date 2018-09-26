@@ -29,6 +29,9 @@
 #include "Package.h"
 #include "Mutex.h"
 #include "SessionSetting.h"
+#include "FixConvertors.h"
+#include <iostream>
+#include <sstream>
 #include <map>
 #include <vector>
 
@@ -121,8 +124,12 @@ public:
 
   ScreenLog( const SessionID& sessionID,
              bool incoming, bool outgoing, bool event )
-: m_prefix( sessionID.toString() ),
-  m_incoming( incoming ), m_outgoing( outgoing ), m_event( event ) {}
+: m_incoming( incoming ), m_outgoing( outgoing ), m_event( event ) 
+  {
+	  std::ostringstream oss;
+	  oss << sessionID;
+	  m_prefix = oss.str();
+  }
 
   void clear() {}
   void backup() {}

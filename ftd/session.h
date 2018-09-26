@@ -1,12 +1,12 @@
 
 #ifndef FTD_SESSION_H
-#define FIX_SESSION_H
+#define FTD_SESSION_H
 
 #ifdef _MSC_VER
 #pragma warning( disable : 4503 4355 4786 4290 )
 #endif
 
-//#include "SessionState.h"
+#include "SessionState.h"
 #include "SessionID.h"
 #include "Responder.h"
 #include "Application.h"
@@ -50,7 +50,7 @@ public:
   void setNextTargetMsgSeqNum( int num ) throw( IOException )
   { m_state.setNextTargetMsgSeqNum( num ); }
 
-  const SessionID& getSessionID() const
+  const int& getSessionID() const
   { return m_sessionID; }
 
 

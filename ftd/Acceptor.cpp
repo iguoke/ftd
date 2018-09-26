@@ -102,7 +102,7 @@ Acceptor::~Acceptor()
     m_pLogFactory->destroy( m_pLog );
 }
 
-
+/*
 Session* Acceptor::getSession( const SessionID& sessionID ) const
 {
   Sessions::const_iterator i = m_sessions.find( sessionID );
@@ -112,7 +112,7 @@ Session* Acceptor::getSession( const SessionID& sessionID ) const
     return 0;
 }
 
-
+*/
 
 void Acceptor::start() throw ( ConfigError, RuntimeError )
 {

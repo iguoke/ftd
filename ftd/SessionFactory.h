@@ -10,10 +10,10 @@
 #include "Log.h"
 #include "Exceptions.h"
 #include "Dictionary.h"
+#include "SessionID.h"
 
 namespace FTD
 {
-class SessionID;
 class Session;
 class Application;
 class PackageStoreFactory;
