@@ -10,11 +10,12 @@ namespace FTD
 {
 	struct Package
 	{
-		const uint8_t version;
-		const uint32_t transactionId; 
+		const uint8_t m_version;
+		const uint32_t m_transactionId;
+		const uint32_t m_mode;
 		FtdcHeader header;
-		Package(uint8_t version_, uint32_t transactionId_) :
-			version(version_), transactionId(transactionId_), header({ 0 })
+		Package(uint8_t version_, uint32_t transactionId_, uint32_t mode_) :
+			m_version(version_), m_transactionId(transactionId_), m_mode(mode_), header({ 0 })
 		{}
 		virtual ~Package() {};
 		virtual void clear() = 0;
@@ -25,7 +26,7 @@ namespace FTD
 		{
 			if (ftdcHeader.contentLength != ftdcContent.size())
 				return false;
-			if (transactionId != ftdcHeader.transactionId)
+			if (m_transactionId != ftdcHeader.transactionId)
 			{
 				return false;
 			}

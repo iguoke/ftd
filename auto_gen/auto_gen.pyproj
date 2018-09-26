@@ -59,6 +59,9 @@
     <Content Include="templates\packages.template">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="templates\package_crack.template">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="templates\package_struct.template" />
     <Content Include="templates\type_def.template" />
   </ItemGroup>

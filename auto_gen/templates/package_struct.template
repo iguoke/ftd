@@ -22,9 +22,9 @@ struct {package_name} : public Package
 
 {member_def_lines}
 
-	{package_name}() : Package(FTD_VERSION, TID_{package_name})
+	{package_name}() : Package(FTD_VERSION, TID_{package_name}, {mode})
 	{{
-		header.version = {version_number};
+		header.version = FTD_VERSION;
 		header.transactionId = TID_{package_name};
 	}}
 

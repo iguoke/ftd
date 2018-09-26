@@ -1,0 +1,49 @@
+/*
+本文件自动生成，请勿手工修改
+Version={version}
+*/
+
+#ifndef {version}_PACKAGECRACKER_H
+#define {version}_PACKAGECRACKER_H
+
+#include "../ID.h"
+#include "../Exceptions.h"
+#include "../Package.h"
+
+namespace FTD
+{{
+{class_pre_def}
+
+class PackageCracker
+{{
+public:
+    virtual ~PackageCracker() {{}}
+	virtual void onPackage(const Package&, const FTD::Session&)
+	{{
+		throw FTD::UnsupportedMessageType();
+	}}
+	virtual void OnPackage(Package&, const FTD::Session&)
+	{{
+		throw FTD::UnsupportedMessageType();
+	}}
+{default_on_const_package_section}
+{default_on_package_section}
+
+	void crack(const Package& package, const SessionID& id)
+	{{
+{const_if_else_sections}		
+		onPackage(message, sessionID);	
+	}}
+
+	void crack(Package& package, const SessionID& id)
+	{{
+{if_else_sections}
+		OnPackage(package, sessionID);
+	}}
+
+
+
+}}
+
+}}
+#endif

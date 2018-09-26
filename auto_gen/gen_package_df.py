@@ -9,7 +9,11 @@ package_struct_template_file = './templates/package_struct.template'
 
 packages_include_template_file = './templates/packages.template'
 
+package_cracker_template_file = './templates/package_crack.template'
+
 include_all_headers = 'Packages.h'
+
+package_cracer_header = 'PackageCracker.h'
 
 def generate_package_struct(version, package, target_path, version_number):
     template = load_template_file(package_struct_template_file)
@@ -33,6 +37,13 @@ def generate_package_struct(version, package, target_path, version_number):
     d['member_merge_lines'] = add_whitespaces('\n'.join(member_merge_lines), 8)
     d['member_write_sections'] = add_whitespaces('\n'.join(member_write_sections), 8)
     d['version_number'] = version_number
+    if package.model != 'dialog':
+        d['mode'] = package.model.upper()
+    else:
+        if package.name.startswith('Req'):
+            d['mode'] = 'DIALOG_REQUEST'
+        else:
+            d['mode'] = 'DIALOG_RESPONSE'
     target_fpath = '{0}/{1}/{2}.h'.format(target_path, version,package.name) 
     save_cpp_file(template.format_map(d), target_fpath)
 
@@ -248,6 +259,51 @@ def generate_package_include(version, packages, target_path):
     d['retrieve_cases'] = add_whitespaces('\n'.join(retrieve_cases_lines),8)
 
     target_fpath = '{0}/{1}/{2}'.format(target_path, version, include_all_headers) 
+    save_cpp_file(template.format_map(d), target_fpath)
+
+
+def generate_package_cracker(version, packages, target_path):
+    template = load_template_file(package_cracker_template_file)
+    pre_def_lines = []
+    package_sections = []
+    const_package_sections = []
+    if_else_sections = []
+    const_if_else_sections = []
+    class_pre_def_template = 'class {0};'
+    default_on_const_package_section_template ="virtual void OnPackage( const {0}&, const SessionID&){{}}"
+    default_on_package_section_template ="virtual void OnPackage( {0}&, const SessionID&){{}}"
+    const_if_else_section_template = """if ( package.m_transactionId == {tid}{judge_expression})
+    OnPackage((const {package_type}&)package, sessionID);
+else"""
+    if_else_section_template = """if ( package.m_transactionId == {tid}{judge_expression})
+    OnPackage(({package_type}&)package, sessionID);
+else"""
+    for package in packages:
+        pre_def_lines.append(class_pre_def_template.format(package.name))
+        const_package_sections.append(default_on_const_package_section_template.format(package.name))
+        package_sections.append(default_on_package_section_template.format(package.name))
+        d ={}
+        d['tid'] = package.tid
+        d['package_type'] = package.name
+        if package.model != 'dialog':
+            d['judge_expression'] = ''
+        else:
+            if package.name.startswith('Req'):
+                d['judge_expression'] = ' && package.m_mode == DIALOG_REQUEST'
+            else:
+                d['judge_expression'] = ' && package.m_mode == DIALOG_RESPONSE'
+        if_else_sections.append(if_else_section_template.format_map(d))
+        const_if_else_sections.append(const_if_else_section_template.format_map(d))
+
+
+    d ={}
+    d['version'] = version
+    d['class_pre_def'] = '\n'.join(pre_def_lines)
+    d['default_on_const_package_section'] = add_whitespaces('\n'.join(const_package_sections), 4)
+    d['default_on_package_section'] = add_whitespaces('\n'.join(package_sections),4)
+    d['const_if_else_sections'] = add_whitespaces('\n'.join(const_if_else_sections),8)
+    d['if_else_sections'] = add_whitespaces('\n'.join(if_else_sections),8)
+    target_fpath = '{0}/{1}/{2}'.format(target_path, version, package_cracer_header) 
     save_cpp_file(template.format_map(d), target_fpath)
 
 
