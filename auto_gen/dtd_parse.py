@@ -29,6 +29,10 @@ def load_package_node(node):
     item.model = node.get('model')
     item.comment = node.get('comment')
     item.fields = []
+    if item.tid.split('_')[1] == item.name:
+        item.same_as_id = True
+    else:
+        item.same_as_id = False
     for child in list(node.iter()):
         if child.tag == 'field':
             field_info = FieldInfo()

@@ -146,3 +146,4 @@ class PackageDTD:
         self.model = ''
         self.comment = ''
         self.fields = []
+        self.same_as_id = False

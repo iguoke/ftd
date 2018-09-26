@@ -32,13 +32,13 @@ public:
 	void crack(const Package& package, const SessionID& id)
 	{{
 {const_if_else_sections}		
-		onPackage(message, sessionID);	
+		    onPackage(message, sessionID);	
 	}}
 
 	void crack(Package& package, const SessionID& id)
 	{{
 {if_else_sections}
-		OnPackage(package, sessionID);
+		    OnPackage(package, sessionID);
 	}}
 
 

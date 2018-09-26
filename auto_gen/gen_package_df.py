@@ -37,13 +37,13 @@ def generate_package_struct(version, package, target_path, version_number):
     d['member_merge_lines'] = add_whitespaces('\n'.join(member_merge_lines), 8)
     d['member_write_sections'] = add_whitespaces('\n'.join(member_write_sections), 8)
     d['version_number'] = version_number
-    if package.model != 'dialog':
-        d['mode'] = package.model.upper()
+    if package.same_as_id:
+        d['mode'] = 'FTD_MODE_'+ package.model.upper()
     else:
         if package.name.startswith('Req'):
-            d['mode'] = 'DIALOG_REQUEST'
+            d['mode'] = 'FTD_MODE_' + package.model.upper() +'_REQUEST'
         else:
-            d['mode'] = 'DIALOG_RESPONSE'
+            d['mode'] = 'FTD_MODE_' + package.model.upper() + '_RESPONSE'
     target_fpath = '{0}/{1}/{2}.h'.format(target_path, version,package.name) 
     save_cpp_file(template.format_map(d), target_fpath)
 
@@ -230,18 +230,18 @@ def generate_package_include(version, packages, target_path):
     }}
     break;
 }}"""
-    tids = {}
+    tids = []
     for package in packages:
         var_name = package.name[0].lower() + package.name[1:]
         include_lines.append(include_template.format(package.name))
         ptr_lines.append(ptr_template.format(package.name))
         member_lines.append(member_template.format(package.name, var_name ))        
-        tids[package.tid] = package.model
+        tids.append([package.tid,package.model,package.same_as_id])
     
 
-    for tid in tids.items():
+    for tid in tids:
         tid_tag = tid[0].split('_')[1]
-        if tid[1] != 'dialog':
+        if tid[2]:
             var_name = tid_tag[0].lower() + tid_tag[1:]
             read_cases_lines.append(read_template.format(tid_tag, var_name))
             retrieve_cases_lines.append(retrieve_template.format(tid_tag, var_name))
@@ -285,13 +285,13 @@ else"""
         d ={}
         d['tid'] = package.tid
         d['package_type'] = package.name
-        if package.model != 'dialog':
+        if package.same_as_id:
             d['judge_expression'] = ''
         else:
             if package.name.startswith('Req'):
-                d['judge_expression'] = ' && package.m_mode == DIALOG_REQUEST'
+                d['judge_expression'] = ' && package.m_mode == '+ package.model.upper() + '_REQUEST'
             else:
-                d['judge_expression'] = ' && package.m_mode == DIALOG_RESPONSE'
+                d['judge_expression'] = ' && package.m_mode == ' + package.model.upper() + '_RESPONSE'
         if_else_sections.append(if_else_section_template.format_map(d))
         const_if_else_sections.append(const_if_else_section_template.format_map(d))
 

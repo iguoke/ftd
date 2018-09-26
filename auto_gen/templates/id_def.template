@@ -8,11 +8,14 @@ Version={version}
 
 #define FTD_VERSION {version_number}
 
-#define DIALOG 0x10
-#define DIALOG_REQUEST 0x11
-#define DIALOG_RESPONSE 0x12
-#define PRIVATE 0x20
-#define BROADCAST 0x30
+#define FTD_MODE_NONE 0x00
+#define FTD_MODE_NONE_REQUEST 0x01
+#define FTD_MODE_NONE_RESPONSE 0x02
+#define FTD_MODE_DIALOG 0x10
+#define FTD_MODE_DIALOG_REQUEST 0x11
+#define FTD_MODE_DIALOG_RESPONSE 0x12
+#define FTD_MODE_PRIVATE 0x20
+#define FTD_MODE_BROADCAST 0x30
 
 namespace FTD {{
 
