@@ -44,7 +44,7 @@ struct PackageBuffer
 
 	Package* retrievePackage(int transactionId)
 	{{
-		Package* result = nullptr;
+		Package* retrieveResult = nullptr;
 		switch(transactionId)
 		{{
 {retrieve_cases}
@@ -53,7 +53,7 @@ struct PackageBuffer
 				break;
 			}}
 		}}
-		return result;
+		return retrieveResult;
 	}}
 
 	Package* OnFtdcMessage(const std::string& message)

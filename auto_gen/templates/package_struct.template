@@ -22,10 +22,10 @@ struct {package_name} : public Package
 
 {member_def_lines}
 
-	{package_name}() : Package(FTD_VERSION, TID_{package_name}, {mode})
+	{package_name}() : Package(FTD_VERSION, {tid}, {mode})
 	{{
 		header.version = FTD_VERSION;
-		header.transactionId = TID_{package_name};
+		header.transactionId = {tid};
 	}}
 
 	void clear()
@@ -99,7 +99,7 @@ struct {package_name} : public Package
 		}}
 		for (int i = 0; i < contentLength; i++)
 		{{
-			writeFTDCHeader(headers[i], ftdcHeaderBuffer);
+			writeFtdcHeader(headers[i], ftdcHeaderBuffer);
 			std::string ftdcMsg;
 			ftdcMsg.append(ftdcHeaderBuffer, FTDC_HEADER_LENGTH);
 			ftdcMsg.append(ftdcContents[i]);

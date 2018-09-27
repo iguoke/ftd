@@ -120,7 +120,6 @@ int SocketServer::add( int port, bool reuse, bool noDelay,
 
 int SocketServer::accept( int socket )
 {
-	std::cout << "SocketServer::accept\n";
   SocketInfo info = m_socketToInfo[socket];
 
   int result = socket_accept( socket );

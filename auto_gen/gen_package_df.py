@@ -30,6 +30,7 @@ def generate_package_struct(version, package, target_path, version_number):
 
     d = {}
     d['version'] = version
+    d['tid'] = package.tid
     d['package_name_upper'] = package_name_upper
     d['package_name'] = package.name
     d['member_def_lines'] = add_whitespaces('\n'.join(member_def_lines), 4)
@@ -238,8 +239,10 @@ def generate_package_include(version, packages, target_path):
         member_lines.append(member_template.format(package.name, var_name ))        
         tids.append([package.tid,package.model,package.same_as_id])
     
-
+    tid_set = set()
     for tid in tids:
+        if tid[0] in tid_set:
+            continue
         tid_tag = tid[0].split('_')[1]
         if tid[2]:
             var_name = tid_tag[0].lower() + tid_tag[1:]
@@ -248,6 +251,7 @@ def generate_package_include(version, packages, target_path):
         else:
             read_cases_lines.append(read_template_dialog.format(tid_tag))
             retrieve_cases_lines.append(retrieve_template_dialog.format(tid_tag))
+        tid_set.add(tid[0])
 
 
     d = {}

@@ -71,9 +71,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <TargetExt>.lib</TargetExt>
     <OutDir>$(SolutionDir)\lib\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\build\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)\lib\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\build\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -137,20 +139,6 @@ del /F EXCLUDE
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Acceptor.cpp" />
-    <ClCompile Include="Dictionary.cpp" />
-    <ClCompile Include="FixConvertors.cpp" />
-    <ClCompile Include="FixTypes.cpp" />
-    <ClCompile Include="Initiator.cpp" />
-    <ClCompile Include="Parser.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="SessionFactory.cpp" />
-    <ClCompile Include="SocketConnection.cpp" />
-    <ClCompile Include="SocketConnector.cpp" />
-    <ClCompile Include="SocketInitiator.cpp" />
-    <ClCompile Include="SocketMonitor.cpp" />
-    <ClCompile Include="SocketServer.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
@@ -159,31 +147,10 @@ del /F EXCLUDE
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Acceptor.h" />
-    <ClInclude Include="Application.h" />
-    <ClInclude Include="Dictionary.h" />
-    <ClInclude Include="Exceptions.h" />
-    <ClInclude Include="FixConvertors.h" />
-    <ClInclude Include="FixTypes.h" />
     <ClInclude Include="ftd.h" />
-    <ClInclude Include="Declare.h" />
     <ClInclude Include="ID.h" />
-    <ClInclude Include="Initiator.h" />
     <ClInclude Include="IO.h" />
-    <ClInclude Include="Log.h" />
-    <ClInclude Include="PackageStore.h" />
-    <ClInclude Include="Package.h" />
     <ClInclude Include="Parser.h" />
-    <ClInclude Include="session.h" />
-    <ClInclude Include="SessionFactory.h" />
-    <ClInclude Include="SessionID.h" />
-    <ClInclude Include="SessionSetting.h" />
-    <ClInclude Include="SessionState.h" />
-    <ClInclude Include="SocketConnection.h" />
-    <ClInclude Include="SocketConnector.h" />
-    <ClInclude Include="SocketInitiator.h" />
-    <ClInclude Include="SocketMonitor.h" />
-    <ClInclude Include="SocketServer.h" />
     <ClInclude Include="Utility.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
