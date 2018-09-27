@@ -47,7 +47,7 @@ namespace FTD
 			const char* pos = buffer;
 			for (int i = 0; i < ftdcHeader.fieldCount; i++)
 			{
-				pos = readFtdcFieldHeader(pos, fieldHeader);
+				pos += readFtdcFieldHeader(pos, fieldHeader);
 				int readLen = 0;
 				mergeFieldMessage(fieldHeader, pos);
 				pos += fieldHeader.fidLength;
@@ -64,7 +64,7 @@ namespace FTD
 		bool mergeFtdcMessage(const std::string& ftdcMsg)
 		{
 			FtdcHeader header;
-			const char* ftdcBegin = readFtdcHeader(ftdcMsg.c_str(), header);
+			const char* ftdcBegin = ftdcMsg.c_str() + readFtdcHeader(ftdcMsg.c_str(), header);
 			std::string ftdcContent(ftdcBegin, header.contentLength);
 			return mergeFtdcMessage(header, ftdcContent);
 		}
